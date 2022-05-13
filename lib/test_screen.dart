@@ -11,7 +11,7 @@ import 'items/pdf_item.dart';
       textDirection: TextDirection.rtl,
       child: Scaffold(
         body: Center(
-          child: PdfItem(),
+          child: FavoriteItem(),
         ),
       ),
     );
@@ -19,7 +19,15 @@ import 'items/pdf_item.dart';
 }
 
 
+/*
 
+ListView.builder(
+          itemCount: homeList.length,
+          itemBuilder: (context , index){
+            return homeList.map((e) => HomeScreenItem(homeList[index])).toList()[index];
+          }
+        ),
+ */
 
 
 

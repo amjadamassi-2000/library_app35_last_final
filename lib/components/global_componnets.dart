@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_app/styles/colors.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //
 //
@@ -79,37 +80,36 @@ Future ToAndFinish(BuildContext context, Widget widget) async {
 //
 //
 //
-Widget myListTiel(String title , Widget icon  ,  function) =>
+Widget myListTiel(String title , Widget icon  , Function function) =>
 
 Column(
   children: [
 
-    Material(
-      child: ListTile(
-        onTap: function,
-        title:Row(
-          children: [
-            icon,
-              //Icon(Icons.fact_check , color: Colors.black,),
-            SizedBox(width: 15.w,),
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w600,
-              ),
+    ListTile(
+      //stileColor: primaryColor,
+      onTap: function,
+      title:Row(
+        children: [
+          icon,
+            //Icon(Icons.fact_check , color: Colors.black,),
+          SizedBox(width: 20.w,),
+          Text(
+            title,
+            style:  GoogleFonts.cairo(
+              color: Colors.white,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
             ),
+          ),
 //            Spacer(),
 //
 //            Icon(Icons.arrow_forward_ios , size: 18.r, color: Colors.black45 ),
 
-          ],
-        ),
-
-        //Image.asset("assets/images/order_icon.png"),
-
+        ],
       ),
+
+      //Image.asset("assets/images/order_icon.png"),
+
     ),
 
     // Divider(
@@ -285,11 +285,36 @@ Column(
 
   Widget myText(String text , int fontSize , FontWeight fontWeight  ) =>
       Text(
+
         text,
         style:  GoogleFonts.cairo(
           fontSize: fontSize.sp,
           color: Colors.black,
           fontWeight: fontWeight,
+        ),
+        textAlign:  TextAlign.center,
+      );
+
+  //
+
+  Widget myPdfRowItem(String text , Widget icon , Function function) =>
+      InkWell(
+        onTap: function,
+        child: Row(
+          children: [
+            Text(
+              text,
+              style:  GoogleFonts.cairo(
+                fontSize: 12.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding:  EdgeInsets.only(top: 5 , right: 5),
+              child: icon,
+            ),
+          ],
         ),
       );
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_drawer.dart';
+import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:library_app/items/pdf_item.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -67,8 +69,10 @@ class _ResultScreenState extends State<ResultScreen> {
                           ),
                           decoration: InputDecoration(
                             hintText: "بحث",
-                            hintStyle: TextStyle(
+                            contentPadding:  EdgeInsets.all(12), isDense: true,
+                            hintStyle: GoogleFonts.cairo(
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                             filled: true,
                             fillColor: Colors.grey.shade300.withOpacity(0.3),
@@ -128,7 +132,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         child: Container(
                           alignment: Alignment.center,
                           width: double.infinity,
-                          height: 30.h,
+                          height: 70.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.r),
                             border: Border.all(color: primaryColor),
@@ -143,11 +147,14 @@ class _ResultScreenState extends State<ResultScreen> {
                       ),
                     ),
                     Expanded(
-                      child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return PdfItem();
-                          }),
+                      child: Padding(
+                        padding:  EdgeInsets.only(bottom: 5),
+                        child: ListView.builder(
+                            itemCount: dataFiles.length,
+                            itemBuilder: (context, index) {
+                              return dataFiles.map((e) => PdfItem(dataFiles[index])).toList()[index];
+                            }),
+                      ),
                     ),
                   ],
                 ),

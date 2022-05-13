@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/components/global_componnets.dart';
+import 'package:library_app/drawer_screens/favorite_screen.dart';
 
 
 
@@ -43,8 +44,11 @@ class FavoriteItem extends StatelessWidget {
               ),
 
               IconButton(
-                icon: Icon(Icons.favorite , size: 30, ),
-                onPressed: (){},
+                icon: Icon(Icons.favorite , size: 30, color: Colors.grey, ),
+                onPressed: (){
+                  ToAndFinish(context, FavoriteScreen());
+
+                },
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDropDown extends StatefulWidget {
   final List<dynamic> list;
@@ -8,7 +9,8 @@ class CustomDropDown extends StatefulWidget {
   final String hint;
 
   CustomDropDown(
-    this.list, {
+    this.list,
+      {
     Key key,
     this.buildName,
     this.onSelect,
@@ -53,13 +55,13 @@ class _CustomDropDownState extends State<CustomDropDown> {
           height: 5,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Container(
-            height: 60,
+            height: 70,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(15),
               color: Colors.white,
               border: Border.all(
                 width: 2,
@@ -70,7 +72,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             child: DropdownButton<dynamic>(
               hint: Text(
                 widget.hint,
-                style: TextStyle(
+                style: GoogleFonts.cairo(
                   fontSize: 14.sp,
                   color: Colors.grey,
                   fontWeight: FontWeight.w400,

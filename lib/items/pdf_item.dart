@@ -2,18 +2,185 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/components/global_componnets.dart';
+import 'package:library_app/dummy_data/pdf_files_datd.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PdfItem extends StatefulWidget {
-  @override
+
+  final Pdf pdf;
+
+      PdfItem(this.pdf);
+
+
+
+     @override
   _PdfItemState createState() => _PdfItemState();
 }
 
 class _PdfItemState extends State<PdfItem> {
+
+
+
+
+  void _viewFile() async {
+    final _url =
+        widget.pdf.pdfUrl;
+    if (await canLaunch(_url)) {
+      await launch(_url);
+    } else {
+
+    }
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 10.w).add(EdgeInsets.only(top: 8.h , bottom: 2)),
-      child: Container(
+    return Column(
+      children: [
+
+
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 10.w).add(EdgeInsets.only(top: 8.h , bottom: 2)),
+          child: Column(
+            children: [
+
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    constraints: BoxConstraints(
+                      minHeight: 70.0,
+                      maxHeight: 170.0,
+                    ),
+
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                      ),
+                      border: Border.all(color: Colors.grey.shade300),
+                      color: Colors.white,
+
+                    ),
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                      child: SizedBox(
+                        width: 400,
+                        child: myText(
+                            widget.pdf.title,
+                            13,
+                            FontWeight.w600
+                        ),
+                      ),
+                    ),),
+
+                  widget.pdf.isNew ?   Image.asset("assets/images/new.png") : Container(),
+
+                ],
+              ),
+
+              Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+
+                  )
+                ),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        myPdfRowItem(
+                          "تحميل",
+                          Icon(Icons.arrow_circle_down , color: Colors.white,),
+                            (){
+                              showDialog(
+                                context: context,
+                               // barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+
+                                    ),
+                                    title : myText(
+                                        "هل تريد بالتأكيد حفظ الملف ؟ ",
+                                        14,
+                                        FontWeight.w600,
+                                    ),
+                                    actions: <Widget>[
+
+                                      TextButton(
+                                        onPressed: () => Navigator.of(context).pop(),
+                                        child:   Text(
+                                          "إغلاق",
+                                          style:  GoogleFonts.cairo(
+                                            fontSize: 13.sp,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+
+                                      TextButton(
+                                        onPressed: _viewFile,
+                                        child:  Text(
+                                          "تنزيل",
+                                          style:  GoogleFonts.cairo(
+                                            fontSize: 13.sp,
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+
+                            }
+                        ),
+
+                        myPdfRowItem(
+                            "مشاركة",
+                            Icon(Icons.share , color: Colors.white,),
+                            _viewFile,
+                        ),
+
+
+                      ],
+                    ),
+                  ),
+              ),
+
+            ],
+          ),
+        ),
+
+      ],
+    );
+  }
+}
+
+
+
+
+/*
+
+
+Container(
         alignment: Alignment.center,
         width: double.infinity,
         height: 60.h,
@@ -65,6 +232,4 @@ class _PdfItemState extends State<PdfItem> {
           ),
         ),
       ),
-    );
-  }
-}
+ */
