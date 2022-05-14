@@ -38,88 +38,93 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SafeArea(
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
+              Column(
+                children: [
 
 
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Column(
+                  SizedBox(
+                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.2,
+                    child: LayoutBuilder(
+                      builder: (ctx,constraint)
+                      =>Column(
                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
 
-                          Row(
-                            children: [
-                              Builder(
-                                builder: (BuildContext context) {
-                                  return IconButton(
-                                    icon: CircleAvatar(
-                                      backgroundColor:
-                                      Colors.grey.shade100.withOpacity(0.3),
-                                      child: Icon(
-                                        Icons.menu,
-                                        color: Colors.white,
+                          Container(
+                                    height: constraint.maxHeight*0.05,
+
+                            child: Row(
+                              children: [
+                                Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: CircleAvatar(
+                                        backgroundColor:
+                                        Colors.grey.shade100.withOpacity(0.3),
+                                        child: Icon(
+                                          Icons.menu,
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      Scaffold.of(context).openDrawer();
-                                    },
-                                    tooltip: MaterialLocalizations.of(context)
-                                        .openAppDrawerTooltip,
-                                  );
-                                },
-                              ),
-                              Spacer(),
-                            ],
+                                      onPressed: () {
+                                        Scaffold.of(context).openDrawer();
+                                      },
+                                      tooltip: MaterialLocalizations.of(context)
+                                          .openAppDrawerTooltip,
+                                    );
+                                  },
+                                ),
+                                Spacer(),
+                              ],
+                            ),
                           ),
-                          Image.asset("assets/images/lib_logo.png", width:  170,),
+                          Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.9,),
                         ],
                       ),
                     ),
+                  ),
 
 
 
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.8,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
+                  Container(
+                    width: double.infinity,
+                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.8,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
                       ),
+                    ),
 
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Scrollbar(
-                               thickness: 5,
-                              radius: Radius.circular(50),
-                              child: Padding(
-                                padding:  EdgeInsets.only(top: 10 , bottom: 20),
-                                child: ListView.builder(
-                                    itemCount: homeList.length ,
-                                    itemBuilder: (context , index) {
-                                        return
-                                          homeList.map((e) =>
-                                              HomeScreenItem(homeList[index]))
-                                              .toList()[index];
-                                    }
-                                ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Scrollbar(
+                             thickness: 5,
+                            radius: Radius.circular(50),
+                            child: Padding(
+                              padding:  EdgeInsets.only(top: 10 , bottom: 20),
+                              child: ListView.builder(
+                                  itemCount: homeList.length ,
+                                  itemBuilder: (context , index) {
+                                      return
+                                        homeList.map((e) =>
+                                            HomeScreenItem(homeList[index]))
+                                            .toList()[index];
+                                  }
                               ),
                             ),
                           ),
+                        ),
 
 
-                        ],
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
 

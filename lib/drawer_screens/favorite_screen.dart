@@ -28,82 +28,94 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             body:  Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20,
-                            left: MediaQuery.of(context).size.height * 0.4),
-                        child: Builder(
-                          builder: (BuildContext context) {
-                            return IconButton(
-                              icon: CircleAvatar(
-                                backgroundColor:
-                                Colors.grey.shade100.withOpacity(0.3),
-                                child: Icon(
-                                  Icons.menu,
-                                  color: Colors.white,
+                  height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.3,
+                  child: LayoutBuilder(
+                    builder: (ctx,constraint)=>
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(right: 2),
+                                height: constraint.maxHeight*0.05,
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: CircleAvatar(
+                                        backgroundColor:
+                                        Colors.grey.shade100.withOpacity(0.3),
+                                        child: Icon(
+                                          Icons.menu,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Scaffold.of(context).openDrawer();
+                                      },
+                                      tooltip: MaterialLocalizations.of(context)
+                                          .openAppDrawerTooltip,
+                                    );
+                                  },
                                 ),
                               ),
-                              onPressed: () {
-                                Scaffold.of(context).openDrawer();
-                              },
-                              tooltip: MaterialLocalizations.of(context)
-                                  .openAppDrawerTooltip,
-                            );
-                          },
-                        ),
-                      ),
+                              Spacer(),
 
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Image.asset("assets/images/lib_logo.png", width:  150,),
-                      ),
-
-                      Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 30.w),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
+                            ],
                           ),
-                          child: TabBar(
-                            indicator: BoxDecoration(
-                              color: Color(0xff4747d1),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.only(bottom: constraint.maxHeight*0.1),
+                          child: Image.asset("assets/images/lib_logo.png", width:  150,height: constraint.maxHeight*0.45,),
+                        ),
+
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Container(
+                            height: constraint.maxHeight*0.3,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            tabs: [
-                              Tab(
-                               child: Text(
-                                 "المفضلة",
-                                 style: GoogleFonts.cairo(
-                                   fontSize: 12.sp,
-                                   color: Colors.white,
-                                   fontWeight: FontWeight.bold,
-                                 ),
-                               ),
+                            child: TabBar(
+                              indicator: BoxDecoration(
+                                color: Color(0xff4747d1),
+                                borderRadius: BorderRadius.circular(10),
                               ),
+                              tabs: [
+                                Tab(
+                                 child: Text(
+                                   "المفضلة",
+                                   style: GoogleFonts.cairo(
+                                     fontSize: 12.sp,
+                                     color: Colors.white,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                 ),
+                                ),
 
-                              Tab(
-                                child: Text(
-                                  "كل الأقسام",
-                                  style: GoogleFonts.cairo(
-                                    fontSize: 12.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                Tab(
+                                  child: Text(
+                                    "كل الأقسام",
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 12.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
 
+                            ),
                           ),
                         ),
-                      ),
 
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(

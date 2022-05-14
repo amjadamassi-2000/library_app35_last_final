@@ -27,98 +27,105 @@ class _ResultScreenState extends State<ResultScreen> {
             child: Column(
               children: [
 
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  child: Padding(
-                    padding:  EdgeInsets.only(bottom: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
+                Container(
+                  height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.25,
+                  child: LayoutBuilder(
+                    builder: (ctx,constraint)
+                   => SizedBox(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
 
 
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Builder(
-                                builder: (BuildContext context) {
-                                  return IconButton(
-                                    icon: CircleAvatar(
-                                      backgroundColor:
-                                      Colors.grey.shade100.withOpacity(0.3),
-                                      child: Icon(
-                                        Icons.menu,
-                                        color: Colors.white,
+                          Container(
+                            margin: EdgeInsets.only(bottom:  constraint.maxHeight*0.04),
+                            height: constraint.maxHeight*0.05 ,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      child: IconButton(
+
+                                        icon: CircleAvatar(
+
+                                          backgroundColor:
+                                          Colors.grey.shade100.withOpacity(0.3),
+                                          child: Icon(
+                                            Icons.menu,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Scaffold.of(context).openDrawer();
+                                        },
+                                        tooltip: MaterialLocalizations.of(context)
+                                            .openAppDrawerTooltip,
                                       ),
+                                    );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: CircleAvatar(
+                                    backgroundColor:
+                                    Colors.grey.shade100.withOpacity(0.3),
+                                    child: Icon(
+                                      Icons.filter_list,
+                                      color: Colors.white,
                                     ),
-                                    onPressed: () {
-                                      Scaffold.of(context).openDrawer();
-                                    },
-                                    tooltip: MaterialLocalizations.of(context)
-                                        .openAppDrawerTooltip,
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                icon: CircleAvatar(
-                                  backgroundColor:
-                                  Colors.grey.shade100.withOpacity(0.3),
-                                  child: Icon(
-                                    Icons.filter_list,
+                                  ),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: EdgeInsets.only(bottom:  constraint.maxHeight*0.06),
+                            child: Image.asset("assets/images/lib_logo.png", width:  150,height: constraint.maxHeight*0.4,),
+                          ),
+
+
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height:  constraint.maxHeight*0.45,
+                              child: TextField(
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: "بحث",
+                                  contentPadding:  EdgeInsets.all(12), isDense: true,
+                                  hintStyle: GoogleFonts.cairo(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.grey.shade300.withOpacity(0.3),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  suffixIcon:  Icon(
+                                    Icons.search,
                                     color: Colors.white,
                                   ),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ),
-
-
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 0),
-                          child: Image.asset("assets/images/lib_logo.png", width:  150,),
-                        ),
-
-
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.height * 0.057,
-                            child: TextField(
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: "بحث",
-                                contentPadding:  EdgeInsets.all(12), isDense: true,
-                                hintStyle: GoogleFonts.cairo(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey.shade300.withOpacity(0.3),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10)),
-                                suffixIcon:  Icon(
-                                  Icons.search,
-                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
 
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.75,
+                  height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.75,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
