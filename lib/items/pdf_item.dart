@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +46,7 @@ class _PdfItemState extends State<PdfItem> {
 
 
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10.w).add(EdgeInsets.only(top: 8.h , bottom: 2)),
+          padding:  EdgeInsets.symmetric(horizontal: 10).add(EdgeInsets.only(top: 8 , bottom: 2)),
           child: Column(
             children: [
 
@@ -88,7 +89,7 @@ class _PdfItemState extends State<PdfItem> {
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: primaryColor,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10),

@@ -57,7 +57,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Container(
-            height: 70,
+            height: MediaQuery.of(context).size.height * 0.08,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(

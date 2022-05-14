@@ -43,6 +43,16 @@ class Pdf {
      "http://www.africau.edu/images/default/sample.pdf",
      true,
    ),
+   Pdf(
+     "مذكرة المراجعة النهائية في الرياضيات",
+     "http://www.africau.edu/images/default/sample.pdf",
+     true,
+   ),
+   Pdf(
+     "مذكرة المراجعة النهائية في الرياضيات",
+     "http://www.africau.edu/images/default/sample.pdf",
+     true,
+   ),
 
 
 

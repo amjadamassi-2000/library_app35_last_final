@@ -258,7 +258,7 @@ Column(
         width: double.infinity,
         height: 35.h,
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: primaryColor,
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Row(

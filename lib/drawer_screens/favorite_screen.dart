@@ -59,7 +59,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),
-                        child: Image.asset("assets/images/logo.png"),
+                        child: Image.asset("assets/images/lib_logo.png", width:  150,),
                       ),
 
                       Padding(
@@ -71,7 +71,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           ),
                           child: TabBar(
                             indicator: BoxDecoration(
-                              color: Color(0xff33ccff),
+                              color: Color(0xff4747d1),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             tabs: [

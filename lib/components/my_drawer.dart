@@ -57,7 +57,7 @@ class _MyDrawerState extends State<MyDrawer> {
                SizedBox(
                  height: 100.h,
                ),
-               Image.asset("assets/images/logo.png"),
+               Image.asset("assets/images/lib_logo.png", width:  150,),
                SizedBox(
                  height: 10.h,
                ),

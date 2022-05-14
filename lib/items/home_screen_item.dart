@@ -38,7 +38,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
        // SizedBox(height: 200,),
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: myText(
               widget.homeData.title,
               15,
@@ -51,7 +51,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Container(
             width: double.infinity,
             constraints: BoxConstraints(
@@ -84,12 +84,12 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
             ),
           ),
         ),
-        SizedBox(height: 30.h,),
+        SizedBox(height: 30,),
 
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w)
-              .add(EdgeInsets.only(top:0.h)),
+          padding: EdgeInsets.symmetric(horizontal: 30)
+              .add(EdgeInsets.only(top:0)),
           child: myButton("عرض النتائج", () {
 
 
@@ -100,7 +100,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
           }),
         ),
-        SizedBox(height: 20.h,),
+        SizedBox(height: 20,),
 
         Divider(
           color: Colors.grey,
