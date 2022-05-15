@@ -50,13 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
 
-                          Container(
-                                    height: constraint.maxHeight*0.05,
+                          SizedBox(
+                                  height: constraint.maxHeight*0.3,
 
                             child: Row(
                               children: [
                                 Builder(
-                                  builder: (BuildContext context) {
+                                  builder: (BuildContext ctx) {
                                     return IconButton(
                                       icon: CircleAvatar(
                                         backgroundColor:
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        Scaffold.of(context).openDrawer();
+                                        Scaffold.of(ctx).openDrawer();
                                       },
                                       tooltip: MaterialLocalizations.of(context)
                                           .openAppDrawerTooltip,
@@ -78,11 +78,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
-                          Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.9,),
+                          Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.7,),
                         ],
                       ),
                     ),
                   ),
+
+
 
 
 
