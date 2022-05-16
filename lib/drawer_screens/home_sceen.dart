@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
                   SizedBox(
-                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.2,
+                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.25,
                     child: LayoutBuilder(
                       builder: (ctx,constraint)
                       =>Column(
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   Container(
                     width: double.infinity,
-                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.8,
+                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.75,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(

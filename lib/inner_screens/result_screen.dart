@@ -20,6 +20,7 @@ class _ResultScreenState extends State<ResultScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: primaryColor,
         drawer: MyDrawer(),
         body: SafeArea(
@@ -37,8 +38,8 @@ class _ResultScreenState extends State<ResultScreen> {
 
 
                         Container(
-                          margin: EdgeInsets.only(bottom:  constraint.maxHeight*0.04),
-                          height: constraint.maxHeight*0.05 ,
+
+                          height: constraint.maxHeight*0.25 ,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -82,8 +83,8 @@ class _ResultScreenState extends State<ResultScreen> {
 
 
                         Padding(
-                          padding: EdgeInsets.only(bottom:  constraint.maxHeight*0.06),
-                          child: Image.asset("assets/images/lib_logo.png", width:  150,height: constraint.maxHeight*0.4,),
+                          padding: EdgeInsets.only(bottom:  constraint.maxHeight*0.05),
+                          child: Image.asset("assets/images/lib_logo.png", width:  150,height: constraint.maxHeight*0.35,),
                         ),
 
 
@@ -91,7 +92,7 @@ class _ResultScreenState extends State<ResultScreen> {
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Container(
                             alignment: Alignment.center,
-                            height:  constraint.maxHeight*0.45,
+                            height:  constraint.maxHeight*0.35,
                             child: TextField(
                               style: TextStyle(
                                 color: Colors.black,
@@ -121,10 +122,13 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.02,
+              ),
 
               Container(
                 width: double.infinity,
-                height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.75,
+                height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.73,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
