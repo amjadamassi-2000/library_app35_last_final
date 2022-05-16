@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+
+
 class CustomDropDown extends StatefulWidget {
-  final List<dynamic> list;
+  final List<Widget> list;
   final String Function(dynamic) buildName;
   final Function onSelect;
   final String hint;
 
   CustomDropDown(
-    this.list,
+      this.list,
       {
-    Key key,
-    this.buildName,
-    this.onSelect,
-    this.hint,
-  });
+        Key key,
+        this.buildName,
+        this.onSelect,
+        this.hint,
+      });
 
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
@@ -55,7 +58,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           height: 5,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.08,
             alignment: Alignment.center,
@@ -78,6 +81,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   fontWeight: FontWeight.w400,
                 ),
 
+
               ),
 
               value: dropdownValue,
@@ -97,21 +101,17 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   dropdownValue = newValue;
                 });
               },
-              items: widget.list.map<DropdownMenuItem<String>>((dynamic value) {
-                return DropdownMenuItem<String>(
+              items: widget.list.map<DropdownMenuItem<Widget>>((dynamic value) {
+
+                return DropdownMenuItem<Widget>(
                   value: value,
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      value is String
-                          ? value
-                          : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                      ),
+                    child: Center(
+                      child:  value,
                     ),
                   ),
+
                 );
               }).toList(),
             ),
@@ -121,3 +121,14 @@ class _CustomDropDownState extends State<CustomDropDown> {
     );
   }
 }
+/*
+ Text(
+                      value is Widget
+                          ? value
+                          : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+ */

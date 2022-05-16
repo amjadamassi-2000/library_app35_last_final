@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/components/custom_drop_down.dart';
+import 'package:library_app/components/global_componnets.dart';
 
 class HomeData {
   String title;
@@ -9,7 +10,25 @@ class HomeData {
 }
 
 String _selectedstage;
-List<String> stages = ['الجامعي', 'الإبتدائي', 'الثانوي', 'الإعدادي'];
+
+
+List<Widget> stages = [
+
+  myText(
+      "لإبتدائية",
+      13,
+      FontWeight.w600
+  ),
+
+  myText(
+      "الاعدادية",
+      13,
+      FontWeight.w600
+  ),
+
+
+
+];
 
 List homeList = [
 
@@ -27,7 +46,7 @@ List homeList = [
   ),
 
   HomeData(
-    "أقسام آخرى",
+    " أقسام آخرى",
     [
       CustomDropDown(
         stages,

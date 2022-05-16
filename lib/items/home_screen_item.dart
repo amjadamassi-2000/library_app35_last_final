@@ -37,13 +37,31 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
        // SizedBox(height: 200,),
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: myText(
-              widget.homeData.title,
-              15,
-              FontWeight.w600,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+                indent: 20,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: myText(
+                widget.homeData.title,
+                15,
+                FontWeight.w600,
+              ),
+            ),
+            Expanded(
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+                endIndent: 20,
+              ),
+            ),
+          ],
         ),
 
 //        SizedBox(height: 10.h,),

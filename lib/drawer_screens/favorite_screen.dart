@@ -5,7 +5,6 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/inner_screens/allCategoriesTapScreen.dart';
 import 'package:library_app/inner_screens/favoriteTapScreen.dart';
-import 'package:library_app/items/pdf_item.dart';
 
 
 
@@ -13,6 +12,9 @@ class FavoriteScreen extends StatefulWidget {
   @override
   _FavoriteScreenState createState() => _FavoriteScreenState();
 }
+
+
+
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
@@ -83,7 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               ),
                               child: TabBar(
                                 indicator: BoxDecoration(
-                                  color: Color(0xff4747d1),
+                                  color: Color(0xffea0e8b),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 tabs: [
@@ -161,10 +163,27 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
-
-
-
 Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
