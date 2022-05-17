@@ -19,7 +19,7 @@ void main() {
 //  MyApp(),
   DioHelper.dioInit();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-//  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+ FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   //MobileAds.instance.initialize();
   RequestConfiguration config = RequestConfiguration(
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
 
-//    FlutterNativeSplash.remove();
+ FlutterNativeSplash.remove();
 
   }
 
