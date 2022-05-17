@@ -6,13 +6,16 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:library_app/styles/themes.dart';
 
 import 'drawer_screens/home_sceen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
 
 void main() {
 //  MyApp(),
 
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   //MobileAds.instance.initialize();
   RequestConfiguration config = RequestConfiguration(
     testDeviceIds: <String> ["E8F901B8C95DCC8C292B9D20E9454B0B"],
@@ -46,7 +49,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FlutterNativeSplash.remove();
 
+}
 
   @override
   Widget build(BuildContext context) {
