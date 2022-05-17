@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
@@ -10,7 +11,9 @@ import 'package:library_app/dummy_data/home_screen_data.dart';
 import 'package:library_app/inner_screens/result_screen.dart';
 import 'package:library_app/items/home_screen_item.dart';
 
-import 'favorite_screen.dart';
+import '../favorite_screen.dart';
+import 'cubit/home_cubit.dart';
+import 'cubit/home_state.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -30,113 +33,135 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: primaryColor,
-        drawer: MyDrawer(),
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Column(
+    return BlocProvider(
+      create:  (BuildContext context) => LibraryCubit()..getHomeData(),
+      child: BlocConsumer<LibraryCubit, libraryStates>(
+          listener: (context, state) {
+
+      },
+      builder: (context, state) {
+        LibraryCubit cubit=LibraryCubit.get(context);
+        List data=cubit.homeModel.titles;
+        return
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            backgroundColor: primaryColor,
+            drawer: MyDrawer(),
+            body: SafeArea(
+              child: Stack(
                 children: [
+                  Column(
+                    children: [
 
 
-                  SizedBox(
-                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.25,
-                    child: LayoutBuilder(
-                      builder: (ctx,constraint)
-                      =>Column(
-                       // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                      SizedBox(
+                        height: (MediaQuery
+                            .of(context)
+                            .size
+                            .height - MediaQuery
+                            .of(context)
+                            .padding
+                            .top) * 0.25,
+                        child: LayoutBuilder(
+                          builder: (ctx, constraint) =>
+                              Column(
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
 
-                          SizedBox(
-                                  height: constraint.maxHeight*0.3,
+                                  SizedBox(
+                                    height: constraint.maxHeight * 0.3,
 
-                            child: Row(
-                              children: [
-                                Builder(
-                                  builder: (BuildContext ctx) {
-                                    return IconButton(
-                                      icon: CircleAvatar(
-                                        backgroundColor:
-                                        Colors.grey.shade100.withOpacity(0.3),
-                                        child: Icon(
-                                          Icons.menu,
-                                          color: Colors.white,
+                                    child: Row(
+                                      children: [
+                                        Builder(
+                                          builder: (BuildContext ctx) {
+                                            return IconButton(
+                                              icon: CircleAvatar(
+                                                backgroundColor:
+                                                Colors.grey.shade100.withOpacity(
+                                                    0.3),
+                                                child: Icon(
+                                                  Icons.menu,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Scaffold.of(ctx).openDrawer();
+                                              },
+                                              tooltip: MaterialLocalizations
+                                                  .of(context)
+                                                  .openAppDrawerTooltip,
+                                            );
+                                          },
                                         ),
-                                      ),
-                                      onPressed: () {
-                                        Scaffold.of(ctx).openDrawer();
-                                      },
-                                      tooltip: MaterialLocalizations.of(context)
-                                          .openAppDrawerTooltip,
-                                    );
-                                  },
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                          ),
-                          Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.7,),
-                        ],
-                      ),
-                    ),
-                  ),
-
-
-
-
-
-                  Container(
-                    width: double.infinity,
-                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.75,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
-                      ),
-                    ),
-
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Scrollbar(
-                             thickness: 5,
-                            radius: Radius.circular(50),
-                            child: Padding(
-                              padding:  EdgeInsets.only(top: 30 , bottom: 20),
-                              child: ListView.builder(
-                                  itemCount: homeList.length ,
-                                  itemBuilder: (context , index) {
-                                      return
-                                        homeList.map((e) =>
-                                            HomeScreenItem(homeList[index]))
-                                            .toList()[index];
-                                  }
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    "assets/images/lib_logo.png", width: 170,
+                                    height: constraint.maxHeight * 0.7,),
+                                ],
                               ),
-                            ),
+                        ),
+                      ),
+
+
+                      Container(
+                        width: double.infinity,
+                        height: (MediaQuery
+                            .of(context)
+                            .size
+                            .height - MediaQuery
+                            .of(context)
+                            .padding
+                            .top) * 0.75,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50.r),
+                            topRight: Radius.circular(50.r),
                           ),
                         ),
 
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Scrollbar(
+                                thickness: 5,
+                                radius: Radius.circular(50),
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 30, bottom: 20),
+                                  child: ListView.builder(
+                                      itemCount:  cubit.homeModel.titles.length,
+                                      itemBuilder: (context, index) {
+                                        return
 
-                      ],
-                    ),
+                                          cubit.homeModel.titles.map((e) =>
+                                              HomeScreenItem(data[index]))
+                                              .toList()[index];
+                                      }
+                                  ),
+                                ),
+                              ),
+                            ),
+
+
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
 
 
+                  Align(
+                    alignment: Alignment.bottomCenter,
 
-                   Align(
-                     alignment: Alignment.bottomCenter,
-
-                     child: AdBanner2(),
-                    ),
-
+                    child: AdBanner2(),
+                  ),
 
 
 //              Column(
@@ -154,10 +179,14 @@ class _HomeScreenState extends State<HomeScreen> {
 ////                ),
 //                ],
 //              ),
-            ],
-          ),
-        ),
+                ],
+              ),
+            ),
 
+          ),
+        );
+
+      }
       ),
     );
   }

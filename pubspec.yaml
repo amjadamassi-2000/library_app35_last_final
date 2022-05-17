@@ -42,6 +42,9 @@ dependencies:
   device_preview: ^1.0.0
   hexcolor:
   flutter_native_splash:
+  bloc:
+  flutter_bloc:
+  dio:
 
 dev_dependencies:
   flutter_test:

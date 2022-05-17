@@ -93,7 +93,29 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                           shrinkWrap: true,
                           itemCount: widget.homeData.dropdownButtons.length,
                           itemBuilder: (context, index) {
-                            return widget.homeData.dropdownButtons[index];
+                            return    CustomDropDown(
+                              [
+
+                                myText(
+                                    "لإبتدائية",
+                                    13,
+                                    FontWeight.w600
+                                ),
+
+                                myText(
+                                    "الاعدادية",
+                                    13,
+                                    FontWeight.w600
+                                ),
+
+
+
+                              ],
+                              onSelect: (newValue) {
+                                _selectedstage = newValue;
+                              },
+                              hint: "اختر المرحلة",
+                            );
                           }),
                     ],
                   ),

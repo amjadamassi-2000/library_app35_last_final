@@ -1,18 +1,23 @@
+import 'package:bloc/bloc.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:library_app/shared/bloc_observer.dart';
+import 'package:library_app/shared/remote/dio_helper.dart';
 import 'package:library_app/styles/themes.dart';
 
-import 'drawer_screens/home_sceen.dart';
+import 'drawer_screens/home_screen/cubit/home_cubit.dart';
+import 'drawer_screens/home_screen/home_sceen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
 
 void main() {
 //  MyApp(),
-
+  DioHelper.dioInit();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -23,17 +28,11 @@ void main() {
   MobileAds.instance.updateRequestConfiguration(config);
 
 
-
-  runApp(
- MyApp(),
-
-
-  // DevicePreview(
-  //   enabled: !kReleaseMode,
-  //   builder: (context) =>
-  //       MyApp(), // Wrap your app
-  // ),
-
+  BlocOverrides.runZoned(
+        () {
+      runApp( MyApp());
+    },
+    blocObserver: SimpleBlocObserver(),
   );
 
 
