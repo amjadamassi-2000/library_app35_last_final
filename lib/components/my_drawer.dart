@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/size_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/drawer_screens/favorite_screen.dart';
-import 'package:library_app/drawer_screens/home_sceen.dart';
+import 'package:library_app/drawer_screens/home_screen/home_sceen.dart';
 import 'package:library_app/drawer_screens/settings_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'global_componnets.dart';

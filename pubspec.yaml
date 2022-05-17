@@ -41,6 +41,10 @@ dependencies:
   flutter_screenutil: ^4.0.2+5
   device_preview: ^1.0.0
   hexcolor:
+  flutter_native_splash:
+  bloc:
+  flutter_bloc:
+  dio:
 
 dev_dependencies:
   flutter_test:
@@ -94,3 +98,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#3333cc"
+  image: assets/images/lib_logo.png
+
+  android_12:
+    image: assets/splash.png
+    icon_background_color: "#ffffff"
+
+  web: false
