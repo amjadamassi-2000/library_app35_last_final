@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/components/custom_drop_down.dart';
+import 'package:library_app/components/drop_down_button_list_item.dart';
 import 'package:library_app/components/global_componnets.dart';
 
 class HomeData {
@@ -9,26 +10,18 @@ class HomeData {
   HomeData(this.title, this.dropdownButtons);
 }
 
-String _selectedstage;
+DropDownButtonListItem _selectedstage;
 
 
-List<Widget> stages = [
 
-  myText(
-      "لإبتدائية",
-      13,
-      FontWeight.w600
-  ),
+List<DropDownButtonListItem> stages = [
 
-  myText(
-      "الاعدادية",
-      13,
-      FontWeight.w600
-  ),
-
+  DropDownButtonListItem("الاعدادية"),
+  DropDownButtonListItem("الأبتدائية"),
 
 
 ];
+
 
 List homeList = [
 

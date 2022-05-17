@@ -120,11 +120,11 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
         ),
         SizedBox(height: 20,),
 
-        Divider(
-          color: Colors.grey,
-          indent: 30,
-          endIndent: 30,
-        ),
+//        Divider(
+//          color: Colors.grey,
+//          indent: 30,
+//          endIndent: 30,
+//        ),
       ],
     );
   }

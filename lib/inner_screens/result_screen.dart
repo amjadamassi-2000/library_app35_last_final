@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/components/constant.dart';
+import 'package:library_app/components/custom_drop_down.dart';
+import 'package:library_app/components/drop_down_button_list_item.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
@@ -14,6 +16,36 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen> {
   TextEditingController _controller = TextEditingController();
+
+  DropDownButtonListItem _selectedstage;
+
+
+
+  List<DropDownButtonListItem> stages = [
+
+    DropDownButtonListItem("الأحدث"),
+    DropDownButtonListItem("الأقدم"),
+    DropDownButtonListItem("الإسم"),
+
+
+  ];
+
+
+
+  List<DropDownButtonListItem> types = [
+
+    DropDownButtonListItem("مذكرة"),
+    DropDownButtonListItem("ملخص"),
+
+
+  ];
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +98,99 @@ class _ResultScreenState extends State<ResultScreen> {
                                   );
                                 },
                               ),
-                              IconButton(
-                                icon: CircleAvatar(
-                                  backgroundColor:
-                                  Colors.grey.shade100.withOpacity(0.3),
-                                  child: Icon(
-                                    Icons.filter_list,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                onPressed: () {},
+
+
+                              Builder(
+                                builder: (ctx) {
+                                  return IconButton(
+                                    icon: CircleAvatar(
+                                      backgroundColor:
+                                      Colors.grey.shade100.withOpacity(0.3),
+                                      child: Icon(
+                                        Icons.filter_list,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    onPressed: () {
+
+                                      Scaffold.of(ctx).showBottomSheet<void>(
+                                            (BuildContext context) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(30.r),
+                                                topLeft: Radius.circular(30.r),
+                                              ),
+                                              color: Colors.white,
+                                            ),
+                                            height: MediaQuery.of(context).size.height * 0.35,
+                                            child: Padding(
+                                              padding:  EdgeInsets.symmetric(horizontal: 20),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:  EdgeInsets.only(right: 20),
+                                                    child: myText(
+                                                      "الإسم : ",
+                                                      15,
+                                                      FontWeight.w600,
+
+                                                    ),
+                                                  ),
+
+                                                  CustomDropDown(
+                                                    stages,
+                                                    onSelect: (newValue) {
+                                                      _selectedstage = newValue;
+                                                    },
+                                                    hint: "طرق الفلترة",
+                                                  ),
+
+                                                  Padding(
+                                                    padding:  EdgeInsets.only(right: 20),
+                                                    child: myText(
+                                                      "النوع : ",
+                                                      15,
+                                                      FontWeight.w600,
+                                                    ),
+                                                  ),
+
+                                                  CustomDropDown(
+                                                    types,
+                                                    onSelect: (newValue) {
+                                                      _selectedstage = newValue;
+                                                    },
+                                                    hint: "طرق الفلترة",
+                                                  ),
+
+                                                  SizedBox(height: 30,),
+
+
+                                                  Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal:10),
+
+                                                    child: myButton(" فلتر", () {
+                                                    }),
+                                                  ),
+
+
+
+
+
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+
+
+
+
+                                    },
+                                  );
+                                }
                               ),
                             ],
                           ),

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'drop_down_button_list_item.dart';
+
 
 
 
 class CustomDropDown extends StatefulWidget {
-  final List<Widget> list;
+  final List<dynamic> list;
   final String Function(dynamic) buildName;
   final Function onSelect;
   final String hint;
@@ -101,14 +103,22 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   dropdownValue = newValue;
                 });
               },
-              items: widget.list.map<DropdownMenuItem<Widget>>((dynamic value) {
+              items: widget.list.map<DropdownMenuItem<DropDownButtonListItem>>((dynamic value) {
 
-                return DropdownMenuItem<Widget>(
+                return DropdownMenuItem<DropDownButtonListItem>(
                   value: value,
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Center(
-                      child:  value,
+                    child:  Center(
+                      child: Text(
+                        value is DropDownButtonListItem
+                            ? value.title
+                            : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
+                        style: GoogleFonts.cairo(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
 
@@ -121,6 +131,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
     );
   }
 }
+
+
+
 /*
  Text(
                       value is Widget

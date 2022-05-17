@@ -22,9 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   String _selectedstage;
-//  List<String> stages = ['الجامعي', 'الإبتدائي', 'الثانوي', 'الإعدادي'];
 
-//  bool _switchValue=true;
 
 
 
@@ -108,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                              thickness: 5,
                             radius: Radius.circular(50),
                             child: Padding(
-                              padding:  EdgeInsets.only(top: 30 , bottom: 20),
+                              padding:  EdgeInsets.only(top: 30 , bottom: 40),
                               child: ListView.builder(
                                   itemCount: homeList.length ,
                                   itemBuilder: (context , index) {
