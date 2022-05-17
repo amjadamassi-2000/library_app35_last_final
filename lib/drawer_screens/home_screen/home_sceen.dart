@@ -10,7 +10,7 @@ import 'package:library_app/dummy_data/home_screen_data.dart';
 import 'package:library_app/inner_screens/result_screen.dart';
 import 'package:library_app/items/home_screen_item.dart';
 
-import 'favorite_screen.dart';
+//import 'favorite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 
