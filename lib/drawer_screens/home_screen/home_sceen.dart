@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           itemBuilder: (context, index) {
                                             return
 
-                                                  HomeScreenItem(cubit.homeModel.titles[index]);
+                                                  HomeScreenItem(cubit.homeModel.titles[index],cubit.sectionModel);
 
 
                                           }

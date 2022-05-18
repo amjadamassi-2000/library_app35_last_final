@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
@@ -11,15 +9,14 @@ import 'package:library_app/styles/themes.dart';
 
 import 'drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'drawer_screens/home_screen/home_sceen.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
 
 void main() {
 //  MyApp(),
   DioHelper.dioInit();
+
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
- //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   //MobileAds.instance.initialize();
   RequestConfiguration config = RequestConfiguration(
@@ -27,9 +24,11 @@ void main() {
   );
   MobileAds.instance.updateRequestConfiguration(config);
 
+ // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   BlocOverrides.runZoned(
         () {
+
       runApp( MyApp());
     },
     blocObserver: SimpleBlocObserver(),
@@ -71,7 +70,7 @@ class _MyAppState extends State<MyApp> {
         ),
             providers: [
             BlocProvider(
-            create: (BuildContext context) => LibraryCubit()..getHomeData(),
+            create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(),
 
       ),
 

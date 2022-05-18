@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/home_model.dart';
+import '../../../models/section_model.dart';
 import '../../../shared/constants.dart';
 import '../../../shared/remote/dio_helper.dart';
 import 'home_state.dart';
@@ -35,4 +36,18 @@ class LibraryCubit extends Cubit<libraryStates> {
       print(error.toString());
     });
   }
+  SectionModel sectionModel;
+  void getSection({ int id}) async {
+    emit(GetSectionLoadingState());
+    await DioHelper.getData(
+      url: '$GET_SECTION/$id',
+    ).then((value) {
+      sectionModel=SectionModel.fromJson(value.data);
+      emit(GetSectionSuccessState());
+    }).catchError((error) {
+      emit(GetSectionErrorState());
+      print(error.toString());
+    });
+  }
+
 }
