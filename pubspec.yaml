@@ -45,6 +45,7 @@ dependencies:
   bloc:
   flutter_bloc:
   dio:
+  dropdown_button2: ^1.4.0
 
 dev_dependencies:
   flutter_test:

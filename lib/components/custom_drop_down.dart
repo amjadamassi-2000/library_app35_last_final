@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'drop_down_button_list_item.dart';
+import '../models/home_model.dart';
+import 'drop_down/drop_down_button_list_item.dart';
 
 
 
@@ -75,16 +76,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
             ),
             width: double.infinity,
             child: DropdownButton<dynamic>(
-              hint: Text(
-                widget.hint,
-                style: GoogleFonts.cairo(
-                  fontSize: 14.sp,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-
-
-              ),
+              // hint: Text(
+              //   widget.hint,
+              //   style: GoogleFonts.cairo(
+              //     fontSize: 14.sp,
+              //     color: Colors.grey,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              //
+              //
+              // ),
 
               value: dropdownValue,
               isExpanded: true,
@@ -103,16 +104,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   dropdownValue = newValue;
                 });
               },
-              items: widget.list.map<DropdownMenuItem<DropDownButtonListItem>>((dynamic value) {
+              items: widget.list.map<DropdownMenuItem<Section>>((dynamic value) {
 
-                return DropdownMenuItem<DropDownButtonListItem>(
+                return DropdownMenuItem<Section>(
                   value: value,
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child:  Center(
                       child: Text(
-                        value is DropDownButtonListItem
-                            ? value.title
+                        value is Section
+                            ? value.name
                             : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
                         style: GoogleFonts.cairo(
                           fontSize: 15,

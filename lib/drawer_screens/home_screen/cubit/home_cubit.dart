@@ -23,6 +23,7 @@ class LibraryCubit extends Cubit<libraryStates> {
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
       print('${homeModel.message} ');
+      print('${homeModel.titles.length} ');
       print('تم جلب البيانات بنجاح ');
 
 

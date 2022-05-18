@@ -19,7 +19,7 @@ void main() {
 //  MyApp(),
   DioHelper.dioInit();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
- FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+ //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   //MobileAds.instance.initialize();
   RequestConfiguration config = RequestConfiguration(
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
 
- FlutterNativeSplash.remove();
+// FlutterNativeSplash.remove();
 
   }
 
@@ -61,11 +61,21 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(builder: () {
       return
-        MaterialApp(
+        MultiBlocProvider(
+          child: MaterialApp(
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode:  ThemeMode.light,
           home: HomeScreen(),
+
+        ),
+            providers: [
+            BlocProvider(
+            create: (BuildContext context) => LibraryCubit()..getHomeData(),
+
+      ),
+
+            ]
 
         );
     });
