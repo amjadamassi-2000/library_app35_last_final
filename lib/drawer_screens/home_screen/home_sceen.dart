@@ -185,7 +185,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
               )
 
-          ):Center(child: CircularProgressIndicator());
+          ):Scaffold(
+
+
+        body:  Stack(children: [
+          Container(
+              height: MediaQuery.of(context).size.height,
+              width:      MediaQuery.of(context).size.width,
+
+              child: Image.asset('assets/images/123.png')),
+          Center(child: CircularProgressIndicator(color: Colors.red,strokeWidth: 10,))
+
+        ],
+
+        ));
         }
 
           );

@@ -3,7 +3,7 @@ const GET_SECTION = 'section';
 const GET_SUBSECTION = 'subsection';
 const GET_DRAWER = 'drawer';
 
-const FAVOURITES = 'favorites';
+const RESULT = 'results';
 const REGISTER = 'register';
 const PROFILE = 'profile';
 const UPDATE_PROFILE = 'update-profile';

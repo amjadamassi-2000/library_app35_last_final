@@ -35,6 +35,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
   int myvalue1;
   int myvalue2;
   int myvalue3;
+  int myvalue4;
 
 
 
@@ -53,11 +54,12 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
 
 
-        return widget.subsectionModel!=null?
+        return widget.subsectionModel!=null&&widget.titles!=null&&cubit.sectionModel!=null&&cubit.subsectionModel!=null&&cubit.homeModel!=null?
         Column(
         children: [
 
          // SizedBox(height: 200,),
+          if (widget.titles.section .isNotEmpty)
 
           Row(
             children: [
@@ -68,8 +70,10 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                   indent: 20,
                 ),
               ),
-              Padding(
+
+                Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
+
                 child: myText(
                widget.titles.name,
                   15,
@@ -140,7 +144,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
            setState(() {
              myvalue3=null;
              widget.subsectionModel.sub=[];
-
+        print(myvalue2);
               cubit.getsubSection(id: val);
              myvalue2=val;
              print(val.toString());
@@ -154,6 +158,13 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
                           }),
 
+                        if (widget.titles.categories.isNotEmpty)
+                          my_dropdown(widget.titles.categories,myvalue3,MychangeMethod: (val){
+                            setState(() {
+                              myvalue3=val;
+                            });
+
+                          }),
 
                         // Padding(
                        //   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -215,6 +226,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
           ),
           SizedBox(height: 30,),
 
+          if (widget.titles.section .isNotEmpty)
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30)

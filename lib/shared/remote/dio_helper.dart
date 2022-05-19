@@ -28,13 +28,11 @@ class DioHelper {
   static Future<Response<dynamic>> postData(
       { String url,
       Map<String, dynamic> query,
-      String lang = 'en',
       String token,
        Map<String, dynamic> data}) async {
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'lang': lang,
-      'Authorization' : token!=null?token:'',
+
      };
     return await dio.post(
       url,

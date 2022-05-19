@@ -27,9 +27,10 @@ class Titles {
   List<Section> section;
   List<SubSection> subSection;
   List<SubSubSection> subSubSection;
+  List<Categories> categories;
 
   Titles(
-      {this.id, this.name, this.section, this.subSection, this.subSubSection});
+      {this.id, this.name, this.section, this.subSection, this.subSubSection, this.categories});
 
   Titles.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,6 +51,12 @@ class Titles {
       subSubSection =  List<SubSubSection>();
       json['sub_sub_section'].forEach((v) {
         subSubSection.add( SubSubSection.fromJson(v));
+      });
+    }
+    if (json['categories'] != null) {
+      categories = <Categories>[];
+      json['categories'].forEach((v) {
+        categories.add(new Categories.fromJson(v));
       });
     }
   }
@@ -91,6 +98,19 @@ class SubSubSection {
   SubSubSection({this.id, this.name});
 
   SubSubSection.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+
+}
+class Categories {
+  int id;
+  String name;
+
+  Categories({this.id, this.name});
+
+  Categories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

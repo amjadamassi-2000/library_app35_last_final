@@ -137,7 +137,7 @@ Column(
       onTap: function,
       title:Row(
         children: [
-          Image.network("$url" , width: 25,),
+          Image.network("$url" , width: 25.w,height: 25.h,),
 
 
           SizedBox(width: 20.w,),

@@ -76,7 +76,7 @@ class _MyDrawerState extends State<MyDrawer> {
           "الرئيسية",
           Icon(Icons.home, color: Colors.white),
               () {
-            ToAndFinish(context, SettingsScreen());
+            ToAndFinish(context, HomeScreen());
           },
         ),
                myListTielStatic(
@@ -115,8 +115,8 @@ class _MyDrawerState extends State<MyDrawer> {
                      itemCount: cubit.drawerModel.data.length ,
                      // ignore: missing_return
                      itemBuilder: (context, index){
-                       return  myListTiel(cubit.drawerModel.data[index].name,'https://www.iconsdb.com/icons/preview/white/twitter-xxl.png', () async {
-                         final url = 'cubit.drawerModel.data[index].link';
+                       return  myListTiel(cubit.drawerModel.data[index].name,'${cubit.drawerModel.data[index].icon}', () async {
+                         final url = cubit.drawerModel.data[index].link;
                          if (await canLaunch(url)) {
                            await launch(url);
                          } else {

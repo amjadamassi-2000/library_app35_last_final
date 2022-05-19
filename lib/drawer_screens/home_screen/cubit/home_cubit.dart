@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/drawer_model.dart';
 import '../../../models/home_model.dart';
+import '../../../models/result_model.dart';
 import '../../../models/section_model.dart';
 import '../../../models/sub_sectionModel.dart';
 import '../../../shared/constants.dart';
@@ -79,5 +80,29 @@ class LibraryCubit extends Cubit<libraryStates> {
       print(error.toString());
     });
   }
+  ResultModel resultModel;
+  void userResult({
+    title_id,
+    section_id
+    ,
+    sub_section_id
 
+  }) async {
+    emit(ResultDataLoadingState());
+    await DioHelper.postData(
+        url: RESULT,
+
+
+        data: {
+          'title_id': '$title_id',
+          'section_id': '$section_id',
+          'sub_section_id': '$sub_section_id'
+        }).then((value) {
+      resultModel = ResultModel.fromJson(value.data);
+
+      emit(ResultDataSuccessState());
+    }).catchError((error) {
+      emit(ResultDataErrorState());
+    });
+  }
 }
