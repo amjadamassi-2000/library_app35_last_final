@@ -8,3 +8,9 @@ class HomeErrorState extends libraryStates {}
 class GetSectionLoadingState extends libraryStates {}
 class GetSectionSuccessState extends libraryStates {}
 class GetSectionErrorState extends libraryStates {}
+class GetSubSectionLoadingState extends libraryStates {}
+class GetSubSectionSuccessState extends libraryStates {}
+class GetSubSectionErrorState extends libraryStates {}
+class GetDrawerDataLoadingState extends libraryStates {}
+class DrawerDataSuccessState extends libraryStates {}
+class DrawerDataErrorState extends libraryStates {}

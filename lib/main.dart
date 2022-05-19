@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
         ),
             providers: [
             BlocProvider(
-            create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(),
+            create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData(),
 
       ),
 

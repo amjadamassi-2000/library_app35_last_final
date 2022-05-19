@@ -4,7 +4,7 @@ class DioHelper {
   static dioInit() {
     dio = Dio(
       BaseOptions(
-          baseUrl: 'https://library000.herokuapp.com/api/',
+          baseUrl: 'https://librarypdf.tagalqemma.com/api/',
           receiveDataWhenStatusError: true,
         ),
     );

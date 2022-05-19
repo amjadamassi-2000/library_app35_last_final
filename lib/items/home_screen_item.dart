@@ -7,6 +7,7 @@ import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_dropdown.dart';
 import 'package:library_app/dummy_data/home_screen_data.dart';
 import 'package:library_app/inner_screens/result_screen.dart';
+import 'package:library_app/models/sub_sectionModel.dart';
 
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
@@ -16,8 +17,8 @@ import '../models/section_model.dart';
 class HomeScreenItem extends StatefulWidget {
 final   Titles titles;
 final SectionModel sectionModel;
-
-   HomeScreenItem( this.titles, this.sectionModel) ;
+final SubSectionModel subsectionModel;
+   HomeScreenItem( this.titles, this.sectionModel, this.subsectionModel) ;
 
   //  final HomeData homeData;
   // HomeScreenItem(this.homeData);
@@ -43,21 +44,17 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
     // TODO: implement initState
     super.initState();
     Adinterstitial.loadInterstitialAd();
+
   }
 
   @override
   Widget build(BuildContext context) {
     LibraryCubit cubit = LibraryCubit.get(context);
 
-    return BlocConsumer<LibraryCubit, libraryStates>(
 
-      listener: (context, state) {
 
-      },
-      builder: (context, state) {
-        LibraryCubit cubit = LibraryCubit.get(context);
-
-        return Column(
+        return widget.subsectionModel!=null?
+        Column(
         children: [
 
          // SizedBox(height: 200,),
@@ -118,25 +115,44 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
 
                           my_dropdown(widget.titles.section,myvalue1,MychangeMethod: (val){
-                            setState(() async{
-                           //myvalue1=val;
-
+                            setState(() {
                            myvalue1=val;
-                              await cubit.getSection(id: val);
+                               widget.sectionModel.sub=[];
+                           widget.subsectionModel.sub=[];
+                               myvalue2=null;
+                           myvalue3=null;
+
+                           print( '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                           myvalue1=val;
+                                 cubit.getSection(id: val);
+                              print(cubit.sectionModel.sub.isEmpty);
                                print(val.toString());
-                               print(cubit.sectionModel.status);
+                               print(cubit.subsectionModel.status);
+
 
                             });
 
 
                           }),
 
-                        if (widget.titles.subSection .isNotEmpty)
-                          my_dropdown(widget.sectionModel.sub,myvalue2,MychangeMethod: (val){
-                            print(val.toString());
-                          }),
+                         if (widget.titles.subSection .isNotEmpty)
+                   my_dropdown(widget.sectionModel.sub,myvalue2,MychangeMethod: (val){
+           setState(() {
+             myvalue3=null;
+             widget.subsectionModel.sub=[];
+
+              cubit.getsubSection(id: val);
+             myvalue2=val;
+             print(val.toString());
+           });
+                           }),
                         if (widget.titles.subSubSection .isNotEmpty)
-                          my_dropdown(widget.titles.subSubSection,myvalue3),
+                          my_dropdown(widget.subsectionModel.sub,myvalue3,MychangeMethod: (val){
+                            setState(() {
+                              myvalue3=val;
+                            });
+
+                          }),
 
 
                         // Padding(
@@ -221,8 +237,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 //          endIndent: 30,
 //        ),
         ],
-      );
-      },
-    );
-  }
+      ):Center(child: CircularProgressIndicator());
+      }
+
+
 }

@@ -80,7 +80,54 @@ Future ToAndFinish(BuildContext context, Widget widget) async {
 //
 //
 //
-Widget myListTiel(String title , Widget icon  , Function function) =>
+//
+Widget myListTielStatic(String title , Widget icon  , Function function) =>
+
+    Column(
+      children: [
+
+        ListTile(
+          //stileColor: primaryColor,
+          onTap: function,
+          title:Row(
+            children: [
+              icon,
+              //Icon(Icons.fact_check , color: Colors.black,),
+              SizedBox(width: 20.w,),
+              Text(
+                title,
+                style:  GoogleFonts.cairo(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+//            Spacer(),
+//
+//            Icon(Icons.arrow_forward_ios , size: 18.r, color: Colors.black45 ),
+
+            ],
+          ),
+
+          //Image.asset("assets/images/order_icon.png"),
+
+        ),
+
+        // Divider(
+        //   endIndent: 10,
+        //   indent: 10,
+        //   color: Colors.grey,
+        //   thickness: 1,
+        //
+        // ),
+
+
+
+      ],
+
+    );
+
+Widget myListTiel(String title ,  url  , Function function,) =>
 
 Column(
   children: [
@@ -90,8 +137,9 @@ Column(
       onTap: function,
       title:Row(
         children: [
-          icon,
-            //Icon(Icons.fact_check , color: Colors.black,),
+          Image.network("$url" , width: 25,),
+
+
           SizedBox(width: 20.w,),
           Text(
             title,

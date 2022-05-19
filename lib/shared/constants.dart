@@ -1,5 +1,8 @@
 const HOME = 'titles';
 const GET_SECTION = 'section';
+const GET_SUBSECTION = 'subsection';
+const GET_DRAWER = 'drawer';
+
 const FAVOURITES = 'favorites';
 const REGISTER = 'register';
 const PROFILE = 'profile';

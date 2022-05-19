@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         builder: (context, state) {
           LibraryCubit cubit = LibraryCubit.get(context);
-          return Directionality(
+          return cubit.homeModel!=null? Directionality(
               textDirection: TextDirection.rtl,
               child: Scaffold(
                 backgroundColor: primaryColor,
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           itemBuilder: (context, index) {
                                             return
 
-                                                  HomeScreenItem(cubit.homeModel.titles[index],cubit.sectionModel);
+                                                  HomeScreenItem(cubit.homeModel.titles[index],cubit.sectionModel,cubit.subsectionModel);
 
 
                                           }
@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               )
 
-          );
+          ):Center(child: CircularProgressIndicator());
         }
 
           );
