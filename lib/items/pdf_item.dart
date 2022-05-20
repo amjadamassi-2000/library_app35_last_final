@@ -10,11 +10,11 @@ class PdfItem extends StatefulWidget {
 
   final Pdf pdf;
 
-      PdfItem(this.pdf);
+  PdfItem(this.pdf);
 
 
 
-     @override
+  @override
   _PdfItemState createState() => _PdfItemState();
 }
 
@@ -75,12 +75,36 @@ class _PdfItemState extends State<PdfItem> {
                         child: myText(
                             widget.pdf.title,
                             13,
-                            FontWeight.w600
+                            FontWeight.w400
+
                         ),
                       ),
                     ),),
 
-                  widget.pdf.isNew ?   Image.asset("assets/images/new.png") : Container(),
+                  widget.pdf.isNew ?    Transform.rotate(
+                    angle:0, //set the angel
+                    child: ClipPath(
+                      clipper: CustomTriangleClipper(),
+                      child: Container(
+                        alignment: Alignment.topRight,
+                        width: 50,
+                        height: 50,
+                        color: Colors.green,
+                        child: Transform.rotate(
+                          angle: 170.4,
+                          child:  Text(
+
+                            "جديد",
+                            style:  GoogleFonts.cairo(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ) : Container(),
 
                 ],
               ),
@@ -89,81 +113,81 @@ class _PdfItemState extends State<PdfItem> {
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
+                    color: primaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
 
-                  )
+                    )
                 ),
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        myPdfRowItem(
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      myPdfRowItem(
                           "تحميل",
                           Icon(Icons.arrow_circle_down , color: Colors.white,),
-                            (){
-                              showDialog(
-                                context: context,
-                               // barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
+                              (){
+                            showDialog(
+                              context: context,
+                              // barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
 
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
 
-                                    ),
-                                    title : myText(
-                                        "هل تريد بالتأكيد حفظ الملف ؟ ",
-                                        14,
-                                        FontWeight.w600,
-                                    ),
-                                    actions: <Widget>[
+                                  ),
+                                  title : myText(
+                                    "هل تريد بالتأكيد حفظ الملف ؟ ",
+                                    14,
+                                    FontWeight.w600,
+                                  ),
+                                  actions: <Widget>[
 
-                                      TextButton(
-                                        onPressed: () => Navigator.of(context).pop(),
-                                        child:   Text(
-                                          "إغلاق",
-                                          style:  GoogleFonts.cairo(
-                                            fontSize: 13.sp,
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context).pop(),
+                                      child:   Text(
+                                        "إغلاق",
+                                        style:  GoogleFonts.cairo(
+                                          fontSize: 13.sp,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
+                                    ),
 
-                                      TextButton(
-                                        onPressed: _viewFile,
-                                        child:  Text(
-                                          "تنزيل",
-                                          style:  GoogleFonts.cairo(
-                                            fontSize: 13.sp,
-                                            color: Colors.blue,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                    TextButton(
+                                      onPressed: _viewFile,
+                                      child:  Text(
+                                        "تنزيل",
+                                        style:  GoogleFonts.cairo(
+                                          fontSize: 13.sp,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ],
-                                  );
-                                },
-                              );
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
 
 
-                            }
-                        ),
+                          }
+                      ),
 
-                        myPdfRowItem(
-                            "مشاركة",
-                            Icon(Icons.share , color: Colors.white,),
-                            _viewFile,
-                        ),
+                      myPdfRowItem(
+                        "مشاركة",
+                        Icon(Icons.share , color: Colors.white,),
+                        _viewFile,
+                      ),
 
 
-                      ],
-                    ),
+                    ],
                   ),
+                ),
               ),
 
             ],
@@ -177,6 +201,21 @@ class _PdfItemState extends State<PdfItem> {
 
 
 
+class CustomTriangleClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
 
 /*
 

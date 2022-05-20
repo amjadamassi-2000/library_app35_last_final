@@ -77,7 +77,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                 child: myText(
                widget.titles.name,
                   15,
-                  FontWeight.w600,
+                  FontWeight.w400,
                 ),
               ),
               Expanded(

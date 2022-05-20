@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:library_app/shared/bloc_observer.dart';
 import 'package:library_app/shared/remote/dio_helper.dart';
 import 'package:library_app/styles/themes.dart';
 
+import 'components/constant.dart';
 import 'drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'drawer_screens/home_screen/home_sceen.dart';
 
@@ -65,7 +68,7 @@ class _MyAppState extends State<MyApp> {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode:  ThemeMode.light,
-          home: HomeScreen(),
+          home: SplashScreen(),
 
         ),
             providers: [
@@ -80,3 +83,27 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 3),
+            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => HomeScreen())));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: primaryColor,
+      body: Center(
+        child: Image.asset('assets/images/4735.jpg', width:  170,),
+      ),
+    );
+  }}

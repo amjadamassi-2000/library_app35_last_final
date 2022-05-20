@@ -335,10 +335,11 @@ Column(
       Text(
 
         text,
-        style:  GoogleFonts.cairo(
+        style:  TextStyle(
           fontSize: fontSize.sp,
           color: Colors.black,
           fontWeight: fontWeight,
+          fontFamily: 'cairo'
         ),
         textAlign:  TextAlign.center,
       );

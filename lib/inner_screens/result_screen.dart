@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/drop_down/drop_down_button_list_item.dart';
@@ -18,6 +21,9 @@ class _ResultScreenState extends State<ResultScreen> {
   TextEditingController _controller = TextEditingController();
 
   DropDownButtonListItem _selectedstage;
+
+  int banarIndex = Random().nextInt(dataFiles.length);
+
 
 
 
@@ -63,7 +69,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.25,
                 child: LayoutBuilder(
                   builder: (ctx,constraint)
-                 => SizedBox(
+                  => SizedBox(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -101,96 +107,96 @@ class _ResultScreenState extends State<ResultScreen> {
 
 
                               Builder(
-                                builder: (ctx) {
-                                  return IconButton(
-                                    icon: CircleAvatar(
-                                      backgroundColor:
-                                      Colors.grey.shade100.withOpacity(0.3),
-                                      child: Icon(
-                                        Icons.filter_list,
-                                        color: Colors.white,
+                                  builder: (ctx) {
+                                    return IconButton(
+                                      icon: CircleAvatar(
+                                        backgroundColor:
+                                        Colors.grey.shade100.withOpacity(0.3),
+                                        child: Icon(
+                                          Icons.filter_list,
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () {
+                                      onPressed: () {
 
-                                      Scaffold.of(ctx).showBottomSheet<void>(
-                                            (BuildContext context) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(30.r),
-                                                topLeft: Radius.circular(30.r),
+                                        Scaffold.of(ctx).showBottomSheet<void>(
+                                              (BuildContext context) {
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(30.r),
+                                                  topLeft: Radius.circular(30.r),
+                                                ),
+                                                color: Colors.white,
                                               ),
-                                              color: Colors.white,
-                                            ),
-                                            height: MediaQuery.of(context).size.height * 0.35,
-                                            child: Padding(
-                                              padding:  EdgeInsets.symmetric(horizontal: 20),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding:  EdgeInsets.only(right: 20),
-                                                    child: myText(
-                                                      "الإسم : ",
-                                                      15,
-                                                      FontWeight.w600,
+                                              height: MediaQuery.of(context).size.height * 0.35,
+                                              child: Padding(
+                                                padding:  EdgeInsets.symmetric(horizontal: 20),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:  EdgeInsets.only(right: 20),
+                                                      child: myText(
+                                                        "الإسم : ",
+                                                        15,
+                                                        FontWeight.w600,
 
+                                                      ),
                                                     ),
-                                                  ),
 
-                                                  CustomDropDown(
-                                                    stages,
-                                                    onSelect: (newValue) {
-                                                      _selectedstage = newValue;
-                                                    },
-                                                    hint: "طرق الفلترة",
-                                                  ),
-
-                                                  Padding(
-                                                    padding:  EdgeInsets.only(right: 20),
-                                                    child: myText(
-                                                      "النوع : ",
-                                                      15,
-                                                      FontWeight.w600,
+                                                    CustomDropDown(
+                                                      stages,
+                                                      onSelect: (newValue) {
+                                                        _selectedstage = newValue;
+                                                      },
+                                                      hint: "طرق الفلترة",
                                                     ),
-                                                  ),
 
-                                                  CustomDropDown(
-                                                    types,
-                                                    onSelect: (newValue) {
-                                                      _selectedstage = newValue;
-                                                    },
-                                                    hint: "طرق الفلترة",
-                                                  ),
+                                                    Padding(
+                                                      padding:  EdgeInsets.only(right: 20),
+                                                      child: myText(
+                                                        "النوع : ",
+                                                        15,
+                                                        FontWeight.w600,
+                                                      ),
+                                                    ),
 
-                                                  SizedBox(height: 30,),
+                                                    CustomDropDown(
+                                                      types,
+                                                      onSelect: (newValue) {
+                                                        _selectedstage = newValue;
+                                                      },
+                                                      hint: "طرق الفلترة",
+                                                    ),
 
-
-                                                  Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal:10),
-
-                                                    child: myButton(" فلتر", () {
-                                                    }),
-                                                  ),
-
-
+                                                    SizedBox(height: 30,),
 
 
+                                                    Padding(
+                                                      padding: EdgeInsets.symmetric(horizontal:10),
 
-                                                ],
+                                                      child: myButton(" فلتر", () {
+                                                      }),
+                                                    ),
+
+
+
+
+
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
+                                            );
+                                          },
+                                        );
 
 
 
 
-                                    },
-                                  );
-                                }
+                                      },
+                                    );
+                                  }
                               ),
                             ],
                           ),
@@ -283,8 +289,19 @@ class _ResultScreenState extends State<ResultScreen> {
                         child: ListView.builder(
                             itemCount: dataFiles.length,
                             itemBuilder: (context, index) {
-                              return dataFiles.map((e) => PdfItem(dataFiles[index])).toList()[index];
-                            }),
+
+                              if(index == banarIndex){
+                                return Padding(
+                                  padding:  EdgeInsets.symmetric(vertical: 20),
+                                  child: AdBanner2(),
+                                ) ;
+                              }else {
+                                return dataFiles.map((e) =>
+                                    PdfItem(dataFiles[index])).toList()[index];
+                              }
+                            }
+
+                        ),
                       ),
                     ),
                   ],
