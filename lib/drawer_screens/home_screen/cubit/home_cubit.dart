@@ -2,6 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../models/all_Section.dart';
 import '../../../models/drawer_model.dart';
 import '../../../models/home_model.dart';
 import '../../../models/result_model.dart';
@@ -39,6 +40,7 @@ class LibraryCubit extends Cubit<libraryStates> {
       print(error.toString());
     });
   }
+
   SectionModel sectionModel;
   void getSection({ int id}) async {
     emit(GetSectionLoadingState());
@@ -81,11 +83,13 @@ class LibraryCubit extends Cubit<libraryStates> {
     });
   }
   ResultModel resultModel;
-  void userResult({
-    title_id,
-    section_id
+  Future <void> userResult({
+   int title_id,
+ int   section_id
     ,
-    sub_section_id
+   int sub_section_id,
+    int sub_sub_section_id,
+int categories
 
   }) async {
     emit(ResultDataLoadingState());
@@ -94,15 +98,46 @@ class LibraryCubit extends Cubit<libraryStates> {
 
 
         data: {
-          'title_id': '$title_id',
-          'section_id': '$section_id',
-          'sub_section_id': '$sub_section_id'
+          'title_id': title_id,
+          'section_id': section_id,
+          'sub_section_id': sub_section_id,
+          'sub_sub_section_id':sub_sub_section_id,
+          'categories':categories
+
         }).then((value) {
       resultModel = ResultModel.fromJson(value.data);
+      print(('تم عرض النتائج بنجاح'));
+      print({resultModel.files.length});
+      print(value.data);
 
       emit(ResultDataSuccessState());
     }).catchError((error) {
       emit(ResultDataErrorState());
     });
   }
+
+  AllSectionModel allSectionModel;
+
+  void getAllSection() async {
+    emit(GetAllSectionLoadingState());
+    await DioHelper.getData(
+      url: GET_All_SECTION,
+
+    ).then((value) {
+      allSectionModel = AllSectionModel.fromJson(value.data);
+      print('${allSectionModel.message} ');
+      print('${allSectionModel.sections.length} ');
+      print('تم جلب البيانات بنجاح ');
+
+
+
+
+      emit(GetAllSectionSuccessState());
+    }).catchError((error) {
+      emit(GetAllSectionErrorState());
+      print(error.toString());
+    });
+  }
+
+
 }

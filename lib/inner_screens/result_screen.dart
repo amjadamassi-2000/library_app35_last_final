@@ -11,8 +11,18 @@ import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:library_app/items/pdf_item.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 
 class ResultScreen extends StatefulWidget {
+  final myvalue1;
+  final myvalue2;
+  final myvalue3;
+  final myvalue4;
+
+   ResultScreen( this.myvalue1,this.myvalue2, this.myvalue3, this.myvalue4 );
+
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
@@ -55,6 +65,8 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    LibraryCubit cubit = LibraryCubit.get(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -287,7 +299,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       child: Padding(
                         padding:  EdgeInsets.only(bottom: 20),
                         child: ListView.builder(
-                            itemCount: dataFiles.length,
+                            itemCount: cubit.resultModel.files.length,
                             itemBuilder: (context, index) {
 
                               if(index == banarIndex){
@@ -296,8 +308,8 @@ class _ResultScreenState extends State<ResultScreen> {
                                   child: AdBanner2(),
                                 ) ;
                               }else {
-                                return dataFiles.map((e) =>
-                                    PdfItem(dataFiles[index])).toList()[index];
+                                return
+                                    PdfItem(cubit.resultModel.files[index]);
                               }
                             }
 

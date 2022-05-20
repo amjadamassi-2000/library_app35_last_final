@@ -5,10 +5,13 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../models/result_model.dart';
 
 class PdfItem extends StatefulWidget {
 
-  final Pdf pdf;
+  final Files  pdf;
 
   PdfItem(this.pdf);
 
@@ -25,7 +28,7 @@ class _PdfItemState extends State<PdfItem> {
 
   void _viewFile() async {
     final _url =
-        widget.pdf.pdfUrl;
+        widget.pdf.fileLink;
     if (await canLaunch(_url)) {
       await launch(_url);
     } else {
@@ -73,7 +76,7 @@ class _PdfItemState extends State<PdfItem> {
                       child: SizedBox(
                         width: 400,
                         child: myText(
-                            widget.pdf.title,
+                            widget.pdf.name,
                             13,
                             FontWeight.w400
 
@@ -181,7 +184,13 @@ class _PdfItemState extends State<PdfItem> {
                       myPdfRowItem(
                         "مشاركة",
                         Icon(Icons.share , color: Colors.white,),
-                        _viewFile,
+                        
+                        ()async{
+                          if(widget.pdf.name.isNotEmpty){
+                            await Share.share('${widget.pdf.name}/n ${widget.pdf.fileLink}');
+                            
+                          }
+                        },
                       ),
 
 

@@ -17,3 +17,6 @@ class DrawerDataErrorState extends libraryStates {}
 class ResultDataLoadingState extends libraryStates {}
 class ResultDataSuccessState extends libraryStates {}
 class ResultDataErrorState extends libraryStates {}
+class GetAllSectionLoadingState extends libraryStates {}
+class GetAllSectionSuccessState extends libraryStates {}
+class GetAllSectionErrorState extends libraryStates {}

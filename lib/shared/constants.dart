@@ -2,6 +2,7 @@ const HOME = 'titles';
 const GET_SECTION = 'section';
 const GET_SUBSECTION = 'subsection';
 const GET_DRAWER = 'drawer';
+const GET_All_SECTION = 'all-sections';
 
 const RESULT = 'results';
 const REGISTER = 'register';

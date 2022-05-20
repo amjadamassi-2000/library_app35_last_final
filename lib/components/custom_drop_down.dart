@@ -104,16 +104,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   dropdownValue = newValue;
                 });
               },
-              items: widget.list.map<DropdownMenuItem<Section>>((dynamic value) {
+              items: widget.list.map<DropdownMenuItem<DropDownButtonListItem>>((dynamic value) {
 
-                return DropdownMenuItem<Section>(
+                return DropdownMenuItem<DropDownButtonListItem>(
                   value: value,
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child:  Center(
                       child: Text(
-                        value is Section
-                            ? value.name
+                        value is DropDownButtonListItem
+                            ? value.title
                             : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
                         style: GoogleFonts.cairo(
                           fontSize: 15,

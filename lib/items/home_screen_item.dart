@@ -232,11 +232,17 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
             padding: EdgeInsets.symmetric(horizontal: 30)
                 .add(EdgeInsets.only(top:0)),
             child: myButton("عرض النتائج", () {
+                  cubit.userResult(section_id:myvalue1,sub_section_id:myvalue2,sub_sub_section_id:myvalue3 , categories: myvalue4,title_id: widget.titles.id ).then((value) {
 
+                    print({cubit.resultModel.files.length});
+                    print("هداا طول المصفوفة ");
+                    return To(context ,ResultScreen(myvalue1,myvalue2,myvalue3,myvalue4) );
+                  }
+
+                  );
 
               Adinterstitial.showInterstitialAd();
 
-              To(context ,ResultScreen() );
 
 
             }),
