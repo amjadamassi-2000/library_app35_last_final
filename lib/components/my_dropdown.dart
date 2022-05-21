@@ -41,33 +41,36 @@ class _my_dropdownState extends State<my_dropdown> {
         ),
         child: IgnorePointer(
           ignoring: false,
-          child: DropdownButton(
-             hint: Text('اختر المرحلة')
-            ,
-            isExpanded: true,
-            value: widget.myvalue,
+          child: DropdownButtonHideUnderline(
 
-            onChanged:   widget.MychangeMethod,
+            child: DropdownButton(
+               hint: Text('اختر المرحلة')
+              ,
+              isExpanded: true,
+              value: widget.myvalue,
+
+              onChanged:   widget.MychangeMethod,
 
 
-          //     (value) {
-            //   setState(() async{
-            //
-            //   //  widget.myvalue = value;
-            //   //   print(value);
-            //   // await cubit.getSection(id: value);
-            //   // print(cubit.sectionModel.status);
-            //   //
-            //   //   print('$valueتم بنجاح ');
-            //   });
-            // },
-            items: widget.titles
-                .map(
+            //     (value) {
+              //   setState(() async{
+              //
+              //   //  widget.myvalue = value;
+              //   //   print(value);
+              //   // await cubit.getSection(id: value);
+              //   // print(cubit.sectionModel.status);
+              //   //
+              //   //   print('$valueتم بنجاح ');
+              //   });
+              // },
+              items: widget.titles
+                  .map(
 
-                    (e) {
-                      return DropdownMenuItem(value: e.id, child: Text(e.name));
-                    })
-                .toList(),
+                      (e) {
+                        return DropdownMenuItem(value: e.id, child: Text(e.name));
+                      })
+                  .toList(),
+            ),
           ),
         ),
       ),

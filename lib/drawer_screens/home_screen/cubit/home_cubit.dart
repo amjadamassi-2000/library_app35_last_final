@@ -139,5 +139,37 @@ int categories
     });
   }
 
+  List <Sections> favoriteSection = [];
+  void toggleFavorite( SectionlId){
+    final existingIndex = favoriteSection.indexWhere((Section)=> Section.id == SectionlId);
+    if(existingIndex >= 0){
+
+      //setState
+      favoriteSection.removeAt(existingIndex);
+      emit(RemoveFavoriteSuccessState());
+    }else{
+//setState
+      favoriteSection.add(allSectionModel.sections.firstWhere((Section) => Section.id == SectionlId));
+        print('${favoriteSection[0].name} هدااااااااااااااااااااا   الميل ');
+        print('${favoriteSection[1].name} هدااااااااااااااااااااا   الميل ');
+      print('${favoriteSection[2].name} هدااااااااااااااااااااا   الميل ');
+      print('${favoriteSection[3].name} هدااااااااااااااااااااا   الميل ');
+      print('${favoriteSection[4].name} هدااااااااااااااااااااا   الميل ');
+      print('${favoriteSection[5].name} هدااااااااااااااااااااا   الميل ');
+
+      emit(AddFavoriteErrorState());
+
+
+    }
+
+
+  }
+bool isfav=false;
+ ChangeFavorite(bool isfavorite){
+  isfav= isfavorite;
+  print(isfavorite);
+    emit(ChangeFavoriteState());
+
+}
 
 }

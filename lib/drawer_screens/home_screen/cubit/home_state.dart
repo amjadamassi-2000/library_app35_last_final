@@ -20,3 +20,6 @@ class ResultDataErrorState extends libraryStates {}
 class GetAllSectionLoadingState extends libraryStates {}
 class GetAllSectionSuccessState extends libraryStates {}
 class GetAllSectionErrorState extends libraryStates {}
+class RemoveFavoriteSuccessState extends libraryStates {}
+class AddFavoriteErrorState extends libraryStates {}
+class ChangeFavoriteState extends libraryStates {}

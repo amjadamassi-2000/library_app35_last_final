@@ -159,9 +159,9 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                           }),
 
                         if (widget.titles.categories.isNotEmpty)
-                          my_dropdown(widget.titles.categories,myvalue3,MychangeMethod: (val){
+                          my_dropdown(widget.titles.categories,myvalue4,MychangeMethod: (val){
                             setState(() {
-                              myvalue3=val;
+                              myvalue4=val;
                             });
 
                           }),
