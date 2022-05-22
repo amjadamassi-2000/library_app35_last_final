@@ -1,46 +1,29 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/size_extension.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:library_app/components/global_componnets.dart';
-import 'package:library_app/drawer_screens/favorite_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../components/global_componnets.dart';
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../models/all_Section.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../shared/shared_pref_helper.dart';
-
-class FavoriteItem extends StatefulWidget {
+class myfav extends StatefulWidget {
   final Sections sections;
 
-  FavoriteItem(this.sections);
+   myfav( this.sections) ;
 
   @override
-  State<FavoriteItem> createState() => _FavoriteItemState();
+  State<myfav> createState() => _myfavState();
 }
 
-class _FavoriteItemState extends State<FavoriteItem> {
-   bool isFavorite = false;
-
-  // SharedPreferences prf=SharedPreferences.getInstance() as SharedPreferences;
-
-   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-
-   }
+class _myfavState extends State<myfav> {
+  bool isFavorite=true;
 
   @override
   Widget build(BuildContext context) {
+
     LibraryCubit cubit = LibraryCubit.get(context);
+
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w)
-          .add(EdgeInsets.only(top: 8.h, bottom: 2)),
+      padding:  EdgeInsets.symmetric(horizontal: 10.w).add(EdgeInsets.only(top: 8.h , bottom: 2)),
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
@@ -57,7 +40,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
             BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
                 offset: Offset(5, 0),
-                blurRadius: 3.0,
+                blurRadius:3.0,
                 spreadRadius: 0),
           ],
         ),
@@ -68,32 +51,23 @@ class _FavoriteItemState extends State<FavoriteItem> {
             children: [
               myText(
                 "${widget.sections.name}",
+
                 13,
                 FontWeight.w600,
               ),
+
               IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite,
-                  size: 30,
-                  color: cubit.favouritesProduct.contains(widget.sections)?Colors.red : Colors.grey,
-                ),
-                onPressed: ()  {
-                 //  SharedPreferences preferences=await SharedPreferences.getInstance();
-                 //
-                 // // Sections favourites=Sections(name: widget.sections.name,id: widget.sections.id);
-                 // String favourites=jsonEncode(cubit.favouritesProduct);
-                 //  preferences.setString('favourites', favourites);
-                 //  print(jsonDecode(preferences.getString('favourites')));
+                icon: Icon(isFavorite?Icons.favorite:Icons.favorite , size: 30, color: isFavorite?Colors.red:Colors.grey, ),
+                onPressed: ()async{
+                  await SharedPrefHelper.sharedPrefHelper.initSharedPrefs();
+
                   setState(() {
+                   cubit.onPressedFavouriteButton(widget.sections.id);
+                    isFavorite=(!isFavorite);
 
-                    cubit.onPressedFavouriteButton(widget.sections.id);
-
-                    isFavorite = (!isFavorite);
                   });
                   print('تم بنجاح');
-                  cubit.favouritesProduct.forEach((element) {
-                    print(element.name);
-                  });
+                  cubit.favouritesProduct.forEach((element) {print(element.name);});
                   // print(cubit.favouritesProduct[0].name.toString());
                   //sharedPrefHelper.isProductInFavourite(widget.sections.id)
 

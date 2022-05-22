@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         builder: (context, state) {
           LibraryCubit cubit = LibraryCubit.get(context);
-          return cubit.homeModel!=null? Directionality(
+          return cubit.homeModel!=null&&cubit.appModel!=null? Directionality(
               textDirection: TextDirection.rtl,
               child: Scaffold(
                 backgroundColor: primaryColor,
@@ -97,8 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       ),
-                                      Image.asset(
-                                        "assets/images/lib_logo.png",
+                                      Image.network(
+                                        '${cubit.appModel.app.logo}',
                                         width: 170,
                                         height: constraint.maxHeight * 0.7,),
                                     ],

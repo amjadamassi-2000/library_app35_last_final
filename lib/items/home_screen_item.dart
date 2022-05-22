@@ -15,10 +15,11 @@ import '../models/home_model.dart';
 import '../models/section_model.dart';
 
 class HomeScreenItem extends StatefulWidget {
-final   Titles titles;
-final SectionModel sectionModel;
-final SubSectionModel subsectionModel;
-   HomeScreenItem( this.titles, this.sectionModel, this.subsectionModel) ;
+  final Titles titles;
+  final SectionModel sectionModel;
+  final SubSectionModel subsectionModel;
+
+  HomeScreenItem(this.titles, this.sectionModel, this.subsectionModel);
 
   //  final HomeData homeData;
   // HomeScreenItem(this.homeData);
@@ -28,7 +29,6 @@ final SubSectionModel subsectionModel;
 }
 
 class _HomeScreenItemState extends State<HomeScreenItem> {
-
   String _selectedstage;
 
   List<String> stages = ['الجامعي', 'الإبتدائي', 'الثانوي', 'الإعدادي'];
@@ -37,226 +37,212 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
   int myvalue3;
   int myvalue4;
 
-
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Adinterstitial.loadInterstitialAd();
-
   }
 
   @override
   Widget build(BuildContext context) {
     LibraryCubit cubit = LibraryCubit.get(context);
 
-
-
-        return widget.subsectionModel!=null&&widget.titles!=null&&cubit.sectionModel!=null&&cubit.subsectionModel!=null&&cubit.homeModel!=null?
-        Column(
-        children: [
-
-         // SizedBox(height: 200,),
-          if (widget.titles.section .isNotEmpty)
-
-          Row(
+    return widget.subsectionModel != null &&
+            widget.titles != null &&
+            cubit.sectionModel != null &&
+            cubit.subsectionModel != null &&
+            cubit.homeModel != null
+        ? Column(
             children: [
-              Expanded(
-                child: Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                  indent: 20,
+              // SizedBox(height: 200,),
+              if (widget.titles.section.isNotEmpty)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        indent: 20,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: myText(
+                        widget.titles.name,
+                        15,
+                        FontWeight.w400,
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        endIndent: 20,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-
-                Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-
-                child: myText(
-               widget.titles.name,
-                  15,
-                  FontWeight.w400,
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                  endIndent: 20,
-                ),
-              ),
-            ],
-          ),
 
 //        SizedBox(height: 10.h,),
 
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    minHeight: 100.0,
+                    maxHeight: 300.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 20, top: 20),
+                    child: Scrollbar(
+                      radius: Radius.circular(50),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            if (widget.titles.section.isNotEmpty)
+                              my_dropdown(widget.titles.section, myvalue1,
+                                  MychangeMethod: (val) {
+                                setState(() {
+                                  myvalue1 = val;
+                                  widget.sectionModel.sub = [];
+                                  widget.subsectionModel.sub = [];
+                                  myvalue2 = null;
+                                  myvalue3 = null;
 
+                                  print(
+                                      '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                                  myvalue1 = val;
+                                  cubit.getSection(id: val);
+                                  print(cubit.sectionModel.sub.isEmpty);
+                                  print(val.toString());
+                                  print(cubit.subsectionModel.status);
+                                });
+                              }),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              width: double.infinity,
-              constraints: BoxConstraints(
-                minHeight: 100.0,
-                maxHeight: 300.0,
-              ),
+                            if (widget.titles.subSection.isNotEmpty)
+                              my_dropdown(widget.sectionModel.sub, myvalue2,
+                                  MychangeMethod: (val) {
+                                setState(() {
+                                  myvalue3 = null;
+                                  widget.subsectionModel.sub = [];
+                                  print(myvalue2);
+                                  cubit.getsubSection(id: val);
+                                  myvalue2 = val;
+                                  print(val.toString());
+                                });
+                              }),
+                            if (widget.titles.subSubSection.isNotEmpty)
+                              my_dropdown(widget.subsectionModel.sub, myvalue3,
+                                  MychangeMethod: (val) {
+                                setState(() {
+                                  myvalue3 = val;
+                                });
+                              }),
 
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Padding(
-                padding:  EdgeInsets.only(bottom: 20 , top: 20),
-                child: Scrollbar(
-                  radius: Radius.circular(50),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
+                            if (widget.titles.categories.isNotEmpty)
+                              my_dropdown(widget.titles.categories, myvalue4,
+                                  MychangeMethod: (val) {
+                                setState(() {
+                                  myvalue4 = val;
+                                });
+                              }),
 
-                        if (widget.titles.section .isNotEmpty)
+                            // Padding(
+                            //   padding: EdgeInsets.symmetric(horizontal: 20),
+                            //
+                            //   child: Container(
+                            //     height: MediaQuery.of(context).size.height * 0.08,
+                            //     alignment: Alignment.center,
+                            //     padding: EdgeInsets.symmetric(horizontal: 10),
+                            //     decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(15),
+                            //       color: Colors.white,
+                            //       border: Border.all(
+                            //         width: 2,
+                            //         color: Colors.grey.shade300,
+                            //       ),
+                            //     ),
+                            //
+                            //     child: DropdownButton(
+                            //       isExpanded: true,
+                            //
+                            //       value: myvalue,
+                            //       onChanged: (value){
+                            //         setState(() {
+                            //           myvalue=value;
+                            //         });
+                            //
+                            //       },
+                            //       items:widget.titles.section.map((e) => DropdownMenuItem(value: e.name,child: Text(e.name))).toList() ,
+                            //     ),
+                            //   ),
+                            // ),
 
+                            //
+                            //  CustomDropDown(widget.titles.subSection ,onSelect: (){},),
+                            //
+                            // if(widget.titles.subSubSection .isNotEmpty)
+                            //  CustomDropDown(widget.titles.subSubSection,onSelect: (){},),
 
-                          my_dropdown(widget.titles.section,myvalue1,MychangeMethod: (val){
-                            setState(() {
-                           myvalue1=val;
-                               widget.sectionModel.sub=[];
-                           widget.subsectionModel.sub=[];
-                               myvalue2=null;
-                           myvalue3=null;
-
-                           print( '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
-                           myvalue1=val;
-                                 cubit.getSection(id: val);
-                              print(cubit.sectionModel.sub.isEmpty);
-                               print(val.toString());
-                               print(cubit.subsectionModel.status);
-
-
-                            });
-
-
-                          }),
-
-                         if (widget.titles.subSection .isNotEmpty)
-                   my_dropdown(widget.sectionModel.sub,myvalue2,MychangeMethod: (val){
-           setState(() {
-             myvalue3=null;
-             widget.subsectionModel.sub=[];
-        print(myvalue2);
-              cubit.getsubSection(id: val);
-             myvalue2=val;
-             print(val.toString());
-           });
-                           }),
-                        if (widget.titles.subSubSection .isNotEmpty)
-                          my_dropdown(widget.subsectionModel.sub,myvalue3,MychangeMethod: (val){
-                            setState(() {
-                              myvalue3=val;
-                            });
-
-                          }),
-
-                        if (widget.titles.categories.isNotEmpty)
-                          my_dropdown(widget.titles.categories,myvalue4,MychangeMethod: (val){
-                            setState(() {
-                              myvalue4=val;
-                            });
-
-                          }),
-
-                        // Padding(
-                       //   padding: EdgeInsets.symmetric(horizontal: 20),
-                       //
-                       //   child: Container(
-                       //     height: MediaQuery.of(context).size.height * 0.08,
-                       //     alignment: Alignment.center,
-                       //     padding: EdgeInsets.symmetric(horizontal: 10),
-                       //     decoration: BoxDecoration(
-                       //       borderRadius: BorderRadius.circular(15),
-                       //       color: Colors.white,
-                       //       border: Border.all(
-                       //         width: 2,
-                       //         color: Colors.grey.shade300,
-                       //       ),
-                       //     ),
-                       //
-                       //     child: DropdownButton(
-                       //       isExpanded: true,
-                       //
-                       //       value: myvalue,
-                       //       onChanged: (value){
-                       //         setState(() {
-                       //           myvalue=value;
-                       //         });
-                       //
-                       //       },
-                       //       items:widget.titles.section.map((e) => DropdownMenuItem(value: e.name,child: Text(e.name))).toList() ,
-                       //     ),
-                       //   ),
-                       // ),
-
-
-
-                        //
-                        //  CustomDropDown(widget.titles.subSection ,onSelect: (){},),
-                        //
-                        // if(widget.titles.subSubSection .isNotEmpty)
-                        //  CustomDropDown(widget.titles.subSubSection,onSelect: (){},),
-
-
-
-
-
-
-                        // ListView.builder(
-                        //   physics: NeverScrollableScrollPhysics(),
-                        //     shrinkWrap: true,
-                        //     itemCount: widget.titles.section.length,
-                        //     itemBuilder: (context, index) {
-                        //       return CustomDropDown();
-                        //     }),
-                      ],
+                            // ListView.builder(
+                            //   physics: NeverScrollableScrollPhysics(),
+                            //     shrinkWrap: true,
+                            //     itemCount: widget.titles.section.length,
+                            //     itemBuilder: (context, index) {
+                            //       return CustomDropDown();
+                            //     }),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
 
-          if (widget.titles.section .isNotEmpty)
+              if (widget.titles.section.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30)
+                      .add(EdgeInsets.only(top: 0)),
+                  child: myButton("عرض النتائج", () async{
+                  await  cubit
+                        .userResult(
+                            section_id: myvalue1,
+                            sub_section_id: myvalue2,
+                            sub_sub_section_id: myvalue3,
+                            categories: myvalue4,
+                            title_id: widget.titles.id)
+                        .then((value) {
+                      print({cubit.resultModel.files.length});
+                      print("هداا طول المصفوفة ");
+                      return To(
+                          context,
+                          ResultScreen(myvalue1, myvalue2, myvalue3, myvalue4,
+                              widget.titles));
+                    });
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30)
-                .add(EdgeInsets.only(top:0)),
-            child: myButton("عرض النتائج", () {
-                  cubit.userResult(section_id:myvalue1,sub_section_id:myvalue2,sub_sub_section_id:myvalue3 , categories: myvalue4,title_id: widget.titles.id ).then((value) {
-
-                    print({cubit.resultModel.files.length});
-                    print("هداا طول المصفوفة ");
-                    return To(context ,ResultScreen(myvalue1,myvalue2,myvalue3,myvalue4) );
-                  }
-
-                  );
-
-              Adinterstitial.showInterstitialAd();
-
-
-
-            }),
-          ),
-          SizedBox(height: 20,),
+                    Adinterstitial.showInterstitialAd();
+                  }),
+                ),
+              SizedBox(
+                height: 20,
+              ),
 
 //        Divider(
 //          color: Colors.grey,
 //          indent: 30,
 //          endIndent: 30,
 //        ),
-        ],
-      ):Center(child: CircularProgressIndicator());
-      }
-
-
+            ],
+          )
+        : Center(child: CircularProgressIndicator());
+  }
 }

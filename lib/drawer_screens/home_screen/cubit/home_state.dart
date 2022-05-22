@@ -21,5 +21,10 @@ class GetAllSectionLoadingState extends libraryStates {}
 class GetAllSectionSuccessState extends libraryStates {}
 class GetAllSectionErrorState extends libraryStates {}
 class RemoveFavoriteSuccessState extends libraryStates {}
-class AddFavoriteErrorState extends libraryStates {}
+class AddFavoriteSuccessState  extends libraryStates {}
+class isProductInFavouriteState  extends libraryStates {}
+
 class ChangeFavoriteState extends libraryStates {}
+class GetAppDataLoadingState extends libraryStates {}
+class GetAppDataSuccessState extends libraryStates {}
+class GetAppDataErrorState extends libraryStates {}

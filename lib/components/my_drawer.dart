@@ -9,6 +9,7 @@ import 'package:library_app/drawer_screens/settings_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
+import '../shared/shared_pref_helper.dart';
 import 'global_componnets.dart';
 
 
@@ -68,7 +69,7 @@ class _MyDrawerState extends State<MyDrawer> {
                SizedBox(
                  height: 100.h,
                ),
-               Image.asset("assets/images/lib_logo.png", width:  150,),
+               Image.network(cubit.appModel.app.logo, width:  150,),
                SizedBox(
                  height: 10.h,
                ),
@@ -97,8 +98,10 @@ class _MyDrawerState extends State<MyDrawer> {
             myListTielStatic(
               "المفضلة",
               Icon(Icons.favorite, color: Colors.white),
-                  () {
-                ToAndFinish(context, FavoriteScreen());
+                  () async{
+                 await   SharedPrefHelper.sharedPrefHelper.initSharedPrefs();
+                  cubit.getAllFavouriteProducts();
+                    ToAndFinish(context, FavoriteScreen());
               },
             ),
 

@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/all_Section.dart';
+import '../../../models/app_model.dart';
 import '../../../models/drawer_model.dart';
 import '../../../models/home_model.dart';
 import '../../../models/result_model.dart';
@@ -10,6 +11,7 @@ import '../../../models/section_model.dart';
 import '../../../models/sub_sectionModel.dart';
 import '../../../shared/constants.dart';
 import '../../../shared/remote/dio_helper.dart';
+import '../../../shared/shared_pref_helper.dart';
 import 'home_state.dart';
 
 class LibraryCubit extends Cubit<libraryStates> {
@@ -84,12 +86,14 @@ class LibraryCubit extends Cubit<libraryStates> {
   }
   ResultModel resultModel;
   Future <void> userResult({
+    String search,
    int title_id,
  int   section_id
     ,
    int sub_section_id,
     int sub_sub_section_id,
-int categories
+int categories,
+    String sort
 
   }) async {
     emit(ResultDataLoadingState());
@@ -102,7 +106,9 @@ int categories
           'section_id': section_id,
           'sub_section_id': sub_section_id,
           'sub_sub_section_id':sub_sub_section_id,
-          'categories':categories
+          'categories':categories,
+          'sort':sort,
+          'search':search
 
         }).then((value) {
       resultModel = ResultModel.fromJson(value.data);
@@ -138,38 +144,98 @@ int categories
       print(error.toString());
     });
   }
+  AppModel appModel;
 
-  List <Sections> favoriteSection = [];
-  void toggleFavorite( SectionlId){
-    final existingIndex = favoriteSection.indexWhere((Section)=> Section.id == SectionlId);
-    if(existingIndex >= 0){
+  void getAppData() async {
+    emit(HomeLoadingState());
+    await DioHelper.getData(
+      url: APP,
 
-      //setState
-      favoriteSection.removeAt(existingIndex);
-      emit(RemoveFavoriteSuccessState());
-    }else{
-//setState
-      favoriteSection.add(allSectionModel.sections.firstWhere((Section) => Section.id == SectionlId));
-        print('${favoriteSection[0].name} هدااااااااااااااااااااا   الميل ');
-        print('${favoriteSection[1].name} هدااااااااااااااااااااا   الميل ');
-      print('${favoriteSection[2].name} هدااااااااااااااااااااا   الميل ');
-      print('${favoriteSection[3].name} هدااااااااااااااااااااا   الميل ');
-      print('${favoriteSection[4].name} هدااااااااااااااااااااا   الميل ');
-      print('${favoriteSection[5].name} هدااااااااااااااااااااا   الميل ');
-
-      emit(AddFavoriteErrorState());
+    ).then((value) {
+      appModel = AppModel.fromJson(value.data);
+      print('${appModel.message} ');
+      print('تم جلب البيانات بنجاح ');
 
 
-    }
 
+
+      emit(HomeSuccessState());
+    }).catchError((error) {
+      emit(HomeErrorState());
+      print(error.toString());
+    });
+  }
+  List<Sections> favouritesProduct=[];
+  final sharedPrefHelper = SharedPrefHelper.sharedPrefHelper;
+
+  getAllFavouriteProducts() {
+    favouritesProduct = allSectionModel.sections
+        .where((product) => sharedPrefHelper.isProductInFavourite(product.id))
+        .toList();
+    emit(AddFavoriteSuccessState());
+  }
+
+  addProductToFavourite(int id) {
+    sharedPrefHelper.addProductToFavourite(id);
+    getAllFavouriteProducts();
+  }
+  deleteProductFromFavourite(int id) {
+    sharedPrefHelper.deleteProductFromFavourite(id);
+    getAllFavouriteProducts();
+  }
+
+  onPressedFavouriteButton(int id) {
+    sharedPrefHelper.isProductInFavourite(id)
+        ? deleteProductFromFavourite(id)
+        : addProductToFavourite(id);
+  }
+  isProductInFavourite(id){
+    sharedPrefHelper.isProductInFavourite(id);
+
+emit(isProductInFavouriteState());
 
   }
-bool isfav=false;
- ChangeFavorite(bool isfavorite){
-  isfav= isfavorite;
-  print(isfavorite);
-    emit(ChangeFavoriteState());
+  Sections singleProduct;
+  //
+  // getSingleProduct(int id) async {
+  //   singleProduct = null;
+  //   Map product = await apiHelper.getSingleProduct(id);
+  //   singleProduct = Sections.fromJson(product);
+  //   notifyListeners();
+  // }
 
-}
+
+//   List <Sections> favoriteSection = [];
+//   void toggleFavorite( SectionlId){
+//     final existingIndex = favoriteSection.indexWhere((Section)=> Section.id == SectionlId);
+//     if(existingIndex >= 0){
+//
+//       //setState
+//       favoriteSection.removeAt(existingIndex);
+//       emit(RemoveFavoriteSuccessState());
+//     }else{
+// //setState
+//       favoriteSection.add(allSectionModel.sections.firstWhere((Section) => Section.id == SectionlId));
+//         print('${favoriteSection[0].name} هدااااااااااااااااااااا   الميل ');
+//         print('${favoriteSection[1].name} هدااااااااااااااااااااا   الميل ');
+//       print('${favoriteSection[2].name} هدااااااااااااااااااااا   الميل ');
+//       print('${favoriteSection[3].name} هدااااااااااااااااااااا   الميل ');
+//       print('${favoriteSection[4].name} هدااااااااااااااااااااا   الميل ');
+//       print('${favoriteSection[5].name} هدااااااااااااااااااااا   الميل ');
+//
+//       emit(AddFavoriteSuccessState());
+//
+//
+//     }
+//
+//
+//   }
+// bool isfav=false;
+//  ChangeFavorite(bool isfavorite){
+//   isfav= isfavorite;
+//   print(isfavorite);
+//     emit(ChangeFavoriteState());
+//
+// }
 
 }

@@ -16,8 +16,8 @@ DropDownButtonListItem _selectedstage;
 
 List<DropDownButtonListItem> stages = [
 
-  DropDownButtonListItem("الاعدادية"),
-  DropDownButtonListItem("الأبتدائية"),
+  DropDownButtonListItem("الاعدادية",1),
+  DropDownButtonListItem("الأبتدائية",2),
 
 
 ];

@@ -5,7 +5,7 @@ const GET_DRAWER = 'drawer';
 const GET_All_SECTION = 'all-sections';
 
 const RESULT = 'results';
-const REGISTER = 'register';
+const APP = 'app';
 const PROFILE = 'profile';
 const UPDATE_PROFILE = 'update-profile';
 const CARTS = 'carts';

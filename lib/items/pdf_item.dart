@@ -95,6 +95,7 @@ class _PdfItemState extends State<PdfItem> {
                         color: Colors.green,
                         child: Transform.rotate(
                           angle: 170.4,
+
                           child:  Text(
 
                             "جديد",
@@ -186,8 +187,16 @@ class _PdfItemState extends State<PdfItem> {
                         Icon(Icons.share , color: Colors.white,),
                         
                         ()async{
+                          var readLines = ['${widget.pdf.name}', ' ${widget.pdf.appLink}'];
+                          String getNewLineString() {
+                            StringBuffer sb =  StringBuffer();
+                            for (String line in readLines) {
+                              sb.write(line + "\n");
+                            }
+                            return sb.toString();
+                          }
                           if(widget.pdf.name.isNotEmpty){
-                            await Share.share('${widget.pdf.name}/n ${widget.pdf.fileLink}');
+                            await Share.share(getNewLineString());
                             
                           }
                         },

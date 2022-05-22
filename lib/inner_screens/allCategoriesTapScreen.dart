@@ -19,7 +19,7 @@ class _AllCategoriesTapScreenState extends State<AllCategoriesTapScreen> {
     LibraryCubit cubit = LibraryCubit.get(context);
 
     return   ListView.builder(
-        itemCount: cubit.allSectionModel.sections.length,
+        itemCount: cubit.allSectionModel.sections.length??0,
         itemBuilder: (context , index){
           return FavoriteItem(cubit.allSectionModel.sections[index]);
         }

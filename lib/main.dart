@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:library_app/shared/bloc_observer.dart';
 import 'package:library_app/shared/remote/dio_helper.dart';
+import 'package:library_app/shared/shared_pref_helper.dart';
 import 'package:library_app/styles/themes.dart';
 
 import 'drawer_screens/home_screen/cubit/home_cubit.dart';
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
             ),
             providers: [
               BlocProvider(
-                create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection(),
+                create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAppData(),
 
               ),
 
