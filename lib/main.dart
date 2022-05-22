@@ -22,11 +22,11 @@ void main() {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  //MobileAds.instance.initialize();
-  RequestConfiguration config = RequestConfiguration(
-    testDeviceIds: <String> ["E8F901B8C95DCC8C292B9D20E9454B0B"],
-  );
-  MobileAds.instance.updateRequestConfiguration(config);
+  MobileAds.instance.initialize();
+//  RequestConfiguration config = RequestConfiguration(
+//    testDeviceIds: <String> ["E8F901B8C95DCC8C292B9D20E9454B0B"],
+//  );
+//  MobileAds.instance.updateRequestConfiguration(config);
 
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
