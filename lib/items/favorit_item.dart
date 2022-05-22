@@ -69,7 +69,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
               myText(
                 "${widget.sections.name}",
                 13,
-                FontWeight.w600,
+                FontWeight.w400,
               ),
               IconButton(
                 icon: Icon(

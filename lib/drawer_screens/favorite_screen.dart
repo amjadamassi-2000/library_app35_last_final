@@ -92,10 +92,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   Tab(
                                    child: Text(
                                      "المفضلة",
-                                     style: GoogleFonts.cairo(
+                                     style: TextStyle(
                                        fontSize: 12.sp,
                                        color: Colors.white,
                                        fontWeight: FontWeight.bold,
+                                       fontFamily: "cairo",
+
                                      ),
                                    ),
                                   ),
@@ -103,10 +105,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   Tab(
                                     child: Text(
                                       "كل الأقسام",
-                                      style: GoogleFonts.cairo(
+                                      style:TextStyle(
                                         fontSize: 12.sp,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "cairo",
                                       ),
                                     ),
                                   ),

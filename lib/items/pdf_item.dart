@@ -146,7 +146,7 @@ class _PdfItemState extends State<PdfItem> {
                                   title : myText(
                                     "هل تريد بالتأكيد حفظ الملف ؟ ",
                                     14,
-                                    FontWeight.w600,
+                                    FontWeight.w400,
                                   ),
                                   actions: <Widget>[
 

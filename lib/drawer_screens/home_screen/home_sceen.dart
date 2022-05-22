@@ -6,6 +6,7 @@ import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/global_componnets.dart';
+import 'package:library_app/components/my_app_banner.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'package:library_app/dummy_data/home_screen_data.dart';
@@ -17,66 +18,52 @@ import 'cubit/home_state.dart';
 //import 'favorite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   String _selectedstage;
 
 //  List<String> stages = ['الجامعي', 'الإبتدائي', 'الثانوي', 'الإعدادي'];
 
 //  bool _switchValue=true;
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LibraryCubit, libraryStates>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           LibraryCubit cubit = LibraryCubit.get(context);
-          return cubit.homeModel!=null&&cubit.appModel!=null? Directionality(
-              textDirection: TextDirection.rtl,
-              child: Scaffold(
-                backgroundColor: primaryColor,
-                drawer: MyDrawer(),
-                body: SafeArea(
-                  child: Stack(
-                    children: [
-                      Column(
+          return cubit.homeModel != null && cubit.appModel != null
+              ? Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Scaffold(
+                    backgroundColor: primaryColor,
+                    drawer: MyDrawer(),
+                    body: SafeArea(
+                      child: Stack(
                         children: [
-
-
-                          SizedBox(
-                            height: (MediaQuery
-                                .of(context)
-                                .size
-                                .height - MediaQuery
-                                .of(context)
-                                .padding
-                                .top) * 0.25,
-                            child: LayoutBuilder(
-                              builder: (ctx, constraint) =>
-                                  Column(
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: (MediaQuery.of(context).size.height -
+                                        MediaQuery.of(context).padding.top) *
+                                    0.25,
+                                child: LayoutBuilder(
+                                  builder: (ctx, constraint) => Column(
                                     // mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-
                                       SizedBox(
                                         height: constraint.maxHeight * 0.3,
-
                                         child: Row(
                                           children: [
                                             Builder(
                                               builder: (BuildContext ctx) {
                                                 return IconButton(
                                                   icon: CircleAvatar(
-                                                    backgroundColor:
-                                                    Colors.grey.shade100
+                                                    backgroundColor: Colors
+                                                        .grey.shade100
                                                         .withOpacity(0.3),
                                                     child: Icon(
                                                       Icons.menu,
@@ -87,9 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Scaffold.of(ctx)
                                                         .openDrawer();
                                                   },
-                                                  tooltip: MaterialLocalizations
-                                                      .of(context)
-                                                      .openAppDrawerTooltip,
+                                                  tooltip:
+                                                      MaterialLocalizations.of(
+                                                              context)
+                                                          .openAppDrawerTooltip,
                                                 );
                                               },
                                             ),
@@ -100,69 +88,78 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Image.network(
                                         '${cubit.appModel.app.logo}',
                                         width: 170,
-                                        height: constraint.maxHeight * 0.7,),
+                                        height: constraint.maxHeight * 0.7,
+                                      ),
                                     ],
                                   ),
-                            ),
-                          ),
-
-
-                          Container(
-                            width: double.infinity,
-                            height: (MediaQuery
-                                .of(context)
-                                .size
-                                .height - MediaQuery
-                                .of(context)
-                                .padding
-                                .top) * 0.75,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
+                                ),
                               ),
-                            ),
-
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Scrollbar(
-                                    thickness: 5,
-                                    radius: Radius.circular(50),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 30, bottom: 20),
-                                      child: ListView.builder(
-                                          itemCount: cubit.homeModel.titles.length,
-                                          itemBuilder: (context, index) {
-                                            return
-
-                                                  HomeScreenItem(cubit.homeModel.titles[index],cubit.sectionModel,cubit.subsectionModel);
-
-
-                                          }
-                                      ),
-                                    ),
+                              Container(
+                                width: double.infinity,
+                                height: (MediaQuery.of(context).size.height -
+                                        MediaQuery.of(context).padding.top) *
+                                    0.75,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50),
                                   ),
                                 ),
-
-
-                              ],
-                            ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    MyAppBanner(
+                                      "https://www.facebook.com/amjad.abed.948",
+//                                  myText(
+//                                    "اضغط هنا لمشاهدة شرح تحميل الملفات",
+//                                    14,
+//                                    FontWeight.w400,
+//                                  ),
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          "https://img.freepik.com/free-psd/modern-furniture-sale-facebook-cover-web-banner-psd-template_76687-155.jpg?w=900",
+                                            width: 400,
+                                            height: 70,
+                                            fit:BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Scrollbar(
+                                        thickness: 5,
+                                        radius: Radius.circular(50),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                                  top: 30, bottom: 35)
+                                              .add(EdgeInsets.symmetric(
+                                                  horizontal: 10)),
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  cubit.homeModel.titles.length,
+                                              itemBuilder: (context, index) {
+                                                return HomeScreenItem(
+                                                    cubit.homeModel
+                                                        .titles[index],
+                                                    cubit.sectionModel,
+                                                    cubit.subsectionModel);
+                                              }),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
 
-
-                      Align(
-                        alignment: Alignment.bottomCenter,
-
-                        child: AdBanner2(),
-                      ),
-
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: AdBanner2(),
+                          ),
 
 //              Column(
 //                crossAxisAlignment: CrossAxisAlignment.center,
@@ -179,34 +176,27 @@ class _HomeScreenState extends State<HomeScreen> {
 ////                ),
 //                ],
 //              ),
-                    ],
-                  ),
-                ),
-
-              )
-
-          ):Scaffold(
-
-
-        body:  Stack(children: [
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width:      MediaQuery.of(context).size.width,
-
-              child: Image.asset('assets/images/123.png')),
-          Center(child: CircularProgressIndicator(color: Colors.red,strokeWidth: 10,))
-
-        ],
-
-        ));
-        }
-
-          );
-        }
-
+                        ],
+                      ),
+                    ),
+                  ))
+              : Scaffold(
+                  body: Stack(
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.asset('assets/images/123.png')),
+                    Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.red,
+                      strokeWidth: 10,
+                    ))
+                  ],
+                ));
+        });
   }
-
-
+}
 
 /*
 SingleChildScrollView(

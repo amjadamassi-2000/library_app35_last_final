@@ -213,7 +213,9 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                   padding: EdgeInsets.symmetric(horizontal: 30)
                       .add(EdgeInsets.only(top: 0)),
                   child: myButton("عرض النتائج", () async{
-                  await  cubit
+                    Adinterstitial.showInterstitialAd();
+
+                    await  cubit
                         .userResult(
                             section_id: myvalue1,
                             sub_section_id: myvalue2,
@@ -229,7 +231,6 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                               widget.titles));
                     });
 
-                    Adinterstitial.showInterstitialAd();
                   }),
                 ),
               SizedBox(

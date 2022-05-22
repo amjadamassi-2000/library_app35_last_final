@@ -96,10 +96,12 @@ Widget myListTielStatic(String title , Widget icon  , Function function) =>
               SizedBox(width: 20.w,),
               Text(
                 title,
-                style:  GoogleFonts.cairo(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
+                    fontFamily: 'cairo',
+
                 ),
               ),
 //            Spacer(),
@@ -318,10 +320,12 @@ Column(
             ),
             Text(
               title,
-              style: GoogleFonts.cairo(
+              style: TextStyle(
                 fontSize: 14.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                  fontFamily: 'cairo',
+
               ),
             ),
           ],
@@ -353,10 +357,12 @@ Column(
           children: [
             Text(
               text,
-              style:  GoogleFonts.cairo(
+              style:  TextStyle(
                 fontSize: 12.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                  fontFamily: 'cairo',
+
               ),
             ),
             Padding(

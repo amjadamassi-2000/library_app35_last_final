@@ -53,7 +53,7 @@ class _myfavState extends State<myfav> {
                 "${widget.sections.name}",
 
                 13,
-                FontWeight.w600,
+                FontWeight.w400,
               ),
 
               IconButton(

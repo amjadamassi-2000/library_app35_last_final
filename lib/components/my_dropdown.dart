@@ -44,7 +44,12 @@ class _my_dropdownState extends State<my_dropdown> {
           child: DropdownButtonHideUnderline(
 
             child: DropdownButton(
-               hint: Text('اختر المرحلة')
+               hint: Text('اختر المرحلة' ,
+                 style: TextStyle(
+                     fontFamily: "cairo"
+
+                 ),
+               )
               ,
               isExpanded: true,
               value: widget.myvalue,
@@ -67,7 +72,13 @@ class _my_dropdownState extends State<my_dropdown> {
                   .map(
 
                       (e) {
-                        return DropdownMenuItem(value: e.id, child: Text(e.name));
+                        return DropdownMenuItem(value: e.id, child: Center(
+                          child: Text(e.name ,
+                            style: TextStyle(
+                                fontFamily: "cairo"
+                            ),
+                          ),
+                        ));
                       })
                   .toList(),
             ),

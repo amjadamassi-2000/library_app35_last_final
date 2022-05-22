@@ -9,6 +9,7 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/drop_down/drop_down_button_list_item.dart';
 import 'package:library_app/components/global_componnets.dart';
+import 'package:library_app/components/my_app_banner.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:library_app/items/pdf_item.dart';
@@ -151,7 +152,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                             child: myText(
                                                               "الإسم : ",
                                                               15,
-                                                              FontWeight.w600,
+                                                              FontWeight.w400,
                                                             ),
                                                           ),
                                                           CustomDropDown(
@@ -168,7 +169,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                             child: myText(
                                                               "إضغط هنا : ",
                                                               15,
-                                                              FontWeight.w600,
+                                                              FontWeight.w400,
                                                             ),
                                                           ),
                                                           myButton(" فلتر", () {
@@ -193,7 +194,10 @@ class _ResultScreenState extends State<ResultScreen> {
                                                                 ResultScreen(widget.myvalue1, widget.myvalue2, widget.myvalue3, widget.myvalue4,
                                                                     widget.titles)));
 
-                                                          }),
+                                                            Navigator.of(context).pop();
+
+                                                          }
+                                                          ),
                                                           SizedBox(
                                                             height: 30,
                                                           ),
@@ -240,9 +244,11 @@ class _ResultScreenState extends State<ResultScreen> {
                                           hintText: "بحث",
                                           contentPadding: EdgeInsets.all(12),
                                           isDense: true,
-                                          hintStyle: GoogleFonts.cairo(
+                                          hintStyle:TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
+                                              fontFamily: 'cairo',
+
                                           ),
                                           filled: true,
                                           fillColor:
@@ -297,28 +303,21 @@ class _ResultScreenState extends State<ResultScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30)
-                                .add(EdgeInsets.only(top: 15)),
-                            child: InkWell(
-                              onTap: () {},
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: primaryColor),
-                                  color: Colors.white,
-                                ),
-                                child: myText(
-                                  "اضغط هنا لمشاهدة شرح تحميل الملفات",
-                                  14,
-                                  FontWeight.w600,
-                                ),
-                              ),
+
+                          MyAppBanner(
+                            "https://www.facebook.com/amjad.abed.948",
+                            myText(
+                              "اضغط هنا لمشاهدة شرح تحميل الملفات",
+                              14,
+                              FontWeight.w400,
                             ),
                           ),
+
+
+
+
+
+
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 20),
@@ -331,6 +330,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                         child: Column(
                                           children: [
                                             AdBanner2(),
+                                            SizedBox(height: 10,),
                                             PdfItem(cubit.resultModel.files[index]),
 
                                           ],
