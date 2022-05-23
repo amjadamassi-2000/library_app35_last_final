@@ -227,8 +227,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                       print("هداا طول المصفوفة ");
                       return To(
                           context,
-                          ResultScreen(myvalue1, myvalue2, myvalue3, myvalue4,
-                              widget.titles));
+                          ResultScreen(myvalue1: myvalue1,myvalue2:  myvalue2,myvalue3:  myvalue3,myvalue4:  myvalue4,
+                             titles:  widget.titles));
                     });
 
                   }),

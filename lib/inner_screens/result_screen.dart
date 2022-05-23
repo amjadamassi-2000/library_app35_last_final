@@ -26,8 +26,8 @@ class ResultScreen extends StatefulWidget {
   final myvalue4;
   final Titles titles;
 
-  ResultScreen(this.myvalue1, this.myvalue2, this.myvalue3, this.myvalue4,
-      this.titles);
+  ResultScreen({this.myvalue1, this.myvalue2, this.myvalue3, this.myvalue4,
+      this.titles});
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
@@ -102,8 +102,12 @@ class _ResultScreenState extends State<ResultScreen> {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  Scaffold.of(ctx).openDrawer();
-                                                },
+                                                  cubit.drawerModel!=null?
+                                                  Scaffold.of(ctx)
+                                                      .openDrawer():cubit.getDrawerData().then((value) {
+                                                    return   Scaffold.of(ctx)
+                                                        .openDrawer();
+                                                  });                                                },
                                                 tooltip: MaterialLocalizations
                                                     .of(context)
                                                     .openAppDrawerTooltip,
@@ -189,10 +193,12 @@ class _ResultScreenState extends State<ResultScreen> {
                                                                 widget.myvalue4,
                                                                 sort:
                                                                 _selectedstage.title
-                                                            ).then((value) => ToAndFinish(
+                                                            ).then((value) async{
+                                                              return await ToAndFinish(
                                                                 context,
-                                                                ResultScreen(widget.myvalue1, widget.myvalue2, widget.myvalue3, widget.myvalue4,
-                                                                    widget.titles)));
+                                                                ResultScreen(myvalue1: widget.myvalue1,myvalue2:  widget.myvalue2, myvalue3: widget.myvalue3,myvalue4:  widget.myvalue4,
+                                                                   titles:  widget.titles));
+                                                            });
 
                                                             Navigator.of(context).pop();
 
@@ -303,15 +309,40 @@ class _ResultScreenState extends State<ResultScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-
                           MyAppBanner(
-                            "https://www.facebook.com/amjad.abed.948",
+                            cubit.appModel.app.filepageLink,
+                          cubit.appModel.app.filepageBanner!=null ?  ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(8.0),
+                            child: Image.network(
+
+                              cubit.appModel.app.filepageBanner,
+
+                              width: 400,
+                              height: 70,
+                              fit:BoxFit.fitWidth,
+                            ),
+                          ):
+
+
+
+
                             myText(
-                              "اضغط هنا لمشاهدة شرح تحميل الملفات",
+                              cubit.appModel.app.filepageText??'',
                               14,
                               FontWeight.w400,
                             ),
+
                           ),
+
+                          // MyAppBanner(
+                          //   "https://www.facebook.com/amjad.abed.948",
+                          //   myText(
+                          //     "اضغط هنا لمشاهدة شرح تحميل الملفات",
+                          //     14,
+                          //     FontWeight.w400,
+                          //   ),
+                          // ),
 
 
 

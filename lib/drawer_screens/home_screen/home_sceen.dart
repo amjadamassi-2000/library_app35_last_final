@@ -35,8 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
         listener: (context, state) {},
         builder: (context, state) {
           LibraryCubit cubit = LibraryCubit.get(context);
-          return cubit.homeModel != null && cubit.appModel != null
-              ? Directionality(
+          return
+
+            cubit.homeModel!=null&&cubit.appModel!=null
+              ?
+            Directionality(
                   textDirection: TextDirection.rtl,
                   child: Scaffold(
                     backgroundColor: primaryColor,
@@ -71,8 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                   ),
                                                   onPressed: () {
+                                                    cubit.drawerModel!=null?
                                                     Scaffold.of(ctx)
-                                                        .openDrawer();
+                                                        .openDrawer():cubit.getDrawerData().then((value) {
+                                                          return   Scaffold.of(ctx)
+                                                              .openDrawer();
+                                                        });
                                                   },
                                                   tooltip:
                                                       MaterialLocalizations.of(
@@ -86,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Image.network(
-                                        '${cubit.appModel.app.logo}',
+                                        '${cubit.appModel.app.logo}'??'',
                                         width: 170,
                                         height: constraint.maxHeight * 0.7,
                                       ),
@@ -111,22 +118,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     MyAppBanner(
-                                      "https://www.facebook.com/amjad.abed.948",
-//                                  myText(
-//                                    "اضغط هنا لمشاهدة شرح تحميل الملفات",
-//                                    14,
-//                                    FontWeight.w400,
-//                                  ),
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          "https://img.freepik.com/free-psd/modern-furniture-sale-facebook-cover-web-banner-psd-template_76687-155.jpg?w=900",
-                                            width: 400,
-                                            height: 70,
-                                            fit:BoxFit.fitWidth,
-                                        ),
+                                      cubit.appModel.app.homepageLink??'',
+                                    cubit.appModel.app.homepageBanner!=null?          ClipRRect(
+                                      borderRadius:
+                                      BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        cubit.appModel.app.homepageBanner??[],
+                                        width: 400,
+                                        height: 70,
+                                        fit:BoxFit.fitWidth,
                                       ),
+                                    ):
+
+                                  myText(
+                                  cubit.appModel.app.homepageLink??'',
+                                    14,
+                                    FontWeight.w400,
+                                  ),
+
                                     ),
                                     Expanded(
                                       child: Scrollbar(

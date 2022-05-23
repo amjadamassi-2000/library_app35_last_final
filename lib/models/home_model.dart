@@ -14,7 +14,7 @@ class HomeModel  {
       titles =  List<Titles>();
       json['titles'].forEach((v) {
         titles.add( Titles.fromJson(v));
-      });
+      })??[];
     }
   }
 

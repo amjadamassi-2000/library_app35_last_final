@@ -45,7 +45,11 @@ class _FavoriteItemState extends State<FavoriteItem> {
 
       child: InkWell(
         onTap: (){
-        //  To(context , ResultScreen());
+          print(widget.sections.id );
+         cubit.userResult(section_id:widget.sections.id ).then((value) async{
+           return  await To(context , ResultScreen());
+
+         });
         },
         child: Container(
           alignment: Alignment.center,

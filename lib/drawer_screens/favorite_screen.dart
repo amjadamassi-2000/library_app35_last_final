@@ -6,6 +6,8 @@ import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/inner_screens/allCategoriesTapScreen.dart';
 import 'package:library_app/inner_screens/favoriteTapScreen.dart';
 
+import 'home_screen/cubit/home_cubit.dart';
+
 
 
 class FavoriteScreen extends StatefulWidget {
@@ -19,6 +21,8 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
+    LibraryCubit cubit = LibraryCubit.get(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
         child: DefaultTabController(
@@ -56,7 +60,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          Scaffold.of(context).openDrawer();
+                                          cubit.drawerModel!=null?
+                                          Scaffold.of(ctx)
+                                              .openDrawer():cubit.getDrawerData().then((value) {
+                                            return   Scaffold.of(ctx)
+                                                .openDrawer();
+                                          });
                                         },
                                         tooltip: MaterialLocalizations.of(context)
                                             .openAppDrawerTooltip,
@@ -72,7 +81,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
                           Padding(
                             padding: EdgeInsets.only(bottom: constraint.maxHeight*0.1),
-                            child: Image.asset("assets/images/lib_logo.png", width:  150,height: constraint.maxHeight*0.4,),
+                            child: Image.asset(cubit.appModel.app.logo??'', width:  150,height: constraint.maxHeight*0.4,),
                           ),
 
                           Padding(

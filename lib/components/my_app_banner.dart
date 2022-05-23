@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'constant.dart';
 import 'global_componnets.dart';
 
@@ -10,8 +11,9 @@ import 'global_componnets.dart';
   class MyAppBanner extends StatefulWidget {
 
   String url;
-  Widget widget;
-  MyAppBanner(this.url , this.widget);
+  final Widget widget;
+
+  MyAppBanner(this.url, this.widget );
 
 
 
@@ -25,6 +27,9 @@ class _MyAppBannerState extends State<MyAppBanner> {
 
   @override
   Widget build(BuildContext context) {
+    LibraryCubit cubit = LibraryCubit.get(context);
+
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30)
           .add(EdgeInsets.only(top: 15)),

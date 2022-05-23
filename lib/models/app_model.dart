@@ -20,7 +20,10 @@ class App {
   String logo;
   String filepageBanner;
   String filepageText;
-  Null filepageLink;
+  String filepageLink;
+  String homepageBanner;
+  String homepageText;
+  String homepageLink;
   String appLink;
 
   App(
@@ -28,6 +31,9 @@ class App {
         this.filepageBanner,
         this.filepageText,
         this.filepageLink,
+        this.homepageBanner,
+        this.homepageText,
+        this.homepageLink,
         this.appLink});
 
   App.fromJson(Map<String, dynamic> json) {
@@ -35,8 +41,10 @@ class App {
     filepageBanner = json['filepage_banner'];
     filepageText = json['filepage_text'];
     filepageLink = json['filepage_link'];
+    homepageBanner = json['homepage_banner'];
+    homepageText = json['homepage_text'];
+    homepageLink = json['homepage_link'];
     appLink = json['app_link'];
   }
-
 
 }
