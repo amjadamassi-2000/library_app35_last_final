@@ -9,8 +9,11 @@ class my_dropdown extends StatefulWidget {
   int myvalue;
   final  LibraryCubit cubit;
   final MychangeMethod;
+  final String hint ;
 
-  my_dropdown(this.titles, this.myvalue,{ this.cubit, this.MychangeMethod});
+
+
+  my_dropdown(this.titles, this.myvalue,{this.hint , this.cubit, this.MychangeMethod});
 
   @override
   State<my_dropdown> createState() => _my_dropdownState();
@@ -27,7 +30,7 @@ class _my_dropdownState extends State<my_dropdown> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        margin: EdgeInsets.only(top: 10.h, bottom: 10.h),
+        margin: EdgeInsets.only(top: 5.h, bottom: 5.h),
         height: MediaQuery.of(context).size.height * 0.08,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -44,7 +47,7 @@ class _my_dropdownState extends State<my_dropdown> {
           child: DropdownButtonHideUnderline(
 
             child: DropdownButton(
-               hint: Text('اختر المرحلة' ,
+               hint: Text( widget.hint,
                  style: TextStyle(
                      fontFamily: "cairo"
 

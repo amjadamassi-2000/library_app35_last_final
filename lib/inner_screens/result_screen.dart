@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -9,13 +10,16 @@ import 'package:library_app/components/drop_down/drop_down_button_list_item.dart
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_app_banner.dart';
 import 'package:library_app/components/my_drawer.dart';
+import 'package:library_app/inner_screens/search_screen.dart';
 import 'package:library_app/items/pdf_item.dart';
 import 'package:library_app/models/result_model.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
 import '../models/home_model.dart';
 import '../models/result_model.dart';
+
 
 class ResultScreen extends StatefulWidget {
   final myvalue1;
@@ -124,8 +128,6 @@ class _ResultScreenState extends State<ResultScreen> {
     print('تم التدمير');
     articles=[];
     print(articles.isEmpty);
-
-
   }
 
   @override
@@ -304,44 +306,75 @@ class _ResultScreenState extends State<ResultScreen> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 20),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: constraint.maxHeight * 0.35,
-                                      child: TextField(
-                                        onChanged: (value) async{
-                                          await cubit.userResult(
-                                              section_id: widget.myvalue1,
-                                              sub_section_id: widget.myvalue2,
-                                              sub_sub_section_id: widget.myvalue3,
-                                              categories: widget.myvalue4,
-                                              title_id: widget.titles.id,
-                                              search: value);
-                                        },
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                        decoration: InputDecoration(
-                                          hintText: "بحث",
-                                          contentPadding: EdgeInsets.all(12),
-                                          isDense: true,
-                                          hintStyle:TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                              fontFamily: 'cairo',
+                                    
+                                    child: InkWell(
+                                      onTap: (){
+//                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SearchScreen()));
+                                      To(context, SearchScreen());
 
-                                          ),
-                                          filled: true,
-                                          fillColor:
-                                          Colors.grey.shade300.withOpacity(0.3),
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius: BorderRadius.circular(
-                                                  10)),
-                                          suffixIcon: Icon(
-                                            Icons.search,
-                                            color: Colors.white,
-                                          ),
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: constraint.maxHeight * 0.25,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.grey.shade200.withOpacity(0.2),
                                         ),
+                                        child:  Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: const [
+                                               Text(
+                                                "بحث",
+                                                style:  TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'cairo'
+                                                ),
+                                                textAlign:  TextAlign.center,
+                                              ),
+                                              Icon(Icons.search , color: Colors.white,)
+                                            ],
+                                          ),
+                                        ) ,
+//                                      TextField(
+//                                        onChanged: (value) async{
+//                                          await cubit.userResult(
+//                                              section_id: widget.myvalue1,
+//                                              sub_section_id: widget.myvalue2,
+//                                              sub_sub_section_id: widget.myvalue3,
+//                                              categories: widget.myvalue4,
+//                                              title_id: widget.titles.id,
+//                                              search: value);
+//                                        },
+//                                        style: TextStyle(
+//                                          color: Colors.black,
+//                                        ),
+//                                        decoration: InputDecoration(
+//                                          hintText: "بحث",
+//                                          contentPadding: EdgeInsets.all(12),
+//                                          isDense: true,
+//                                          hintStyle:TextStyle(
+//                                            color: Colors.white,
+//                                            fontWeight: FontWeight.bold,
+//                                              fontFamily: 'cairo',
+//
+//                                          ),
+//                                          filled: true,
+//                                          fillColor:
+//                                          Colors.grey.shade300.withOpacity(0.3),
+//                                          border: OutlineInputBorder(
+//                                              borderSide: BorderSide.none,
+//                                              borderRadius: BorderRadius.circular(
+//                                                  10)),
+//                                          suffixIcon: Icon(
+//                                            Icons.search,
+//                                            color: Colors.white,
+//                                          ),
+//                                        ),
+//                                      ),
                                       ),
                                     ),
                                   ),
@@ -433,7 +466,10 @@ class _ResultScreenState extends State<ResultScreen> {
                                   itemCount: articles.length,
                                   itemBuilder: (context, index) {
 
-                                    return    PdfItem(articles[index]);
+                                    return    DelayedDisplay(
+                                        delay: const Duration( milliseconds: 300),
+                                        child: PdfItem(articles[index])
+                                    );
                                //     final passenger = cubit.passengers[index];
 
 //                                     // final passenger=cubit.files[index];

@@ -94,7 +94,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                   width: double.infinity,
                   constraints: BoxConstraints(
                     minHeight: 100.0,
-                    maxHeight: 300.0,
+                    maxHeight: 430.0,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -108,7 +108,9 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                         child: Column(
                           children: [
                             if (widget.titles.section.isNotEmpty)
-                              my_dropdown(widget.titles.section, myvalue1,
+                              my_dropdown(widget.titles.section,
+                                  myvalue1,
+                                  hint: "اختر القسم",
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue1 = val;
@@ -127,7 +129,10 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                               }),
 
                             if (widget.titles.subSection.isNotEmpty)
-                              my_dropdown(widget.sectionModel.sub, myvalue2,
+                              my_dropdown(widget.sectionModel.sub,
+                                  myvalue2,
+                                  hint: "اختر الفرع",
+
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue3 = null;
@@ -139,7 +144,10 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                 });
                               }),
                             if (widget.titles.subSubSection.isNotEmpty)
-                              my_dropdown(widget.subsectionModel.sub, myvalue3,
+                              my_dropdown(widget.subsectionModel.sub,
+                                  myvalue3,
+                                  hint: "اختر فرع الفرع",
+
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue3 = val;
@@ -147,7 +155,9 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                               }),
 
                             if (widget.titles.categories.isNotEmpty)
-                              my_dropdown(widget.titles.categories, myvalue4,
+                              my_dropdown(widget.titles.categories,
+                                  myvalue4,
+                                  hint: "",
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue4 = val;
@@ -204,9 +214,6 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
               ),
 
               if (widget.titles.section.isNotEmpty)

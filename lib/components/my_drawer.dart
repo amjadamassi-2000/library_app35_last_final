@@ -6,6 +6,7 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/drawer_screens/favorite_screen.dart';
 import 'package:library_app/drawer_screens/home_screen/home_sceen.dart';
 import 'package:library_app/drawer_screens/settings_screen.dart';
+import 'package:library_app/inner_screens/search_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
@@ -95,7 +96,7 @@ class _MyDrawerState extends State<MyDrawer> {
                  "من نحن",
                  Icon(Icons.info, color: Colors.white),
                      () {
-                   ToAndFinish(context, SettingsScreen());
+//                   ToAndFinish(context, SearchScreen());
                  },
                ),
 
