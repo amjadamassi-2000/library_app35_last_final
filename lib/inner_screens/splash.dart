@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Image.network('${cubit.appModel.app.logo}', width:  170,),
       ),
-    ):Scaffold(child: Center(child: CircularProgressIndicator()));
+    ):Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
 
