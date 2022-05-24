@@ -7,6 +7,7 @@ import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_dropdown.dart';
 import 'package:library_app/dummy_data/home_screen_data.dart';
 import 'package:library_app/inner_screens/result_screen.dart';
+import 'package:library_app/models/ads_model.dart';
 import 'package:library_app/models/sub_sectionModel.dart';
 
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
@@ -18,8 +19,8 @@ class HomeScreenItem extends StatefulWidget {
   final Titles titles;
   final SectionModel sectionModel;
   final SubSectionModel subsectionModel;
-
-  HomeScreenItem(this.titles, this.sectionModel, this.subsectionModel);
+final AdsModel adsModel;
+  HomeScreenItem(this.titles, this.sectionModel, this.subsectionModel, this.adsModel);
 
   //  final HomeData homeData;
   // HomeScreenItem(this.homeData);
@@ -41,7 +42,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Adinterstitial.loadInterstitialAd();
+    Adinterstitial.loadInterstitialAd(widget.adsModel.ads.inter1);
+
   }
 
   @override
@@ -117,7 +119,6 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 
                                   print(
                                       '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
-                                  myvalue1 = val;
                                   cubit.getSection(id: val);
                                   print(cubit.sectionModel.sub.isEmpty);
                                   print(val.toString());
@@ -212,11 +213,12 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30)
                       .add(EdgeInsets.only(top: 0)),
-                  child: myButton("عرض النتائج", () async{
+                  child: myButton("عرض النتائج", () {
                     Adinterstitial.showInterstitialAd();
 
-                    await  cubit
+                      cubit
                         .userResult(
+
                             section_id: myvalue1,
                             sub_section_id: myvalue2,
                             sub_sub_section_id: myvalue3,
@@ -229,7 +231,8 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                           context,
                           ResultScreen(myvalue1: myvalue1,myvalue2:  myvalue2,myvalue3:  myvalue3,myvalue4:  myvalue4,
                              titles:  widget.titles));
-                    });
+                    }
+                    );
 
                   }),
                 ),

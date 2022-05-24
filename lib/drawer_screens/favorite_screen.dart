@@ -81,7 +81,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
                           Padding(
                             padding: EdgeInsets.only(bottom: constraint.maxHeight*0.1),
-                            child: Image.asset(cubit.appModel.app.logo??'', width:  150,height: constraint.maxHeight*0.4,),
+                            child: Image.network(cubit.appModel.app.logo??'', width:  150,height: constraint.maxHeight*0.4,),
                           ),
 
                           Padding(

@@ -25,9 +25,12 @@ class _myfavState extends State<myfav> {
 
     return InkWell(
       onTap: (){
-        print(widget.sections.id );
-        cubit.userResult(section_id:widget.sections.id ).then((value) async{
-          return  await To(context , ResultScreen());
+        print(widget.sections);
+        cubit.userResult(section_id: widget.sections.id).then((value) {
+          print(widget.sections.id);
+          print('هدا ايدي المفضلة ');
+
+          return   To(context , ResultScreen(myvalue1: widget.sections.id,));
 
         });
       },

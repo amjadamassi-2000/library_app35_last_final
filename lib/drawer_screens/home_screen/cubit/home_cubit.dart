@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../models/ads_model.dart';
 import '../../../models/all_Section.dart';
 import '../../../models/app_model.dart';
 import '../../../models/drawer_model.dart';
@@ -20,7 +25,7 @@ class LibraryCubit extends Cubit<libraryStates> {
 
   HomeModel homeModel;
 
-  void getHomeData() async {
+  Future <void> getHomeData() async {
     emit(HomeLoadingState());
     await DioHelper.getData(
       url: HOME,
@@ -85,35 +90,92 @@ class LibraryCubit extends Cubit<libraryStates> {
   }
 
   ResultModel resultModel;
+ // List<Files> passengers =[];
+int totalPages =2;
+  Files file;
+  //final RefreshController refreshController=RefreshController(initialRefresh: false);
+ Future<List<Files>> userResult(
+      {
+        int Page =1,
 
-  Future<void> userResult(
-      {String search,
+        bool isRefresh=false,
+        String search,
       int title_id,
       int section_id,
       int sub_section_id,
       int sub_sub_section_id,
       int categories,
       String sort}) async {
+   List<Files> articles=[];
+
+
+   // if (isRefresh) {
+   // //  currentPage = 1;
+   //   print('${currentPage} 1 هداااااا الكرنت بيج');
+   //
+   // } else {
+   //   if (currentPage >= totalPages) {
+   //     refreshController.loadNoData();
+   //     return false;
+   //   }
+   // }
+
     emit(ResultDataLoadingState());
-    await DioHelper.postData(url: RESULT, data: {
+
+
+    await DioHelper.postData(url: '$RESULT?page=$Page', data: {
+      'section_id':section_id,
       'title_id': title_id,
-      'section_id': section_id,
       'sub_section_id': sub_section_id,
       'sub_sub_section_id': sub_sub_section_id,
       'categories': categories,
       'sort': sort,
       'search': search
     }).then((value) {
-      resultModel = ResultModel.fromJson(value.data);
-      print(('تم عرض النتائج بنجاح'));
-      print({resultModel.files.length});
-      print(value.data);
+
+      resultModel=ResultModel.fromJson(value.data);
+      print(resultModel.files.length);
+      print('الطول العام');
+
+
+
+
+      var jsonArticles=value.data['files'];
+      articles.addAll(resultModel.files);
+      print(articles.length);
+
+      print('الطول الاركتلكست العام');
+
+      // for(var item in  jsonArticles){
+      //   articles.add(Files.fromJson(jsonArticles));
+      //
+      // }
+
+     // articles.add(resultModel.files);
+
+
+      // if (isRefresh) {
+      //   passengers = resultModel.files;
+      // }else{
+      //   passengers.addAll(resultModel.files);
+      // }
+
+      // currentPage++;
+      // print('${currentPage} 2 هداااااا الكرنت بيج');
+      // print(passengers.length);
+      // print('طوووووول البسنجر');
+
+
+print(articles.length);
 
       emit(ResultDataSuccessState());
+
     }).catchError((error) {
       emit(ResultDataErrorState());
     });
-  }
+   return articles;
+
+ }
 
   AllSectionModel allSectionModel;
 
@@ -184,7 +246,21 @@ class LibraryCubit extends Cubit<libraryStates> {
     emit(isProductInFavouriteState());
   }
 
-  Sections singleProduct;
+  AdsModel adsModel;
+
+  void getAdsData() async {
+    emit(AdsLoadingState());
+    await DioHelper.getData(
+      url: ADS,
+    ).then((value) {
+      print('values ads sucess');
+      adsModel=AdsModel.fromJson(value.data);
+      emit(AdsSuccessState());
+    }).catchError((error) {
+      emit(AdsErrorState());
+    });
+  }
+
 //
 // getSingleProduct(int id) async {
 //   singleProduct = null;

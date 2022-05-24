@@ -3,28 +3,26 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/drop_down/drop_down_button_list_item.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_app_banner.dart';
 import 'package:library_app/components/my_drawer.dart';
-import 'package:library_app/dummy_data/pdf_files_datd.dart';
 import 'package:library_app/items/pdf_item.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:library_app/models/result_model.dart';
 
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
 import '../models/home_model.dart';
+import '../models/result_model.dart';
 
 class ResultScreen extends StatefulWidget {
   final myvalue1;
   final myvalue2;
   final myvalue3;
   final myvalue4;
-  final Titles titles;
+  final  Titles titles;
 
   ResultScreen({this.myvalue1, this.myvalue2, this.myvalue3, this.myvalue4,
       this.titles});
@@ -38,7 +36,6 @@ class _ResultScreenState extends State<ResultScreen> {
 
   DropDownButtonListItem _selectedstage;
 
-  int banarIndex = Random().nextInt(dataFiles.length);
 
   List<DropDownButtonListItem> stages = [
     DropDownButtonListItem("الأحدث", 1),
@@ -51,9 +48,94 @@ class _ResultScreenState extends State<ResultScreen> {
     DropDownButtonListItem("ملخص", 2),
   ];
 
+  List<Files> articles=[];
+
+
+  int pages=2;
+  int currentpage=1;
+  bool loading=true;
+  int mytitles=null;
+  ScrollController scrollController=ScrollController();
+  fetchNews(){
+    if(widget.titles!=null){
+      mytitles=widget.titles.id;
+
+    }
+    Future.delayed(Duration.zero).then((value) {
+      LibraryCubit cubit = LibraryCubit.get(context);
+        cubit.userResult(
+         title_id:mytitles
+,
+         Page: currentpage,section_id: widget.myvalue1,
+        sub_section_id: widget.myvalue2,
+        sub_sub_section_id: widget.myvalue3,
+        categories: widget.myvalue4,
+    ).then((value) {
+        print('الداتا الراجعة ');
+        print(value);
+        articles.addAll(value);
+        setState(() {
+          loading=false;
+
+
+        });
+      });
+      print(articles.length);
+      print(('الارتكلست الي الانيش' ));
+      print(currentpage);
+      print('الصفحة الحالية هي ');
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print('hellllllllo wooooooooooooooooord');
+    fetchNews();
+    scrollController.addListener(() {
+           double minScroll=scrollController.position.maxScrollExtent-200;
+           double maxScroll=scrollController.position.maxScrollExtent;
+
+           if(scrollController.position.pixels>=minScroll&&scrollController.position.pixels<=maxScroll){
+             print(currentpage);
+             print('الصفحة الحالية هي ');
+
+            if(currentpage<=pages){
+              currentpage++;
+
+              fetchNews();
+            }
+      }
+
+    });
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print('object helllllo');
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    scrollController.dispose();
+    super.dispose();
+    print('تم التدمير');
+    articles=[];
+    print(articles.isEmpty);
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
     LibraryCubit cubit = LibraryCubit.get(context);
+    print('${cubit.resultModel.files.length}طول الريسلت');
+
+    int banarIndex = Random().nextInt(cubit.resultModel.files.length!=0?cubit.resultModel.files.length:1);
 
     return BlocConsumer<LibraryCubit, libraryStates>(
         builder: (context, state) {
@@ -167,20 +249,12 @@ class _ResultScreenState extends State<ResultScreen> {
                                                             },
                                                             hint: "طرق الفلترة",
                                                           ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                right: 20, top: 20),
-                                                            child: myText(
-                                                              "إضغط هنا : ",
-                                                              15,
-                                                              FontWeight.w400,
-                                                            ),
-                                                          ),
-                                                          myButton(" فلتر", () {
+
+                                                          myButton(" فلتر", () async{
                                                             //     print('helllllllllllo');
                                                             print(
                                                                 _selectedstage.title);
-                                                            cubit.userResult(
+                                                           await cubit.userResult(
                                                                 title_id:
                                                                 widget.titles.id,
                                                                 section_id:
@@ -352,26 +426,35 @@ class _ResultScreenState extends State<ResultScreen> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 20),
-                              child: ListView.builder(
-                                  itemCount: cubit.resultModel.files.length,
+                              child:articles.isNotEmpty?
+
+                              ListView.builder (
+                                controller: scrollController,
+                                  itemCount: articles.length,
                                   itemBuilder: (context, index) {
-                                    if (index == banarIndex) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20),
-                                        child: Column(
-                                          children: [
-                                            AdBanner2(),
-                                            SizedBox(height: 10,),
-                                            PdfItem(cubit.resultModel.files[index]),
 
-                                          ],
-                                        )
-                                      );
-                                    } else
-//AdBanner2
-                                      return PdfItem(cubit.resultModel.files[index]);
+                                    return    PdfItem(articles[index]);
+                               //     final passenger = cubit.passengers[index];
 
-                                  }),
+//                                     // final passenger=cubit.files[index];
+//                                     if (index == banarIndex) {
+//                                       return Padding(
+//                                         padding: EdgeInsets.symmetric(vertical: 20),
+//                                         child: Column(
+//                                           children: [
+//                                             AdBanner2(cubit.adsModel.ads.banner),
+//                                             SizedBox(height: 10,),
+//                                             if(cubit.resultModel.files.length!=0)
+//                                             PdfItem(cubit.resultModel.files[index]),
+//
+//                                           ],
+//                                         )
+//                                       );
+//                                     } else
+// //AdBanner2
+//                                       return PdfItem(cubit.resultModel.files[index]);
+
+                                  }):Center(child: myText('لا يوجد بيانات', 25, FontWeight.bold))
                             ),
                           ),
                         ],

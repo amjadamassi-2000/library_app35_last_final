@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../shared/shared_pref_helper.dart';
 
 class FavoriteItem extends StatefulWidget {
-  final Sections sections;
+  final  Sections sections;
 
   FavoriteItem(this.sections);
 
@@ -28,13 +28,6 @@ class _FavoriteItemState extends State<FavoriteItem> {
 
   // SharedPreferences prf=SharedPreferences.getInstance() as SharedPreferences;
 
-   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-
-   }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +38,18 @@ class _FavoriteItemState extends State<FavoriteItem> {
 
       child: InkWell(
         onTap: (){
-          print(widget.sections.id );
-         cubit.userResult(section_id:widget.sections.id ).then((value) async{
-           return  await To(context , ResultScreen());
+
+          print(widget.sections);
+          cubit.userResult(section_id: widget.sections.id).then((value) {
+           print(widget.sections.id);
+           print('هدا ايدي المفضلة ');
+
+           return   To(context , ResultScreen(myvalue1: widget.sections.id,));
 
          });
         },
         child: Container(
+
           alignment: Alignment.center,
           width: double.infinity,
           height: 60.h,

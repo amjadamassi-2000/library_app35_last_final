@@ -76,8 +76,12 @@ class _MyDrawerState extends State<MyDrawer> {
                 myListTielStatic(
           "الرئيسية",
           Icon(Icons.home, color: Colors.white),
-              () {
-            ToAndFinish(context, HomeScreen());
+              () async{
+            await cubit.getHomeData().then((value) async{
+              return  await ToAndFinish(context, HomeScreen());
+            });
+
+
           },
         ),
                myListTielStatic(

@@ -6,6 +6,8 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_drawer.dart';
 
+import 'home_screen/cubit/home_cubit.dart';
+
 
 
 
@@ -21,6 +23,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    LibraryCubit cubit = LibraryCubit.get(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child:  Scaffold(
@@ -67,7 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ],
                         ),
                       ),
-                      Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.7,),
+                      Image.network("${cubit.appModel.app.logo}", width:  170,height: constraint.maxHeight*0.7,),
                     ],
                   ),
                 ),

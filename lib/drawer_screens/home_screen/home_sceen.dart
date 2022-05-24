@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           LibraryCubit cubit = LibraryCubit.get(context);
           return
 
-            cubit.homeModel!=null&&cubit.appModel!=null
+            cubit.homeModel!=null&&cubit.appModel!=null&&cubit.adsModel!=null
               ?
             Directionality(
                   textDirection: TextDirection.rtl,
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     cubit.homeModel
                                                         .titles[index],
                                                     cubit.sectionModel,
-                                                    cubit.subsectionModel);
+                                                    cubit.subsectionModel,cubit.adsModel);
                                               }),
                                         ),
                                       ),
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: AdBanner2(),
+                            child: AdBanner2(cubit.adsModel.ads.banner),
                           ),
 
 //              Column(
@@ -190,19 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ))
               : Scaffold(
-                  body: Stack(
-                  children: [
-                    Container(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset('assets/images/123.png')),
-                    Center(
-                        child: CircularProgressIndicator(
-                      color: Colors.red,
-                      strokeWidth: 10,
-                    ))
-                  ],
-                ));
+                  body:Center(child: CircularProgressIndicator())
+            );
         });
   }
 }

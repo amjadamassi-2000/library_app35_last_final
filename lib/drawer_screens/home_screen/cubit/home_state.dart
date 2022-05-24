@@ -32,3 +32,6 @@ class ChangeFavoriteState extends libraryStates {}
 class GetAppDataLoadingState extends libraryStates {}
 class GetAppDataSuccessState extends libraryStates {}
 class GetAppDataErrorState extends libraryStates {}
+class AdsLoadingState extends libraryStates {}
+class AdsSuccessState extends libraryStates {}
+class AdsErrorState extends libraryStates {}

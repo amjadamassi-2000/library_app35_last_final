@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import 'ad_helper.dart';
+import 'cubit/ad_helper.dart';
 
 
 
@@ -10,6 +10,9 @@ import 'ad_helper.dart';
 
 
 class AdBanner2 extends StatefulWidget {
+  final String urlADSbanner;
+
+   AdBanner2( this.urlADSbanner) ;
   @override
   _AdBanner2State createState() => _AdBanner2State();
 }
@@ -25,7 +28,7 @@ class _AdBanner2State extends State<AdBanner2> {
   void _creatBannerAd() {
     bannerAd = BannerAd(
       size: _adSize,
-      adUnitId: AdHelper.bannerAduitId,
+      adUnitId: '${widget.urlADSbanner}',
       listener: BannerAdListener(
           onAdLoaded: (ad) {
             setState(() {

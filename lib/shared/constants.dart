@@ -6,6 +6,8 @@ const GET_All_SECTION = 'all-sections';
 
 const RESULT = 'results';
 const APP = 'app';
+const ADS = 'ads';
+
 const PROFILE = 'profile';
 const UPDATE_PROFILE = 'update-profile';
 const CARTS = 'carts';

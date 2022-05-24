@@ -2,7 +2,7 @@
 
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:library_app/ads/ad_helper.dart';
+import 'package:library_app/ads/cubit/ad_helper.dart';
 
 class  Adinterstitial {
 
@@ -11,10 +11,10 @@ class  Adinterstitial {
     static InterstitialAd interstitialAd ;
     static bool isAdReady = false ;
 
-    static void loadInterstitialAd(){
+    static void loadInterstitialAd(String load){
 
       InterstitialAd.load(
-          adUnitId: AdHelper.interstitialAdUnitId,
+          adUnitId: load,
           request: const AdRequest(),
 
           adLoadCallback: InterstitialAdLoadCallback(

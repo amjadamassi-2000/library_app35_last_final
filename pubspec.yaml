@@ -47,6 +47,7 @@ dependencies:
   dropdown_button2: ^1.4.0
   share_plus:
   shared_preferences:
+  pull_to_refresh:
 
 dev_dependencies:
   flutter_test:

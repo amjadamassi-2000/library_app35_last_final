@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:library_app/ads/cubit/ads_cubit.dart';
 import 'package:library_app/shared/bloc_observer.dart';
 import 'package:library_app/shared/remote/dio_helper.dart';
 import 'package:library_app/shared/shared_pref_helper.dart';
@@ -13,6 +14,7 @@ import 'package:library_app/styles/themes.dart';
 import 'components/constant.dart';
 import 'drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'drawer_screens/home_screen/home_sceen.dart';
+import 'inner_screens/splash.dart';
 
 
 
@@ -74,9 +76,10 @@ class _MyAppState extends State<MyApp> {
             ),
             providers: [
               BlocProvider(
-                create: (BuildContext context) => LibraryCubit()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAppData(),
+                create: (BuildContext context) => LibraryCubit()..getAppData()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAdsData(),
 
               ),
+
 
             ]
 
@@ -89,42 +92,6 @@ class _MyAppState extends State<MyApp> {
 
 
 
-
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-//    Adinterstitial.loadInterstitialAd();
-
-    Timer(
-        Duration(seconds: 3),
-            () {
-
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => HomeScreen()));
-//          Adinterstitial.showInterstitialAd();
-
-        }
-    );
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      body: Center(
-        child: Image.asset('assets/images/lib_logo.png', width:  170,),
-      ),
-    );
-  }
-}
 
 
 
