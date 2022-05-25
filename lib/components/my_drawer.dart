@@ -61,7 +61,7 @@ class _MyDrawerState extends State<MyDrawer> {
       child: Drawer(
 
         child: Container(
-          color : primaryColor,
+          color : Theme.of(context).scaffoldBackgroundColor,
           child: SingleChildScrollView(
             child: Column(
 

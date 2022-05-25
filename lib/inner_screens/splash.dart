@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/ads/interstitial_ad_model.dart';
 import 'package:library_app/components/global_componnets.dart';
 
 import '../components/constant.dart';
@@ -46,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
            LibraryCubit cubit = LibraryCubit.get(context);
 
            return cubit.appModel!=null?Scaffold(
-             backgroundColor: primaryColor,
+//             backgroundColor: primaryColor,
              body: Center(
                child: Image.network(cubit.appModel.app.logo, width:  170,)
              ),

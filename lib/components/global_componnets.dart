@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:library_app/styles/colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -330,7 +331,7 @@ Column(
         width: double.infinity,
         height: 35.h,
         decoration: BoxDecoration(
-          color: primaryColor,
+          color:  HexColor('14144e'),   // primaryColor,
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Row(
@@ -363,7 +364,7 @@ Column(
         text,
         style:  TextStyle(
           fontSize: fontSize.sp,
-          color: Colors.black,
+//          color: Colors.black,
           fontWeight: fontWeight,
           fontFamily: 'cairo'
         ),

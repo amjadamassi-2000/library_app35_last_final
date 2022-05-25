@@ -48,8 +48,8 @@ class _MyAppBannerState extends State<MyAppBanner> {
           height: 70,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: primaryColor),
-            color: Colors.white,
+            border: Border.all(color: Theme.of(context).scaffoldBackgroundColor),
+            color:Theme.of(context).secondaryHeaderColor,
           ),
           child:  widget.widget,
 

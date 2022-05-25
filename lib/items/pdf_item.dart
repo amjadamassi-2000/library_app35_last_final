@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
@@ -67,8 +68,8 @@ class _PdfItemState extends State<PdfItem> {
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10),
                       ),
-                      border: Border.all(color: Colors.grey.shade300),
-                      color: Colors.white,
+//                      border: Border.all(color: Colors.grey.shade300),
+                      color: Theme.of(context).secondaryHeaderColor,
 
                     ),
                     child: Padding(
@@ -117,8 +118,9 @@ class _PdfItemState extends State<PdfItem> {
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.only(
+                    color:   HexColor('14144e'),
+
+    borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
 
@@ -138,15 +140,18 @@ class _PdfItemState extends State<PdfItem> {
                               // barrierDismissible: false,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  backgroundColor: Theme.of(context).cardColor,
 
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
-
                                   ),
-                                  title : myText(
-                                    "هل تريد بالتأكيد حفظ الملف ؟ ",
-                                    14,
-                                    FontWeight.w400,
+                                  title : Text(
+                                    "هل تريد بالتأكيد تنزيل الملف" ,
+                                    style: TextStyle(
+                                      fontFamily: "cairo",
+                                      fontSize: 14,
+                                      color: Theme.of(context).indicatorColor,
+                                    ),
                                   ),
                                   actions: <Widget>[
 

@@ -36,10 +36,10 @@ class _my_dropdownState extends State<my_dropdown> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
+          color: Theme.of(context).secondaryHeaderColor,
           border: Border.all(
             width: 2,
-            color: Colors.grey.shade300,
+            color: Theme.of(context).disabledColor,
           ),
         ),
         child: IgnorePointer(
@@ -49,7 +49,10 @@ class _my_dropdownState extends State<my_dropdown> {
             child: DropdownButton(
                hint: Text( widget.hint,
                  style: TextStyle(
-                     fontFamily: "cairo"
+                     fontFamily: "cairo",
+                   color: Theme.of(context).indicatorColor,
+
+
 
                  ),
                )
@@ -78,8 +81,11 @@ class _my_dropdownState extends State<my_dropdown> {
                         return DropdownMenuItem(value: e.id, child: Center(
                           child: Text(e.name ,
                             style: TextStyle(
-                                fontFamily: "cairo"
-                            ),
+                                fontFamily: "cairo",
+                              color:  Theme.of(context).indicatorColor,
+
+
+                          ),
                           ),
                         ));
                       })

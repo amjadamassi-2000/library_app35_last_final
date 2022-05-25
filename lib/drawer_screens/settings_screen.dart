@@ -6,8 +6,6 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/components/my_drawer.dart';
 
-import 'home_screen/cubit/home_cubit.dart';
-
 
 
 
@@ -23,12 +21,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    LibraryCubit cubit = LibraryCubit.get(context);
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child:  Scaffold(
-        backgroundColor: primaryColor,
         drawer: MyDrawer(),
         body: SafeArea(
           child: Column(
@@ -71,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ],
                         ),
                       ),
-                      Image.network("${cubit.appModel.app.logo}", width:  170,height: constraint.maxHeight*0.7,),
+                      Image.asset("assets/images/lib_logo.png", width:  170,height: constraint.maxHeight*0.7,),
                     ],
                   ),
                 ),
@@ -85,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)*0.75,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
@@ -103,16 +98,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         height: 70,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
+                          color: Theme.of(context).secondaryHeaderColor,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey[200],
-                              blurRadius: 2.0, // has the effect of softening the shadow
-                              spreadRadius: 2.0, // has the effect of extending the shadow
-                              offset: Offset(0, // horizontal, move right 10
-                                5.0, // vertical, move down 10
-                              ),
-                            )
+                                color: Colors.grey.withOpacity(0.5),
+                                offset: Offset(0, 0),
+                                blurRadius: 5.0,
+                                spreadRadius: 0),
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                offset: Offset(1, 0),
+                                blurRadius:3.0,
+                                spreadRadius: 0),
                           ],
                         ),
                         child: Padding(

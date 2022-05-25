@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/inner_screens/allCategoriesTapScreen.dart';
@@ -29,7 +30,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           length: 2,
           child: SafeArea(
             child: Scaffold(
-              backgroundColor: primaryColor,
+//              backgroundColor: primaryColor,
               drawer: MyDrawer(),
 
               body:  Column(
@@ -94,7 +95,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               ),
                               child: TabBar(
                                 indicator: BoxDecoration(
-                                  color: Color(0xffea0e8b),
+                                  color:   HexColor('14144e'),        // Color(0xffea0e8b),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 tabs: [
@@ -137,7 +138,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.666,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color:Theme.of(context).cardColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50),

@@ -41,17 +41,17 @@ class _myfavState extends State<myfav> {
           width: double.infinity,
           height: 60.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).secondaryHeaderColor,
             borderRadius: BorderRadius.circular(10.r),
             boxShadow: [
               BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
-                  offset: Offset(0, 7),
+                  offset: Offset(0, 3),
                   blurRadius: 5.0,
                   spreadRadius: 0),
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3),
-                  offset: Offset(5, 0),
+                  offset: Offset(1, 0),
                   blurRadius:3.0,
                   spreadRadius: 0),
             ],

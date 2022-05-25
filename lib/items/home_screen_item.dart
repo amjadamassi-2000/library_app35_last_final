@@ -157,7 +157,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.categories.isNotEmpty)
                               my_dropdown(widget.titles.categories,
                                   myvalue4,
-                                  hint: "",
+                                  hint: "اختر نوع الملف",
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue4 = val;

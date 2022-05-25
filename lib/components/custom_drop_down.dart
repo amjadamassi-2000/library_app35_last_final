@@ -68,24 +68,24 @@ class _CustomDropDownState extends State<CustomDropDown> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
+              color: Theme.of(context).secondaryHeaderColor,
               border: Border.all(
                 width: 2,
-                color: Colors.grey.shade300,
+                color: Theme.of(context).disabledColor,
               ),
             ),
             width: double.infinity,
             child: DropdownButton<dynamic>(
-              // hint: Text(
-              //   widget.hint,
-              //   style: GoogleFonts.cairo(
-              //     fontSize: 14.sp,
-              //     color: Colors.grey,
-              //     fontWeight: FontWeight.w400,
-              //   ),
-              //
-              //
-              // ),
+               hint: Text(
+                 widget.hint,
+                 style: GoogleFonts.cairo(
+                   fontSize: 14.sp,
+                   color: Theme.of(context).indicatorColor,
+                   fontWeight: FontWeight.w400,
+                 ),
+
+
+               ),
 
               value: dropdownValue,
               isExpanded: true,
@@ -117,7 +117,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                             : '${(widget.buildName != null ? widget.buildName(value) : null) ?? 'non'}',
                         style: GoogleFonts.cairo(
                           fontSize: 15,
-                          color: Colors.black,
+                          color: Theme.of(context).indicatorColor,
                         ),
                       ),
                     ),

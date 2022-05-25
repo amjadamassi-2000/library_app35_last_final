@@ -54,7 +54,7 @@ class _FavoriteItemState extends State<FavoriteItem> {
           width: double.infinity,
           height: 60.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).secondaryHeaderColor,
             borderRadius: BorderRadius.circular(10.r),
             boxShadow: [
               BoxShadow(

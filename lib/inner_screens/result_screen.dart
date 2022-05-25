@@ -147,7 +147,7 @@ class _ResultScreenState extends State<ResultScreen> {
             textDirection: TextDirection.rtl,
             child: Scaffold(
               resizeToAvoidBottomInset: false,
-              backgroundColor: primaryColor,
+//              backgroundColor: primaryColor,
               drawer: MyDrawer(),
               body: SafeArea(
                 child: Column(
@@ -221,7 +221,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                     topLeft:
                                                         Radius.circular(30.r),
                                                   ),
-                                                  color: Colors.white,
+                                                  color: Theme.of(context).cardColor,
                                                 ),
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -245,6 +245,8 @@ class _ResultScreenState extends State<ResultScreen> {
                                                           FontWeight.w400,
                                                         ),
                                                       ),
+
+
                                                       CustomDropDown(
                                                         stages,
                                                         onSelect: (newValue) {
@@ -253,6 +255,10 @@ class _ResultScreenState extends State<ResultScreen> {
                                                         },
                                                         hint: "طرق الفلترة",
                                                       ),
+                                                      SizedBox(height: 70,),
+
+
+
                                                       myButton(" فلتر",
                                                           () async {
                                                         //     print('helllllllllllo');
@@ -406,7 +412,7 @@ class _ResultScreenState extends State<ResultScreen> {
                               MediaQuery.of(context).padding.top) *
                           0.73,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(50),

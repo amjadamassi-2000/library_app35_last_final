@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Directionality(
                   textDirection: TextDirection.rtl,
                   child: Scaffold(
-                    backgroundColor: primaryColor,
+//                    backgroundColor: primaryColor,
                     drawer: MyDrawer(),
                     body: SafeArea(
                       child: Stack(
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).padding.top) *
                                     0.75,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).cardColor,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(50),
                                     topRight: Radius.circular(50),
