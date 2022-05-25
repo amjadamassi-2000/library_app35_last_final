@@ -45,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: primaryColor,
+//          backgroundColor: primaryColor,
           body: SafeArea(
             child: Column(
               children: [
@@ -137,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           .top) *
                       0.73,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color:Theme.of(context).cardColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),

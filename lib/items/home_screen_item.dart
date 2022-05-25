@@ -73,7 +73,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                       child: myText(
                         widget.titles.name,
                         15,
-                        FontWeight.w400,
+                        FontWeight.bold,
                       ),
                     ),
                     Expanded(
@@ -110,7 +110,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.section.isNotEmpty)
                               my_dropdown(widget.titles.section,
                                   myvalue1,
-                                  hint: "اختر القسم",
+                                  hint: "اختر الصف",
                                   MychangeMethod: (val) {
                                 setState(() {
                                   myvalue1 = val;
@@ -131,7 +131,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.subSection.isNotEmpty)
                               my_dropdown(widget.sectionModel.sub,
                                   myvalue2,
-                                  hint: "اختر الفرع",
+                                  hint: "اختر الترم",
 
                                   MychangeMethod: (val) {
                                 setState(() {
@@ -146,7 +146,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.subSubSection.isNotEmpty)
                               my_dropdown(widget.subsectionModel.sub,
                                   myvalue3,
-                                  hint: "اختر فرع الفرع",
+                                  hint: "اختر المادة",
 
                                   MychangeMethod: (val) {
                                 setState(() {

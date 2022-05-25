@@ -194,15 +194,9 @@ class _PdfItemState extends State<PdfItem> {
               );
             },
           );
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) =>  NextScreen()),
-        // ).then((value)async {
 
-        //
-        //
-        // });
       }
+      Navigator.of(context).pop();
 
     }
     return Column(
@@ -228,7 +222,7 @@ class _PdfItemState extends State<PdfItem> {
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10),
                       ),
-//                      border: Border.all(color: Colors.grey.shade300),
+                      border: Border.all(color: Theme.of(context).disabledColor),
                       color: Theme.of(context).secondaryHeaderColor,
 
                     ),

@@ -323,7 +323,6 @@ class _ResultScreenState extends State<ResultScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                 child: InkWell(
                                   onTap: () {
-//                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SearchScreen()));
                                     To(context, SearchScreen());
                                   },
                                   child: Container(
@@ -357,42 +356,6 @@ class _ResultScreenState extends State<ResultScreen> {
                                         ],
                                       ),
                                     ),
-//                                      TextField(
-//                                        onChanged: (value) async{
-//                                          await cubit.userResult(
-//                                              section_id: widget.myvalue1,
-//                                              sub_section_id: widget.myvalue2,
-//                                              sub_sub_section_id: widget.myvalue3,
-//                                              categories: widget.myvalue4,
-//                                              title_id: widget.titles.id,
-//                                              search: value);
-//                                        },
-//                                        style: TextStyle(
-//                                          color: Colors.black,
-//                                        ),
-//                                        decoration: InputDecoration(
-//                                          hintText: "بحث",
-//                                          contentPadding: EdgeInsets.all(12),
-//                                          isDense: true,
-//                                          hintStyle:TextStyle(
-//                                            color: Colors.white,
-//                                            fontWeight: FontWeight.bold,
-//                                              fontFamily: 'cairo',
-//
-//                                          ),
-//                                          filled: true,
-//                                          fillColor:
-//                                          Colors.grey.shade300.withOpacity(0.3),
-//                                          border: OutlineInputBorder(
-//                                              borderSide: BorderSide.none,
-//                                              borderRadius: BorderRadius.circular(
-//                                                  10)),
-//                                          suffixIcon: Icon(
-//                                            Icons.search,
-//                                            color: Colors.white,
-//                                          ),
-//                                        ),
-//                                      ),
                                   ),
                                 ),
                               ),
@@ -408,9 +371,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: (MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.73,
+                      height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.only(
@@ -418,14 +379,18 @@ class _ResultScreenState extends State<ResultScreen> {
                           topRight: Radius.circular(50),
                         ),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          MyAppBanner(
-                            cubit.appModel.app.filepageLink,
-                            cubit.appModel.app.filepageBanner != null
-                                ? ClipRRect(
+                      child: Padding(
+                        padding:  EdgeInsets.only(bottom: 20 , top: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73 * 0.04),
+
+                        child: SingleChildScrollView(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                MyAppBanner(
+                                  cubit.appModel.app.filepageLink,
+                                  cubit.appModel.app.filepageBanner != null
+                                      ? ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.network(
                                       cubit.appModel.app.filepageBanner,
@@ -434,61 +399,39 @@ class _ResultScreenState extends State<ResultScreen> {
                                       fit: BoxFit.fitWidth,
                                     ),
                                   )
-                                : myText(
+                                      : myText(
                                     cubit.appModel.app.filepageText ?? '',
                                     14,
                                     FontWeight.w400,
                                   ),
-                          ),
+                                ),
 
-                          // MyAppBanner(
-                          //   "https://www.facebook.com/amjad.abed.948",
-                          //   myText(
-                          //     "اضغط هنا لمشاهدة شرح تحميل الملفات",
-                          //     14,
-                          //     FontWeight.w400,
-                          //   ),
-                          // ),
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 20 , top: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73 * 0.1),
+                                    child: articles.isNotEmpty
+                                        ? ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            controller: scrollController,
+                                            itemCount: articles.length,
+                                            itemBuilder: (context, index) {
+                                                return DelayedDisplay(
+                                                    delay: const Duration(
+                                                        milliseconds: 300),
+                                                    child: PdfItem(articles[index]));
+                                              },
 
-                          Expanded(
-                            child: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
-                                child: articles.isNotEmpty
-                                    ? ListView.builder(
-                                        controller: scrollController,
-                                        itemCount: articles.length,
-                                        itemBuilder: (context, index) {
-                                          return DelayedDisplay(
-                                              delay: const Duration(
-                                                  milliseconds: 300),
-                                              child: PdfItem(articles[index]));
-                                          //     final passenger = cubit.passengers[index];
 
-//                                     // final passenger=cubit.files[index];
-//                                     if (index == banarIndex) {
-//                                       return Padding(
-//                                         padding: EdgeInsets.symmetric(vertical: 20),
-//                                         child: Column(
-//                                           children: [
-//                                             AdBanner2(cubit.adsModel.ads.banner),
-//                                             SizedBox(height: 10,),
-//                                             if(cubit.resultModel.files.length!=0)
-//                                             PdfItem(cubit.resultModel.files[index]),
-//
-//                                           ],
-//                                         )
-//                                       );
-//                                     } else
-// //AdBanner2
-//                                       return PdfItem(cubit.resultModel.files[index]);
-                                        })
-                                    : DelayedDisplay(
-                                        delay: Duration(seconds: 3),
-                                        child: Center(
-                                            child: myText('لا يوجد بيانات', 25,
-                                                FontWeight.bold)))),
-                          ),
-                        ],
+
+                                            )
+                                        : DelayedDisplay(
+                                            delay: Duration(seconds: 3),
+                                            child: Center(
+                                                child: myText('لا يوجد بيانات', 25,
+                                                    FontWeight.bold)))),
+                              ],
+                            ),
+                        ),
                       ),
                     ),
                   ],

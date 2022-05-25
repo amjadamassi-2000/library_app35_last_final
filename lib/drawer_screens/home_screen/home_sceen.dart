@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
@@ -29,8 +30,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
 //  bool _switchValue=true;
 
+//   final snackBar = SnackBar(
+//    content: Text(
+//        'اضغط مرة اخرى للخروج',
+//      style:TextStyle(
+//        fontSize: 14,
+//        fontFamily: "cairo",
+//      ),
+//
+//    ),
+//  );
+
+  DateTime currentBackPressTime;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds:2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: " اضغط مرة أخرى للخروج" , textColor: Colors.white);
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
+
+
+
     return BlocConsumer<LibraryCubit, libraryStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -44,131 +79,138 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Scaffold(
 //                    backgroundColor: primaryColor,
                     drawer: MyDrawer(),
-                    body: SafeArea(
-                      child: Stack(
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: (MediaQuery.of(context).size.height -
-                                        MediaQuery.of(context).padding.top) *
-                                    0.25,
-                                child: LayoutBuilder(
-                                  builder: (ctx, constraint) => Column(
-                                    // mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: constraint.maxHeight * 0.3,
-                                        child: Row(
-                                          children: [
-                                            Builder(
-                                              builder: (BuildContext ctx) {
-                                                return IconButton(
-                                                  icon: CircleAvatar(
-                                                    backgroundColor: Colors
-                                                        .grey.shade100
-                                                        .withOpacity(0.3),
-                                                    child: Icon(
-                                                      Icons.menu,
-                                                      color: Colors.white,
+
+
+                    body: WillPopScope(
+                      child: SafeArea(
+                        child: Stack(
+                          children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: (MediaQuery.of(context).size.height -
+                                          MediaQuery.of(context).padding.top) *
+                                      0.25,
+                                  child: LayoutBuilder(
+                                    builder: (ctx, constraint) => Column(
+                                      // mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: constraint.maxHeight * 0.3,
+                                          child: Row(
+                                            children: [
+                                              Builder(
+                                                builder: (BuildContext ctx) {
+                                                  return IconButton(
+                                                    icon: CircleAvatar(
+                                                      backgroundColor: Colors
+                                                          .grey.shade100
+                                                          .withOpacity(0.3),
+                                                      child: Icon(
+                                                        Icons.menu,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  onPressed: () {
-                                                    cubit.drawerModel!=null?
-                                                    Scaffold.of(ctx)
-                                                        .openDrawer():cubit.getDrawerData().then((value) {
-                                                          return   Scaffold.of(ctx)
-                                                              .openDrawer();
-                                                        });
-                                                  },
-                                                  tooltip:
-                                                      MaterialLocalizations.of(
-                                                              context)
-                                                          .openAppDrawerTooltip,
-                                                );
-                                              },
-                                            ),
-                                            Spacer(),
-                                          ],
+                                                    onPressed: () {
+                                                      cubit.drawerModel!=null?
+                                                      Scaffold.of(ctx)
+                                                          .openDrawer():cubit.getDrawerData().then((value) {
+                                                            return   Scaffold.of(ctx)
+                                                                .openDrawer();
+                                                          });
+                                                    },
+                                                    tooltip:
+                                                        MaterialLocalizations.of(
+                                                                context)
+                                                            .openAppDrawerTooltip,
+                                                  );
+                                                },
+                                              ),
+                                              Spacer(),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Image.network(
-                                        '${cubit.appModel.app.logo}'??'',
-                                        width: 170,
-                                        height: constraint.maxHeight * 0.7,
-                                      ),
-                                    ],
+                                        Image.network(
+                                          '${cubit.appModel.app.logo}'??'',
+                                          width: 170,
+                                          height: constraint.maxHeight * 0.7,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: (MediaQuery.of(context).size.height -
-                                        MediaQuery.of(context).padding.top) *
-                                    0.75,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).cardColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50),
+                                Container(
+                                  width: double.infinity,
+                                  height: (MediaQuery.of(context).size.height -
+                                          MediaQuery.of(context).padding.top) *
+                                      0.75,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).cardColor,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50),
+                                    ),
                                   ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    MyAppBanner(
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        MyAppBanner(
+                                          cubit.appModel.app.homepageLink??'',
+                                        cubit.appModel.app.homepageBanner!=null?          ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            cubit.appModel.app.homepageBanner??[],
+                                            width: 400,
+                                            height: 70,
+                                            fit:BoxFit.fitWidth,
+                                          ),
+                                        ):
+
+                                      myText(
                                       cubit.appModel.app.homepageLink??'',
-                                    cubit.appModel.app.homepageBanner!=null?          ClipRRect(
-                                      borderRadius:
-                                      BorderRadius.circular(8.0),
-                                      child: Image.network(
-                                        cubit.appModel.app.homepageBanner??[],
-                                        width: 400,
-                                        height: 70,
-                                        fit:BoxFit.fitWidth,
+                                        14,
+                                        FontWeight.w400,
                                       ),
-                                    ):
 
-                                  myText(
-                                  cubit.appModel.app.homepageLink??'',
-                                    14,
-                                    FontWeight.w400,
-                                  ),
-
-                                    ),
-                                    Expanded(
-                                      child: Scrollbar(
-                                        thickness: 5,
-                                        radius: Radius.circular(50),
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                                  top: 30, bottom: 35)
-                                              .add(EdgeInsets.symmetric(
-                                                  horizontal: 10)),
-                                          child: ListView.builder(
-                                              itemCount:
-                                                  cubit.homeModel.titles.length,
-                                              itemBuilder: (context, index) {
-                                                return HomeScreenItem(
-                                                    cubit.homeModel
-                                                        .titles[index],
-                                                    cubit.sectionModel,
-                                                    cubit.subsectionModel,cubit.adsModel);
-                                              }),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
 
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: AdBanner2(cubit.adsModel.ads.banner),
-                          ),
+                                        Scrollbar(
+                                          thickness: 5,
+                                          radius: Radius.circular(50),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                    top: 30, bottom: 35)
+                                                .add(EdgeInsets.symmetric(
+                                                    horizontal: 10)),
+                                            child: ListView.builder(
+                                              physics: NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+
+                                                itemCount:
+                                                    cubit.homeModel.titles.length,
+                                                itemBuilder: (context, index) {
+                                                  return HomeScreenItem(
+                                                      cubit.homeModel
+                                                          .titles[index],
+                                                      cubit.sectionModel,
+                                                      cubit.subsectionModel,cubit.adsModel);
+                                                }),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: AdBanner2(cubit.adsModel.ads.banner),
+                            ),
 
 //              Column(
 //                crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,8 +227,10 @@ class _HomeScreenState extends State<HomeScreen> {
 ////                ),
 //                ],
 //              ),
-                        ],
+                          ],
+                        ),
                       ),
+                      onWillPop: onWillPop,
                     ),
                   ))
               : Scaffold(
