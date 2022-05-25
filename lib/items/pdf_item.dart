@@ -328,7 +328,7 @@ class _PdfItemState extends State<PdfItem> {
                                     ),
 
                                     TextButton(
-                                      onPressed: _viewFile,
+                                      onPressed: () =>_viewFile2(),
                                       child:  Text(
                                         "تنزيل",
                                         style:  GoogleFonts.cairo(
