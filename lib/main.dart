@@ -9,6 +9,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:library_app/ads/cubit/ads_cubit.dart';
 import 'package:library_app/shared/bloc_observer.dart';
 import 'package:library_app/shared/remote/dio_helper.dart';
+import 'package:library_app/shared/remote/local/cache_helper.dart';
 import 'package:library_app/shared/shared_pref_helper.dart';
 import 'package:library_app/styles/themes.dart';
 
@@ -35,7 +36,8 @@ void main() {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   BlocOverrides.runZoned(
-        () {
+        () async{
+          await CacheHelper.init();
 
       runApp( MyApp());
     },

@@ -43,6 +43,7 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   hexcolor:
   loading_indicator: ^3.0.2
+  intl:
 
   bloc:
   flutter_bloc:
