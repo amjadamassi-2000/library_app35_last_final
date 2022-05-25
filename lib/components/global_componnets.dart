@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/styles/colors.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //
 //
@@ -34,6 +35,27 @@ import 'package:library_app/styles/colors.dart';
 //      height: size,
 //      width: width ?? size,
 //    );
+
+
+Widget buildSearchLoadingIndicator() => Center(
+  child: Container(
+    width: 150,
+    child: LoadingIndicator(
+        indicatorType: Indicator.ballSpinFadeLoader,
+        colors: [
+          Colors.green,
+
+          Colors.red,
+          Colors.lightBlue,
+          Colors.purpleAccent,
+          Color(0xffF05454),
+          Color(0xffFEC260),
+          Color(0xffFFC100),
+        ],
+        strokeWidth: 2,
+        pathBackgroundColor: Colors.black),
+  ),
+);
 
 
 Future To(BuildContext context, Widget widget) async {

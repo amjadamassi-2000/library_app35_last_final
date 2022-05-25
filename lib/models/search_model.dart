@@ -1,18 +1,15 @@
-class ResultModel {
+class SearchModel {
   bool status;
   int code;
   String message;
-  int totalpage;
   List<Files> files;
 
-  ResultModel(
-      {this.status, this.code, this.message, this.totalpage, this.files});
+  SearchModel({this.status, this.code, this.message, this.files});
 
-  ResultModel.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     code = json['code'];
     message = json['message'];
-    totalpage = json['totalpage'];
     if (json['files'] != null) {
       files = <Files>[];
       json['files'].forEach((v) {
@@ -60,5 +57,6 @@ class Files {
     categoryId = json['category_id'];
     appLink = json['app_link'];
   }
+
 
 }

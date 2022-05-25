@@ -40,8 +40,10 @@ dependencies:
   google_mobile_ads: ^1.2.0
   flutter_screenutil: ^4.0.2+5
   page_transition:
-  delayed_display:
+  conditional_builder_null_safety: ^0.0.6
   hexcolor:
+  loading_indicator: ^3.0.2
+
   bloc:
   flutter_bloc:
   dio:
@@ -49,6 +51,8 @@ dependencies:
   share_plus:
   shared_preferences:
   pull_to_refresh:
+  delayed_display:
+
 
 dev_dependencies:
   flutter_test:

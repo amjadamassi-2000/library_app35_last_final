@@ -11,7 +11,7 @@ import '../models/result_model.dart';
 
 class PdfItem extends StatefulWidget {
 
-  final Files  pdf;
+  final   pdf;
 
   PdfItem(this.pdf);
 

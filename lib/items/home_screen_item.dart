@@ -220,10 +220,10 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30)
                       .add(EdgeInsets.only(top: 0)),
-                  child: myButton("عرض النتائج", () {
+                  child: myButton("عرض النتائج", () async{
                     Adinterstitial.showInterstitialAd();
 
-                      cubit
+                   await   cubit
                         .userResult(
 
                             section_id: myvalue1,
@@ -232,12 +232,12 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             categories: myvalue4,
                             title_id: widget.titles.id)
                         .then((value) {
-                      print({cubit.resultModel.files.length});
+                     // print({cubit.resultModel.files.length});
                       print("هداا طول المصفوفة ");
                       return To(
                           context,
                           ResultScreen(myvalue1: myvalue1,myvalue2:  myvalue2,myvalue3:  myvalue3,myvalue4:  myvalue4,
-                             titles:  widget.titles));
+                             titles:  widget.titles,));
                     }
                     );
 
@@ -254,6 +254,6 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
 //        ),
             ],
           )
-        : Center(child: CircularProgressIndicator());
+        : Center(child: buildSearchLoadingIndicator());
   }
 }

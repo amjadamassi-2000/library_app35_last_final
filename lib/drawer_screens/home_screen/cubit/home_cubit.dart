@@ -23,6 +23,13 @@ class LibraryCubit extends Cubit<libraryStates> {
 
   static LibraryCubit get(context) => BlocProvider.of(context);
 
+
+
+
+
+
+
+
   HomeModel homeModel;
 
   Future <void> getHomeData() async {
@@ -65,6 +72,7 @@ class LibraryCubit extends Cubit<libraryStates> {
       url: '$GET_SUBSECTION/$id',
     ).then((value) {
       subsectionModel = SubSectionModel.fromJson(value.data);
+
       print(subsectionModel.message);
       emit(GetSubSectionSuccessState());
     }).catchError((error) {
@@ -171,6 +179,8 @@ print(articles.length);
       emit(ResultDataSuccessState());
 
     }).catchError((error) {
+      print(error.toString());
+      print('هداااااااا الايرور');
       emit(ResultDataErrorState());
     });
    return articles;
@@ -195,6 +205,14 @@ print(articles.length);
       print(error.toString());
     });
   }
+
+
+
+
+
+
+
+
 
   AppModel appModel;
 

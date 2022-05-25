@@ -20,15 +20,18 @@ import '../drawer_screens/home_screen/cubit/home_state.dart';
 import '../models/home_model.dart';
 import '../models/result_model.dart';
 
-
 class ResultScreen extends StatefulWidget {
   final myvalue1;
   final myvalue2;
   final myvalue3;
   final myvalue4;
-  final  Titles titles;
+  final Titles titles;
 
-  ResultScreen({this.myvalue1, this.myvalue2, this.myvalue3, this.myvalue4,
+  ResultScreen(
+      {this.myvalue1,
+      this.myvalue2,
+      this.myvalue3,
+      this.myvalue4,
       this.titles});
 
   @override
@@ -39,7 +42,6 @@ class _ResultScreenState extends State<ResultScreen> {
   TextEditingController _controller = TextEditingController();
 
   DropDownButtonListItem _selectedstage;
-
 
   List<DropDownButtonListItem> stages = [
     DropDownButtonListItem("الأحدث", 1),
@@ -52,44 +54,45 @@ class _ResultScreenState extends State<ResultScreen> {
     DropDownButtonListItem("ملخص", 2),
   ];
 
-  List<Files> articles=[];
+  List<Files> articles = [];
 
+  int pages = 1;
+  int currentpage = 1;
+  bool loading = true;
+  int mytitles = null;
+  ScrollController scrollController = ScrollController();
 
-  int pages=2;
-  int currentpage=1;
-  bool loading=true;
-  int mytitles=null;
-  ScrollController scrollController=ScrollController();
-  fetchNews(){
-    if(widget.titles!=null){
-      mytitles=widget.titles.id;
-
+  fetchNews() {
+    if (widget.titles != null) {
+      mytitles = widget.titles.id;
     }
     Future.delayed(Duration.zero).then((value) {
       LibraryCubit cubit = LibraryCubit.get(context);
-        cubit.userResult(
-         title_id:mytitles
-,
-         Page: currentpage,section_id: widget.myvalue1,
+      pages = cubit.resultModel.totalpage;
+      cubit
+          .userResult(
+        title_id: mytitles,
+        Page: currentpage,
+        section_id: widget.myvalue1,
         sub_section_id: widget.myvalue2,
         sub_sub_section_id: widget.myvalue3,
         categories: widget.myvalue4,
-    ).then((value) {
+      )
+          .then((value) {
         print('الداتا الراجعة ');
         print(value);
         articles.addAll(value);
         setState(() {
-          loading=false;
-
-
+          loading = false;
         });
       });
       print(articles.length);
-      print(('الارتكلست الي الانيش' ));
+      print(('الارتكلست الي الانيش'));
       print(currentpage);
       print('الصفحة الحالية هي ');
     });
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -98,50 +101,49 @@ class _ResultScreenState extends State<ResultScreen> {
     print('hellllllllo wooooooooooooooooord');
     fetchNews();
     scrollController.addListener(() {
-           double minScroll=scrollController.position.maxScrollExtent-200;
-           double maxScroll=scrollController.position.maxScrollExtent;
+      double minScroll = scrollController.position.maxScrollExtent - 200;
+      double maxScroll = scrollController.position.maxScrollExtent;
 
-           if(scrollController.position.pixels>=minScroll&&scrollController.position.pixels<=maxScroll){
-             print(currentpage);
-             print('الصفحة الحالية هي ');
+      if (scrollController.position.pixels >= minScroll &&
+          scrollController.position.pixels <= maxScroll) {
+        print(currentpage);
+        print('الصفحة الحالية هي ');
 
-            if(currentpage<=pages){
-              currentpage++;
+        if (currentpage <= pages) {
+          currentpage++;
 
-              fetchNews();
-            }
+          fetchNews();
+        }
       }
-
     });
   }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     print('object helllllo');
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     scrollController.dispose();
     super.dispose();
     print('تم التدمير');
-    articles=[];
+    articles = [];
     print(articles.isEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     LibraryCubit cubit = LibraryCubit.get(context);
-    print('${cubit.resultModel.files.length}طول الريسلت');
+    //   print('${cubit.resultModel.files.length}طول الريسلت');
 
-    int banarIndex = Random().nextInt(cubit.resultModel.files.length!=0?cubit.resultModel.files.length:1);
+    //int banarIndex = Random().nextInt(cubit.resultModel.files.length!=0?cubit.resultModel.files.length:1);
 
-    return BlocConsumer<LibraryCubit, libraryStates>(
-        builder: (context, state) {
-          return state is ResultDataSuccessState ?Directionality(
+    return cubit.resultModel.files != null
+        ? Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               resizeToAvoidBottomInset: false,
@@ -151,194 +153,204 @@ class _ResultScreenState extends State<ResultScreen> {
                 child: Column(
                   children: [
                     Container(
-                      height: (MediaQuery
-                          .of(context)
-                          .size
-                          .height -
-                          MediaQuery
-                              .of(context)
-                              .padding
-                              .top) *
+                      height: (MediaQuery.of(context).size.height -
+                              MediaQuery.of(context).padding.top) *
                           0.25,
                       child: LayoutBuilder(
-                        builder: (ctx, constraint) =>
-                            SizedBox(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    height: constraint.maxHeight * 0.25,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: [
-                                        Builder(
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              child: IconButton(
-                                                icon: CircleAvatar(
-                                                  backgroundColor: Colors.grey
-                                                      .shade100
-                                                      .withOpacity(0.3),
-                                                  child: Icon(
-                                                    Icons.menu,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  cubit.drawerModel!=null?
-                                                  Scaffold.of(ctx)
-                                                      .openDrawer():cubit.getDrawerData().then((value) {
-                                                    return   Scaffold.of(ctx)
-                                                        .openDrawer();
-                                                  });                                                },
-                                                tooltip: MaterialLocalizations
-                                                    .of(context)
-                                                    .openAppDrawerTooltip,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        Builder(builder: (ctx) {
-                                          return IconButton(
+                        builder: (ctx, constraint) => SizedBox(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: constraint.maxHeight * 0.25,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Builder(
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: IconButton(
                                             icon: CircleAvatar(
-                                              backgroundColor:
-                                              Colors.grey.shade100.withOpacity(0.3),
+                                              backgroundColor: Colors
+                                                  .grey.shade100
+                                                  .withOpacity(0.3),
                                               child: Icon(
-                                                Icons.filter_list,
+                                                Icons.menu,
                                                 color: Colors.white,
                                               ),
                                             ),
                                             onPressed: () {
-                                              Scaffold.of(ctx).showBottomSheet<void>(
-                                                    (BuildContext context) {
-                                                  return Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.only(
-                                                        topRight: Radius.circular(
-                                                            30.r),
-                                                        topLeft: Radius.circular(
-                                                            30.r),
-                                                      ),
-                                                      color: Colors.white,
-                                                    ),
-                                                    height: MediaQuery
-                                                        .of(context)
+                                              cubit.drawerModel != null
+                                                  ? Scaffold.of(ctx)
+                                                      .openDrawer()
+                                                  : cubit
+                                                      .getDrawerData()
+                                                      .then((value) {
+                                                      return Scaffold.of(ctx)
+                                                          .openDrawer();
+                                                    });
+                                            },
+                                            tooltip: MaterialLocalizations.of(
+                                                    context)
+                                                .openAppDrawerTooltip,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Builder(builder: (ctx) {
+                                      return IconButton(
+                                        icon: CircleAvatar(
+                                          backgroundColor: Colors.grey.shade100
+                                              .withOpacity(0.3),
+                                          child: Icon(
+                                            Icons.filter_list,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Scaffold.of(ctx)
+                                              .showBottomSheet<void>(
+                                            (BuildContext context) {
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(30.r),
+                                                    topLeft:
+                                                        Radius.circular(30.r),
+                                                  ),
+                                                  color: Colors.white,
+                                                ),
+                                                height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                        0.35,
-                                                    child: Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                          horizontal: 20),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
+                                                    0.35,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
                                                                 right: 20),
-                                                            child: myText(
-                                                              "الإسم : ",
-                                                              15,
-                                                              FontWeight.w400,
-                                                            ),
-                                                          ),
-                                                          CustomDropDown(
-                                                            stages,
-                                                            onSelect: (newValue) {
-                                                              _selectedstage =
-                                                                  newValue;
-                                                            },
-                                                            hint: "طرق الفلترة",
-                                                          ),
-
-                                                          myButton(" فلتر", () async{
-                                                            //     print('helllllllllllo');
-                                                            print(
-                                                                _selectedstage.title);
-                                                           await cubit.userResult(
-                                                                title_id:
-                                                                widget.titles.id,
-                                                                section_id:
-                                                                widget.myvalue1,
-                                                                sub_section_id:
-                                                                widget.myvalue2,
-                                                                sub_sub_section_id:
-                                                                widget.myvalue3,
-                                                                categories:
-                                                                widget.myvalue4,
-                                                                sort:
-                                                                _selectedstage.title
-                                                            ).then((value) async{
-                                                              return await ToAndFinish(
-                                                                context,
-                                                                ResultScreen(myvalue1: widget.myvalue1,myvalue2:  widget.myvalue2, myvalue3: widget.myvalue3,myvalue4:  widget.myvalue4,
-                                                                   titles:  widget.titles));
-                                                            });
-
-                                                            Navigator.of(context).pop();
-
-                                                          }
-                                                          ),
-                                                          SizedBox(
-                                                            height: 30,
-                                                          ),
-                                                        ],
+                                                        child: myText(
+                                                          "الإسم : ",
+                                                          15,
+                                                          FontWeight.w400,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
+                                                      CustomDropDown(
+                                                        stages,
+                                                        onSelect: (newValue) {
+                                                          _selectedstage =
+                                                              newValue;
+                                                        },
+                                                        hint: "طرق الفلترة",
+                                                      ),
+                                                      myButton(" فلتر",
+                                                          () async {
+                                                        //     print('helllllllllllo');
+                                                        print(_selectedstage
+                                                            .title);
+                                                        await cubit
+                                                            .userResult(
+                                                                title_id: widget
+                                                                    .titles.id,
+                                                                section_id: widget
+                                                                    .myvalue1,
+                                                                sub_section_id:
+                                                                    widget
+                                                                        .myvalue2,
+                                                                sub_sub_section_id:
+                                                                    widget
+                                                                        .myvalue3,
+                                                                categories: widget
+                                                                    .myvalue4,
+                                                                sort:
+                                                                    _selectedstage
+                                                                        .title)
+                                                            .then((value) {
+                                                    print(value[0].name);
+                                                    articles=[];
+                                                    setState(() {
+                                                      articles.addAll(value);
+
+                                                    });
+                                                    print('thissssss value');
+
+                                                        });
+
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      }),
+                                                      SizedBox(
+                                                        height: 30,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               );
                                             },
                                           );
-                                        }),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom: constraint.maxHeight * 0.05),
-                                    child: Image.network(
-                                      cubit.appModel.app.logo,
-                                      width: 150,
-                                      height: constraint.maxHeight * 0.35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 20),
-                                    
-                                    child: InkWell(
-                                      onTap: (){
+                                        },
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: constraint.maxHeight * 0.05),
+                                child: Image.network(
+                                  cubit.appModel.app.logo,
+                                  width: 150,
+                                  height: constraint.maxHeight * 0.35,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: InkWell(
+                                  onTap: () {
 //                         Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SearchScreen()));
-                                      To(context, SearchScreen());
-
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: constraint.maxHeight * 0.25,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          color: Colors.grey.shade200.withOpacity(0.2),
-                                        ),
-                                        child:  Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: const [
-                                               Text(
-                                                "بحث",
-                                                style:  TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'cairo'
-                                                ),
-                                                textAlign:  TextAlign.center,
-                                              ),
-                                              Icon(Icons.search , color: Colors.white,)
-                                            ],
+                                    To(context, SearchScreen());
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: constraint.maxHeight * 0.25,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color:
+                                          Colors.grey.shade200.withOpacity(0.2),
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text(
+                                            "بحث",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'cairo'),
+                                            textAlign: TextAlign.center,
                                           ),
-                                        ) ,
+                                          Icon(
+                                            Icons.search,
+                                            color: Colors.white,
+                                          )
+                                        ],
+                                      ),
+                                    ),
 //                                      TextField(
 //                                        onChanged: (value) async{
 //                                          await cubit.userResult(
@@ -375,35 +387,23 @@ class _ResultScreenState extends State<ResultScreen> {
 //                                          ),
 //                                        ),
 //                                      ),
-                                      ),
-                                    ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
-                      height: (MediaQuery
-                          .of(context)
-                          .size
-                          .height -
-                          MediaQuery
-                              .of(context)
-                              .padding
-                              .top) *
+                      height: (MediaQuery.of(context).size.height -
+                              MediaQuery.of(context).padding.top) *
                           0.02,
                     ),
                     Container(
                       width: double.infinity,
-                      height: (MediaQuery
-                          .of(context)
-                          .size
-                          .height -
-                          MediaQuery
-                              .of(context)
-                              .padding
-                              .top) *
+                      height: (MediaQuery.of(context).size.height -
+                              MediaQuery.of(context).padding.top) *
                           0.73,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -418,28 +418,21 @@ class _ResultScreenState extends State<ResultScreen> {
                         children: [
                           MyAppBanner(
                             cubit.appModel.app.filepageLink,
-                          cubit.appModel.app.filepageBanner!=null ?  ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(8.0),
-                            child: Image.network(
-
-                              cubit.appModel.app.filepageBanner,
-
-                              width: 400,
-                              height: 70,
-                              fit:BoxFit.fitWidth,
-                            ),
-                          ):
-
-
-
-
-                            myText(
-                              cubit.appModel.app.filepageText??'',
-                              14,
-                              FontWeight.w400,
-                            ),
-
+                            cubit.appModel.app.filepageBanner != null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      cubit.appModel.app.filepageBanner,
+                                      width: 400,
+                                      height: 70,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  )
+                                : myText(
+                                    cubit.appModel.app.filepageText ?? '',
+                                    14,
+                                    FontWeight.w400,
+                                  ),
                           ),
 
                           // MyAppBanner(
@@ -451,26 +444,19 @@ class _ResultScreenState extends State<ResultScreen> {
                           //   ),
                           // ),
 
-
-
-
-
-
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child:articles.isNotEmpty?
-
-                              ListView.builder (
-                                controller: scrollController,
-                                  itemCount: articles.length,
-                                  itemBuilder: (context, index) {
-
-                                    return    DelayedDisplay(
-                                        delay: const Duration( milliseconds: 300),
-                                        child: PdfItem(articles[index])
-                                    );
-                               //     final passenger = cubit.passengers[index];
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: articles.isNotEmpty
+                                    ? ListView.builder(
+                                        controller: scrollController,
+                                        itemCount: articles.length,
+                                        itemBuilder: (context, index) {
+                                          return DelayedDisplay(
+                                              delay: const Duration(
+                                                  milliseconds: 300),
+                                              child: PdfItem(articles[index]));
+                                          //     final passenger = cubit.passengers[index];
 
 //                                     // final passenger=cubit.files[index];
 //                                     if (index == banarIndex) {
@@ -489,9 +475,12 @@ class _ResultScreenState extends State<ResultScreen> {
 //                                     } else
 // //AdBanner2
 //                                       return PdfItem(cubit.resultModel.files[index]);
-
-                                  }):Center(child: myText('لا يوجد بيانات', 25, FontWeight.bold))
-                            ),
+                                        })
+                                    : DelayedDisplay(
+                                        delay: Duration(seconds: 3),
+                                        child: Center(
+                                            child: myText('لا يوجد بيانات', 25,
+                                                FontWeight.bold)))),
                           ),
                         ],
                       ),
@@ -500,9 +489,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ),
             ),
-          ):Center(child: CircularProgressIndicator());
-
-        }
-    );
+          )
+        : buildSearchLoadingIndicator();
   }
 }

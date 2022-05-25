@@ -190,8 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ))
               : Scaffold(
-                  body:Center(child: CircularProgressIndicator())
-            );
+                  body:buildSearchLoadingIndicator());
+
         });
   }
 }
