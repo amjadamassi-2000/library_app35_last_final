@@ -38,15 +38,16 @@ class _FavoriteItemState extends State<FavoriteItem> {
 
       child: InkWell(
         onTap: (){
+          setState(() {
 
-          print(widget.sections);
-          cubit.userResult(section_id: widget.sections.id).then((value) {
-           print(widget.sections.id);
-           print('هدا ايدي المفضلة ');
+            cubit.onPressedFavouriteButton(widget.sections.id);
 
-           return   To(context , ResultScreen(myvalue1: widget.sections.id,));
-
-         });
+            isFavorite = (!isFavorite);
+          });
+          print('تم بنجاح');
+          cubit.favouritesProduct.forEach((element) {
+            print(element.name);
+          });
         },
         child: Container(
 

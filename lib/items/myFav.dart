@@ -1,3 +1,6 @@
+// ignore: file_names
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,11 +29,11 @@ class _myfavState extends State<myfav> {
     return InkWell(
       onTap: (){
         print(widget.sections);
-        cubit.userResult(section_id: widget.sections.id).then((value) {
+        cubit.userResult(sub_section_id: widget.sections.id).then((value) {
           print(widget.sections.id);
           print('هدا ايدي المفضلة ');
 
-          return   To(context , ResultScreen(myvalue1: widget.sections.id,));
+          return   To(context , ResultScreen(myvalue2: widget.sections.id,));
 
         });
       },

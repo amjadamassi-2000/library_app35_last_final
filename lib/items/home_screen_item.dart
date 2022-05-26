@@ -110,8 +110,13 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.section.isNotEmpty)
                               my_dropdown(widget.titles.section,
                                   myvalue1,
-                                  hint: "اختر الصف",
+                                  hint: (widget.titles.name=='المراحل الدراسية'?"اختر الصف":'اختر القسم')??'اختر',
                                   MychangeMethod: (val) {
+                         print(widget.titles.section.first.name);
+                         print('هدا العنصر الاول ');
+                         print(val);
+                        if(widget.titles.section.first!=null){print('123');}
+
                                 setState(() {
                                   myvalue1 = val;
                                   widget.sectionModel.sub = [];
@@ -131,7 +136,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                             if (widget.titles.subSection.isNotEmpty)
                               my_dropdown(widget.sectionModel.sub,
                                   myvalue2,
-                                  hint: "اختر الترم",
+                                  hint:(widget.titles.name=='المراحل الدراسية'?"اختر الترم":'اختر النوع')?? "اختر ",
 
                                   MychangeMethod: (val) {
                                 setState(() {

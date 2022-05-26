@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -7,6 +8,9 @@ import 'package:library_app/drawer_screens/favorite_screen.dart';
 import 'package:library_app/drawer_screens/home_screen/home_sceen.dart';
 import 'package:library_app/drawer_screens/settings_screen.dart';
 import 'package:library_app/inner_screens/search_screen.dart';
+import 'package:library_app/inner_screens/theme_cubit/cubit.dart';
+import 'package:library_app/inner_screens/theme_cubit/state.dart';
+import 'package:library_app/shared/remote/local/cache_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
 import '../drawer_screens/home_screen/cubit/home_state.dart';
@@ -49,8 +53,9 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     LibraryCubit cubit = LibraryCubit.get(context);
+    bool _switchValue=CacheHelper.getBoolean(key: 'isDark');
 
-    return BlocConsumer<LibraryCubit, libraryStates>(
+    return BlocConsumer<ThemeCubit, ThemeStates>(
         listener: (context, state) {
 
     },
@@ -72,7 +77,44 @@ class _MyDrawerState extends State<MyDrawer> {
                ),
                Image.network(cubit.appModel.app.logo, width:  150,),
                SizedBox(
-                 height: 10.h,
+                 height: 15.h,
+               ),
+               Padding(
+                 padding: const EdgeInsets.only(right: 15),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                     Icon(Icons.brightness_4, color: Colors.white),
+                     SizedBox(
+                       width: 15.h,
+                     ),
+                     Text(
+                       'الوضع المظلم',
+                       style: TextStyle(
+                         color: Colors.white,
+                         fontSize: 14.sp,
+                         fontWeight: FontWeight.w500,
+                         fontFamily: 'cairo',
+
+                       ),
+                     ),
+
+                    Spacer(),
+                     CupertinoSwitch(
+                       value: _switchValue,
+                       onChanged: (value) {
+                         setState(() {
+                           ThemeCubit.get(context).changeAppMode(fromShared: value);
+
+                           _switchValue = value;
+                           print(CacheHelper.getBoolean(key: 'isDark'));
+                         });
+                       },
+                     ),
+
+
+                   ],
+                 ),
                ),
                 myListTielStatic(
           "الرئيسية",
@@ -85,20 +127,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
           },
         ),
-               myListTielStatic(
-                 "الإعدادات",
-                 Icon(Icons.settings, color: Colors.white),
-                     () {
-                   ToAndFinish(context, SettingsScreen());
-                 },
-               ),
-               myListTielStatic(
-                 "من نحن",
-                 Icon(Icons.info, color: Colors.white),
-                     () {
-//                   ToAndFinish(context, SearchScreen());
-                 },
-               ),
+
+          //
 
             myListTielStatic(
               "المفضلة",
@@ -106,7 +136,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   () async{
                  await   SharedPrefHelper.sharedPrefHelper.initSharedPrefs();
                   cubit.getAllFavouriteProducts();
-                    ToAndFinish(context, FavoriteScreen());
+                    To(context, FavoriteScreen());
               },
             ),
 
