@@ -42,7 +42,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Adinterstitial.loadInterstitialAd(widget.adsModel.ads.inter1);
+    //Adinterstitial.loadInterstitialAd(widget.adsModel.ads.inter1);
 
   }
 

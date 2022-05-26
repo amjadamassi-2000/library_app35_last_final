@@ -27,10 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(
         Duration(seconds: 10),
-            () {
-              Adinterstitial.loadInterstitialAd('ca-app-pub-3940256099942544/1033173712');
+            (){
 
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => HomeScreen()));
 
         }
@@ -42,18 +42,24 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
 
     return  BlocProvider(
-      create: (BuildContext context) =>LibraryCubit()..getAppData(),
+      create: (BuildContext context) =>LibraryCubit()..getAppData()..getAdsData(),
 
        child:  BlocConsumer<LibraryCubit, libraryStates>(
          listener: (contex,state){},
          builder:  (context, state) {
            LibraryCubit cubit = LibraryCubit.get(context);
 
-           return cubit.appModel!=null?Scaffold(
+
+           return cubit.adsModel!=null?Builder(
+             builder: (context) {
+               Adinterstitial.loadInterstitialAd(cubit.adsModel.ads.inter1);
+               return Scaffold(
 //             backgroundColor: primaryColor,
-             body: Center(
-               child: Image.network(cubit.appModel.app.logo, width:  170,)
-             ),
+                 body: Center(
+                   child: Image.network(cubit.appModel.app.logo, width:  170,)
+                 ),
+               );
+             }
            ):Container();
 
 

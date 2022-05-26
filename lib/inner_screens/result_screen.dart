@@ -261,13 +261,18 @@ class _ResultScreenState extends State<ResultScreen> {
                                                       ),
                                                       myButton(" فلتر",
                                                           () async {
+                                                            var mytitles2 = null;
+
+                                                            if (widget.titles != null) {
+                                                              mytitles2 = widget.titles.id;
+                                                            }
                                                         //     print('helllllllllllo');
                                                         print(_selectedstage
                                                             .title);
+
                                                         await cubit
                                                             .userResult(
-                                                                title_id: widget
-                                                                    .titles.id,
+                                                                title_id:mytitles2,
                                                                 section_id: widget
                                                                     .myvalue1,
                                                                 sub_section_id:
@@ -437,7 +442,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                   child:
                                                   Column(
                                                     children: [
-                                                      PdfItem(articles[index]),
+                                                      PdfItem(articles[index],cubit.adsModel),
                                                       SizedBox(height: 10.h,),
                                                       AdBanner2(cubit.adsModel.ads.banner??''),
 
@@ -450,7 +455,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                 delay: const Duration(
                                                     milliseconds: 300),
                                                 child:
-                                                    PdfItem(articles[index]));
+                                                    PdfItem(articles[index],cubit.adsModel));
                                           },
                                         )
                                       : DelayedDisplay(

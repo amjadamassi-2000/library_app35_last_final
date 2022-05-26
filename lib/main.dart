@@ -40,7 +40,7 @@ void main() {
   BlocOverrides.runZoned(
         () async{
           await CacheHelper.init();
-          bool isDark = CacheHelper.getBoolean(key: 'isDark');
+          bool isDark = CacheHelper.getBoolean(key: 'isDark')??true;
       runApp( MyApp(isDark));
     },
     blocObserver: SimpleBlocObserver(),
@@ -61,14 +61,6 @@ final isDark;
 
 class _MyAppState extends State<MyApp> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-// FlutterNativeSplash.remove();
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +82,9 @@ class _MyAppState extends State<MyApp> {
                 darkTheme: darkTheme,
 
 
-          themeMode:  ThemeCubit.get(context).isDark
-              ? ThemeMode.light
-              : ThemeMode.dark,
+          themeMode:  CacheHelper.getBoolean(key: 'isDark')??false
+              ? ThemeMode.dark
+              : ThemeMode.light,
 
 
                 home: SplashScreen(),
@@ -101,7 +93,7 @@ class _MyAppState extends State<MyApp> {
             ),
             providers: [
               BlocProvider(
-                create: (BuildContext context) => LibraryCubit()..getAppData()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAdsData()..userResult(),
+                create: (BuildContext context) => LibraryCubit()..getAppData()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAdsData()..userResult()..getAdsData(),
 
               ),
               BlocProvider(

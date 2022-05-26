@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,24 +47,62 @@ class _HomeScreenState extends State<HomeScreen> {
 //  );
 
   DateTime currentBackPressTime;
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds:2)) {
-      currentBackPressTime = now;
-      Fluttertoast.showToast(msg: " اضغط مرة أخرى للخروج" , textColor: Colors.white);
-      return Future.value(false);
-    }
-    return Future.value(true);
+
+
+  Future<bool> showExitPopup(context) async{
+    return await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 120.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20.h),
+
+                  myText('هل تريد الخروج ؟', 15, FontWeight.bold),
+                  SizedBox(height: 20.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            print('yes selected');
+                            exit(0);
+                          },
+                          child: myText("نعم",22,FontWeight.normal),
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.red.shade800),
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              print('no selected');
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("لا", style: TextStyle(color: Colors.black,fontFamily: 'cairo',fontSize: 22)),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+
+                            ),
+                          ))
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Adinterstitial.showInterstitialAd();
-
 
   }
 
@@ -74,11 +115,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
     return BlocConsumer<LibraryCubit, libraryStates>(
         listener: (context, state) {},
-        builder: (context, state) {
+        builder: (context, state)  {
           LibraryCubit cubit = LibraryCubit.get(context);
+
+          //
+          // Future.delayed(Duration(seconds: 5),() {
+          //
+          //
+          // });
+
           return
 
             cubit.homeModel!=null&&cubit.appModel!=null&&cubit.adsModel!=null
@@ -91,6 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
                     body: WillPopScope(
+
                       child: SafeArea(
                         child: Stack(
                           children: [
@@ -239,7 +287,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      onWillPop: onWillPop,
+                      onWillPop:()=>showExitPopup(context),
+
                     ),
                   ))
               : Scaffold(

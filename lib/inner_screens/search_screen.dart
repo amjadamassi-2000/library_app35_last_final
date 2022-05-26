@@ -158,7 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             children: [
                               ListView.builder(
 
-                                itemBuilder: (context, index) => PdfItem(  SearchCubit.get(context).searchModel.files[index]),
+                                itemBuilder: (context, index) => PdfItem(  SearchCubit.get(context).searchModel.files[index],cubit.adsModel),
                                 itemCount:
                                SearchCubit.get(context).searchModel.files.length,
                                 physics: NeverScrollableScrollPhysics(),

@@ -14,12 +14,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../ads/cubit/ad_helper.dart';
+import '../models/ads_model.dart';
 import '../models/result_model.dart';
 
 class PdfItem extends StatefulWidget {
   final pdf;
-
-  PdfItem(this.pdf);
+  final  myads;
+  PdfItem(this.pdf, this.myads);
 
   @override
   _PdfItemState createState() => _PdfItemState();
@@ -54,7 +55,7 @@ class _PdfItemState extends State<PdfItem> {
     adShowed = false;
 
     RewardedAd.load(
-      adUnitId: AdHelper.rewardedAdUnitId,
+      adUnitId:AdHelper.rewardedAdUnitId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
@@ -80,11 +81,11 @@ class _PdfItemState extends State<PdfItem> {
 
     _rewardedAd.fullScreenContentCallback =
         FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
-      log("ad dismissed");
-      ad.dispose();
-    }, onAdFailedToShowFullScreenContent: (ad, error) {
-      ad.dispose();
-    });
+          log("ad dismissed");
+          ad.dispose();
+        }, onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+        });
   }
 
   @override
@@ -211,12 +212,12 @@ class _PdfItemState extends State<PdfItem> {
                         topLeft: Radius.circular(10),
                       ),
                       border:
-                          Border.all(color: Theme.of(context).disabledColor),
+                      Border.all(color: Theme.of(context).disabledColor),
                       color: Theme.of(context).secondaryHeaderColor,
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: SizedBox(
                         width: 400,
                         child: myText(widget.pdf.name, 13, FontWeight.w400),
@@ -225,28 +226,28 @@ class _PdfItemState extends State<PdfItem> {
                   ),
                   widget.pdf.isNew
                       ? Transform.rotate(
-                          angle: 0, //set the angel
-                          child: ClipPath(
-                            clipper: CustomTriangleClipper(),
-                            child: Container(
-                              alignment: Alignment.topRight,
-                              width: 50,
-                              height: 50,
-                              color: Colors.green,
-                              child: Transform.rotate(
-                                angle: 170.4,
-                                child: Text(
-                                  "جديد",
-                                  style: GoogleFonts.cairo(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
+                    angle: 0, //set the angel
+                    child: ClipPath(
+                      clipper: CustomTriangleClipper(),
+                      child: Container(
+                        alignment: Alignment.topRight,
+                        width: 50,
+                        height: 50,
+                        color: Colors.green,
+                        child: Transform.rotate(
+                          angle: 170.4,
+                          child: Text(
+                            "جديد",
+                            style: GoogleFonts.cairo(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        )
+                        ),
+                      ),
+                    ),
+                  )
                       : Container(),
                 ],
               ),
@@ -321,7 +322,7 @@ class _PdfItemState extends State<PdfItem> {
                           Icons.share,
                           color: Colors.white,
                         ),
-                        () async {
+                            () async {
                           var readLines = [
                             '${widget.pdf.name}',
                             ' ${widget.pdf.appLink}'

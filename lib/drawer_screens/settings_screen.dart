@@ -23,7 +23,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
 
-  bool _switchValue=!CacheHelper.getBoolean(key: 'isDark');
+  bool _switchValue=CacheHelper.getBoolean(key: 'isDark');
 
 
   DateTime currentBackPressTime;
@@ -154,7 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     value: _switchValue,
                                     onChanged: (value) {
                                       setState(() {
-                                        ThemeCubit.get(context).changeAppMode(fromShared: !value);
+                                        ThemeCubit.get(context).changeAppMode(fromShared: value);
 
                                         _switchValue = value;
                                         print(CacheHelper.getBoolean(key: 'isDark'));
