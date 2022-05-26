@@ -52,11 +52,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
            return cubit.adsModel!=null?Builder(
              builder: (context) {
-               Adinterstitial.loadInterstitialAd(cubit.adsModel.ads.inter1);
+               if(cubit.adsModel.ads.inter1!=null)
+               Adinterstitial.loadInterstitialAd(cubit.adsModel.ads.inter1??'');
                return Scaffold(
 //             backgroundColor: primaryColor,
                  body: Center(
-                   child: Image.network(cubit.appModel.app.logo, width:  170,)
+                   child: Image.network(cubit.appModel.app.logo??'', width:  170,)
                  ),
                );
              }

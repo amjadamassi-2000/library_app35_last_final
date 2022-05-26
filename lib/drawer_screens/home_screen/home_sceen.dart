@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Adinterstitial.showInterstitialAd();
 
   }
@@ -247,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               shrinkWrap: true,
 
                                                 itemCount:
-                                                    cubit.homeModel.titles.length,
+                                                    cubit.homeModel.titles.length??0,
                                                 itemBuilder: (context, index) {
                                                   return HomeScreenItem(
                                                       cubit.homeModel

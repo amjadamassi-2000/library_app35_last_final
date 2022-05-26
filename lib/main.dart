@@ -40,7 +40,7 @@ void main() {
   BlocOverrides.runZoned(
         () async{
           await CacheHelper.init();
-          bool isDark = CacheHelper.getBoolean(key: 'isDark')??true;
+          bool isDark = CacheHelper.getBoolean(key: 'isDark');
       runApp( MyApp(isDark));
     },
     blocObserver: SimpleBlocObserver(),
@@ -61,6 +61,14 @@ final isDark;
 
 class _MyAppState extends State<MyApp> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+// FlutterNativeSplash.remove();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +90,10 @@ class _MyAppState extends State<MyApp> {
                 darkTheme: darkTheme,
 
 
-          themeMode:  CacheHelper.getBoolean(key: 'isDark')??false
+          themeMode: ThemeCubit.get(context).isDark
               ? ThemeMode.dark
-              : ThemeMode.light,
+
+                :ThemeMode.light,
 
 
                 home: SplashScreen(),
