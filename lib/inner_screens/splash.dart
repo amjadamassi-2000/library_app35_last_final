@@ -17,18 +17,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  LibraryCubit cubit ;
+
   @override
   void initState() {
+
     super.initState();
-//    Adinterstitial.loadInterstitialAd();
+
 
     Timer(
         Duration(seconds: 10),
             () {
+              Adinterstitial.loadInterstitialAd('ca-app-pub-3940256099942544/1033173712');
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => HomeScreen()));
-//          Adinterstitial.showInterstitialAd();
 
         }
     );
@@ -51,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
              body: Center(
                child: Image.network(cubit.appModel.app.logo, width:  170,)
              ),
-           ):Center(child: buildSearchLoadingIndicator());
+           ):Container();
 
 
          },

@@ -18,6 +18,8 @@ import 'drawer_screens/home_screen/cubit/home_cubit.dart';
 import 'drawer_screens/home_screen/home_sceen.dart';
 import 'inner_screens/search_cubit/cubit.dart';
 import 'inner_screens/splash.dart';
+import 'inner_screens/theme_cubit/cubit.dart';
+import 'inner_screens/theme_cubit/state.dart';
 
 
 
@@ -38,8 +40,8 @@ void main() {
   BlocOverrides.runZoned(
         () async{
           await CacheHelper.init();
-
-      runApp( MyApp());
+          bool isDark = CacheHelper.getBoolean(key: 'isDark');
+      runApp( MyApp(isDark));
     },
     blocObserver: SimpleBlocObserver(),
   );
@@ -49,7 +51,9 @@ void main() {
 
 class MyApp extends StatefulWidget {
 
+final isDark;
 
+   MyApp( this.isDark) ;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -78,15 +82,22 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(builder: () {
       return
         MultiBlocProvider(
-            child: MaterialApp(
-              theme: lightTheme,
-              darkTheme: lightTheme,
+            child: BlocConsumer<ThemeCubit,ThemeStates>(
+              listener: (context,state){},
+              builder: (context,state)=>
+              MaterialApp(
+                theme: lightTheme,
+                darkTheme: darkTheme,
 
-//              themeMode:  ThemeMode.light,
+
+          themeMode:  ThemeCubit.get(context).isDark
+              ? ThemeMode.light
+              : ThemeMode.dark,
 
 
-              home: SplashScreen(),
+                home: SplashScreen(),
 
+              ),
             ),
             providers: [
               BlocProvider(
@@ -97,7 +108,10 @@ class _MyAppState extends State<MyApp> {
                 create: (BuildContext context) => SearchCubit()..getSearch()
 
               ),
+              BlocProvider(
+                  create: (BuildContext context) => ThemeCubit()..changeAppMode(fromShared: widget.isDark)
 
+              ),
             ]
 
         );

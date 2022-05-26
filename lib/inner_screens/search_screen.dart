@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/drawer_screens/home_screen/cubit/home_cubit.dart';
@@ -74,6 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   alignment: Alignment.center,
                                   height: constraint.maxHeight * 0.35,
                                   child: TextFormField(
+                                       controller: SearchCubit.get(context).controller,
                                       onFieldSubmitted: (value)async{
                                         await  SearchCubit.get(context).getSearch(keyWord: value);
                                     print('object123123123');
@@ -182,43 +184,100 @@ class _SearchScreenState extends State<SearchScreen> {
   }
   Widget buildNoSearchFound(context) => Container(
     child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: primaryColor,
-            child: Icon(
-              Icons.search_off_sharp,
-              size: 60,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Sorry, No results found :(',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Did you mean: ',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: primaryColor,
+              child: Icon(
+                Icons.search_off_sharp,
+                size: 60,
               ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+        myText('الجملة التي كتبتها لا تطابق اسم ملف متاح ، حاول استخدام كلمات دقيقة', 16, FontWeight.bold),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 5.h,),
 
+                myText('أمثلة لبحث سريع ودقيق :', 14, FontWeight.bold),
+                SizedBox(height: 10.h,),
 
+                TextButton(
 
-            ],
-          ),
-        ],
+                  onPressed: () {
+                    SearchCubit.get(context).getSearch(keyWord: "مذكرة رياضيات");
+                    SearchCubit.get(context).controller.text = "مذكرة رياضيات";
+                  },
+                  child: Text(
+                    '-مذكرة رياضيات',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      decoration: TextDecoration.underline,
+                      fontFamily: 'cairo'
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    SearchCubit.get(context).getSearch(keyWord: "مذكرة المصطفى");
+                    SearchCubit.get(context).controller.text = "مذكرة المصطفى";
+                  },
+                  child: Text(
+                    'مذكرة المصطفى',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      decoration: TextDecoration.underline,
+                      fontFamily: 'cairo'
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    SearchCubit.get(context).getSearch(keyWord: "مستر مصطفى الكيلاني");
+                    SearchCubit.get(context).controller.text = "مستر مصطفى الكيلاني";
+                  },
+                  child: Text(
+                    'مستر مصطفى الكيلاني',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      decoration: TextDecoration.underline,
+                      fontFamily: 'cairo'
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    SearchCubit.get(context).getSearch(keyWord: "سلسلة التفوق");
+                    SearchCubit.get(context).controller.text = "سلسلة التفوق";
+                  },
+                  child: Text(
+                    'سلسلة التفوق',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      decoration: TextDecoration.underline,
+                      fontFamily: 'cairo'
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     ),
   );

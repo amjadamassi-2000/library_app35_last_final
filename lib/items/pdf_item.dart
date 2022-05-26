@@ -17,92 +17,75 @@ import '../ads/cubit/ad_helper.dart';
 import '../models/result_model.dart';
 
 class PdfItem extends StatefulWidget {
-
-  final   pdf;
+  final pdf;
 
   PdfItem(this.pdf);
-
-
 
   @override
   _PdfItemState createState() => _PdfItemState();
 }
 
 class _PdfItemState extends State<PdfItem> {
-
-
-
-
   void _viewFile() async {
-    final _url =
-        widget.pdf.fileLink;
+    final _url = widget.pdf.fileLink;
     if (await canLaunch(_url)) {
       await launch(_url);
-    } else {
-
-    }
+    } else {}
   }
 
-
-
-
-  int counter=0;
-
   final _prefs = SharedPreferences.getInstance();
+  DateTime initDate;
+  var resultDate;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadAd();
+  }
+
   static bool adShowed = false;
 
   static RewardedAd _rewardedAd;
 
   static bool _isAdReady = false;
 
-  static void loadAd(){
-    adShowed =false;
+  static void loadAd() {
+    adShowed = false;
 
     RewardedAd.load(
       adUnitId: AdHelper.rewardedAdUnitId,
-      request:  const AdRequest(),
+      request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad){
+        onAdLoaded: (ad) {
           _rewardedAd = ad;
           _isAdReady = true;
         },
-        onAdFailedToLoad: (error){
+        onAdFailedToLoad: (error) {
           log("failed to load rewarded ad: ${error.message}");
         },
       ),
     );
   }
 
+  static Future<void> showAd() {
+    if (_isAdReady) {
+      _rewardedAd.show(onUserEarnedReward: (ad, rewaredItem) {
+        log("rewarded item type = ${rewaredItem.type}");
+        log("rewarded item amount = ${rewaredItem.amount}");
 
-  static Future <void> showAd (){
-    if(_isAdReady){
-      _rewardedAd.show(
-          onUserEarnedReward: (ad , rewaredItem){
-            log("rewarded item type = ${rewaredItem.type}");
-            log("rewarded item amount = ${rewaredItem.amount}");
-
-            adShowed = true;
-          }
-      );
+        adShowed = true;
+      });
     }
 
-    _rewardedAd.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad){
-          log("ad dismissed");
-          ad.dispose();
-
-        } ,
-        onAdFailedToShowFullScreenContent: (ad , error){
-          ad.dispose();
-        }
-    );
-
-
-
+    _rewardedAd.fullScreenContentCallback =
+        FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+      log("ad dismissed");
+      ad.dispose();
+    }, onAdFailedToShowFullScreenContent: (ad, error) {
+      ad.dispose();
+    });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -112,102 +95,108 @@ class _PdfItemState extends State<PdfItem> {
       //
       // print('fuc press$fiftyDaysFromNow');
       final SharedPreferences prefs = await _prefs;
+      int counter = await prefs.getInt('counter') ?? 0;
+
+      if (prefs.getInt('counter') == null) {
+        prefs.setInt('counter', 0);
+      }
+      print(prefs.getInt('counter'));
+      print('مخزن بالشير ');
       //var TheredDate=DateTime.parse( prefs.getString('date')??(fiftyDaysFromNow).toString());
 
       //var secoundDate=DateTime.parse( prefs.getString('date').toString()??DateTime.now());
-      if(prefs.getString('date')==null){
-
-        await  prefs.setString('date', DateTime.now().add( Duration(hours: -24)).toIso8601String());
+      if (prefs.getString('date') == null) {
+        await prefs.setString(
+            'date', DateTime.now().add(Duration(hours: -24)).toIso8601String());
         print('${prefs.get('date')} الوقت السالب ');
-
       }
       print(prefs.get('date'));
-      DateTime initDate;
-      var resultDate;
-      DateTime date2=DateTime.parse( prefs.getString('date'));
+
+      DateTime date2 = DateTime.parse(prefs.getString('date'));
       resultDate = DateTime.now().difference(date2).inHours.toInt();
 
       print('      هدااااااااا الوقت بالدقائق  $resultDate');
 
-      if(counter<3){
+      if (counter < 3) {
         print('conter$counter');
-        final _url =
-            'http://www.africau.edu/images/default/sample.pdf';
+        final _url = '${widget.pdf.fileLink}' ?? ' ';
         if (await canLaunch(_url)) {
           await launch(_url);
         } else {
           print('Something went wrong');
         }
 
-        if(resultDate>=23)
-
+        if (resultDate >= 23)
           setState(() {
-            counter=counter+1;
+            prefs.setInt('counter', (counter + 1));
           });
 
         print(' $counter هداااااااااااااااا الكونتر ');
-
-      }
-      else {
-        return
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+      } else {
+        return showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: myText('تم إستهلاك الحد الأقصى من التنزيلات لهذا اليوم',
+                  22, FontWeight.bold),
+              content: myText(
+                  'يمكنك مشاهدة الإعلان لمواصلة التحميل مجانة بلا حدود لمدة يوم كامل',
+                  20,
+                  FontWeight.normal),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('إغلاق'),
                 ),
-                title: myText('تم إستهلاك الحد الأقصى من التنزيلات لهذا اليوم', 22, FontWeight.bold),
-                content: myText('يمكنك مشاهدة الإعلان لمواصلة التحميل مجانة بلا حدود لمدة يوم كامل'
-                    , 20, FontWeight.normal),
-
-                actions: <Widget>[
-
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('إغلاق'),
-                  ),
-
-
-                  TextButton(
-                    onPressed: () async{
-
-                      await showAd();
-                      await  prefs.setString('date', DateTime.now().toIso8601String());
-                      print('تم التخزيييييييييييييييييييين');
-                      var now=DateTime.parse( prefs.getString('date'));
-                      String formattedTime = DateFormat.Hm().format(now);
-                      counter=0;
-                      resultDate=0;
-                      print(now);
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      'مشاهدة الإعلان',
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                      ),
+                TextButton(
+                  onPressed: () async {
+                    await showAd();
+                    await prefs.setString(
+                        'date', DateTime.now().toIso8601String());
+                    print('تم التخزيييييييييييييييييييين');
+                    var now = DateTime.parse(prefs.getString('date'));
+                    String formattedTime = DateFormat.Hm().format(now);
+                    await prefs.setInt('counter', 0);
+                    counter = 0;
+                    resultDate = 0;
+                    print(now);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'مشاهدة الإعلان',
+                    style: TextStyle(
+                      color: Colors.blueAccent,
                     ),
                   ),
-                ],
-              );
-            },
-          );
+                ),
+              ],
+            );
+          },
+        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) =>  NextScreen()),
+        // ).then((value)async {
 
+        //
+        //
+        // });
       }
       Navigator.of(context).pop();
 
     }
+
     return Column(
       children: [
-
-
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10).add(EdgeInsets.only(top: 8 , bottom: 2)),
+          padding: EdgeInsets.symmetric(horizontal: 10)
+              .add(EdgeInsets.only(top: 8, bottom: 2)),
           child: Column(
             children: [
-
               Stack(
                 children: [
                   Container(
@@ -216,167 +205,151 @@ class _PdfItemState extends State<PdfItem> {
                       minHeight: 70.0,
                       maxHeight: 170.0,
                     ),
-
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10),
                       ),
-                      border: Border.all(color: Theme.of(context).disabledColor),
+                      border:
+                          Border.all(color: Theme.of(context).disabledColor),
                       color: Theme.of(context).secondaryHeaderColor,
-
                     ),
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: SizedBox(
                         width: 400,
-                        child: myText(
-                            widget.pdf.name,
-                            13,
-                            FontWeight.w400
-
-                        ),
-                      ),
-                    ),),
-
-                  widget.pdf.isNew ?    Transform.rotate(
-                    angle:0, //set the angel
-                    child: ClipPath(
-                      clipper: CustomTriangleClipper(),
-                      child: Container(
-                        alignment: Alignment.topRight,
-                        width: 50,
-                        height: 50,
-                        color: Colors.green,
-                        child: Transform.rotate(
-                          angle: 170.4,
-
-                          child:  Text(
-
-                            "جديد",
-                            style:  GoogleFonts.cairo(
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                        child: myText(widget.pdf.name, 13, FontWeight.w400),
                       ),
                     ),
-                  ) : Container(),
-
+                  ),
+                  widget.pdf.isNew
+                      ? Transform.rotate(
+                          angle: 0, //set the angel
+                          child: ClipPath(
+                            clipper: CustomTriangleClipper(),
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              width: 50,
+                              height: 50,
+                              color: Colors.green,
+                              child: Transform.rotate(
+                                angle: 170.4,
+                                child: Text(
+                                  "جديد",
+                                  style: GoogleFonts.cairo(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
-
               Container(
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                    color:   HexColor('14144e'),
-
-    borderRadius: BorderRadius.only(
+                    color: HexColor('14144e'),
+                    borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
-
-                    )
-                ),
+                    )),
                 child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 40),
+                  padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       myPdfRowItem(
                           "تحميل",
-                          Icon(Icons.arrow_circle_down , color: Colors.white,),
-                              (){
-                            showDialog(
-                              context: context,
-                              // barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: Theme.of(context).cardColor,
-
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  title : Text(
-                                    "هل تريد بالتأكيد تنزيل الملف" ,
-                                    style: TextStyle(
-                                      fontFamily: "cairo",
-                                      fontSize: 14,
-                                      color: Theme.of(context).indicatorColor,
+                          Icon(
+                            Icons.arrow_circle_down,
+                            color: Colors.white,
+                          ), () {
+                        showDialog(
+                          context: context,
+                          // barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Theme.of(context).cardColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: Text(
+                                "هل تريد بالتأكيد تنزيل الملف",
+                                style: TextStyle(
+                                  fontFamily: "cairo",
+                                  fontSize: 14,
+                                  color: Theme.of(context).indicatorColor,
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(
+                                    "إغلاق",
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 13.sp,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  actions: <Widget>[
-
-                                    TextButton(
-                                      onPressed: () => Navigator.of(context).pop(),
-                                      child:   Text(
-                                        "إغلاق",
-                                        style:  GoogleFonts.cairo(
-                                          fontSize: 13.sp,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
+                                ),
+                                TextButton(
+                                  onPressed: () => _viewFile2(),
+                                  child: Text(
+                                    "تنزيل",
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 13.sp,
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w400,
                                     ),
-
-                                    TextButton(
-                                      onPressed: () =>_viewFile2(),
-                                      child:  Text(
-                                        "تنزيل",
-                                        style:  GoogleFonts.cairo(
-                                          fontSize: 13.sp,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
+                                  ),
+                                ),
+                              ],
                             );
-
-
-                          }
-                      ),
-
+                          },
+                        );
+                      }),
                       myPdfRowItem(
                         "مشاركة",
-                        Icon(Icons.share , color: Colors.white,),
-                        
-                        ()async{
-                          var readLines = ['${widget.pdf.name}', ' ${widget.pdf.appLink}'];
+                        Icon(
+                          Icons.share,
+                          color: Colors.white,
+                        ),
+                        () async {
+                          var readLines = [
+                            '${widget.pdf.name}',
+                            ' ${widget.pdf.appLink}'
+                          ];
                           String getNewLineString() {
-                            StringBuffer sb =  StringBuffer();
+                            StringBuffer sb = StringBuffer();
                             for (String line in readLines) {
                               sb.write(line + "\n");
                             }
                             return sb.toString();
                           }
-                          if(widget.pdf.name.isNotEmpty){
+
+                          if (widget.pdf.name.isNotEmpty) {
                             await Share.share(getNewLineString());
-                            
                           }
                         },
                       ),
-
-
                     ],
                   ),
                 ),
               ),
-
             ],
           ),
         ),
-
       ],
     );
   }
 }
-
-
 
 class CustomTriangleClipper extends CustomClipper<Path> {
   @override

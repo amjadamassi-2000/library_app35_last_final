@@ -4,6 +4,7 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:library_app/ads/banner_ad_model.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/drop_down/drop_down_button_list_item.dart';
@@ -140,7 +141,8 @@ class _ResultScreenState extends State<ResultScreen> {
     LibraryCubit cubit = LibraryCubit.get(context);
     //   print('${cubit.resultModel.files.length}طول الريسلت');
 
-    //int banarIndex = Random().nextInt(cubit.resultModel.files.length!=0?cubit.resultModel.files.length:1);
+    int banarIndex = (Random().nextInt(articles.length!=0?articles.length:1));
+
 
     return cubit.resultModel.files != null
         ? Directionality(
@@ -221,7 +223,8 @@ class _ResultScreenState extends State<ResultScreen> {
                                                     topLeft:
                                                         Radius.circular(30.r),
                                                   ),
-                                                  color: Theme.of(context).cardColor,
+                                                  color: Theme.of(context)
+                                                      .cardColor,
                                                 ),
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -245,8 +248,6 @@ class _ResultScreenState extends State<ResultScreen> {
                                                           FontWeight.w400,
                                                         ),
                                                       ),
-
-
                                                       CustomDropDown(
                                                         stages,
                                                         onSelect: (newValue) {
@@ -255,10 +256,9 @@ class _ResultScreenState extends State<ResultScreen> {
                                                         },
                                                         hint: "طرق الفلترة",
                                                       ),
-                                                      SizedBox(height: 70,),
-
-
-
+                                                      SizedBox(
+                                                        height: 70,
+                                                      ),
                                                       myButton(" فلتر",
                                                           () async {
                                                         //     print('helllllllllllo');
@@ -282,14 +282,14 @@ class _ResultScreenState extends State<ResultScreen> {
                                                                     _selectedstage
                                                                         .title)
                                                             .then((value) {
-                                                    print(value[0].name);
-                                                    articles=[];
-                                                    setState(() {
-                                                      articles.addAll(value);
-
-                                                    });
-                                                    print('thissssss value');
-
+                                                          print(value[0].name);
+                                                          articles = [];
+                                                          setState(() {
+                                                            articles
+                                                                .addAll(value);
+                                                          });
+                                                          print(
+                                                              'thissssss value');
                                                         });
 
                                                         Navigator.of(context)
@@ -371,7 +371,9 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73,
+                      height: (MediaQuery.of(context).size.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.73,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.only(
@@ -380,57 +382,84 @@ class _ResultScreenState extends State<ResultScreen> {
                         ),
                       ),
                       child: Padding(
-                        padding:  EdgeInsets.only(bottom: 20 , top: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73 * 0.04),
-
+                        padding: EdgeInsets.only(
+                            bottom: 20,
+                            top: (MediaQuery.of(context).size.height -
+                                    MediaQuery.of(context).padding.top) *
+                                0.73 *
+                                0.04),
                         child: SingleChildScrollView(
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                MyAppBanner(
-                                  cubit.appModel.app.filepageLink,
-                                  cubit.appModel.app.filepageBanner != null
-                                      ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      cubit.appModel.app.filepageBanner,
-                                      width: 400,
-                                      height: 70,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  )
-                                      : myText(
-                                    cubit.appModel.app.filepageText ?? '',
-                                    14,
-                                    FontWeight.w400,
-                                  ),
-                                ),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              MyAppBanner(
+                                cubit.appModel.app.filepageLink,
+                                cubit.appModel.app.filepageBanner != null
+                                    ? ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          cubit.appModel.app.filepageBanner,
+                                          width: 400,
+                                          height: 70,
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      )
+                                    : myText(
+                                        cubit.appModel.app.filepageText ?? '',
+                                        14,
+                                        FontWeight.w400,
+                                      ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: 20,
+                                      top: (MediaQuery.of(context).size.height -
+                                              MediaQuery.of(context)
+                                                  .padding
+                                                  .top) *
+                                          0.73 *
+                                          0.1),
+                                  child: articles.isNotEmpty
+                                      ? ListView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          controller: scrollController,
+                                          itemCount: articles.length,
+                                          itemBuilder: (context, index) {
+                                            if(index==banarIndex){
 
-                                Padding(
-                                    padding: EdgeInsets.only(bottom: 20 , top: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.73 * 0.1),
-                                    child: articles.isNotEmpty
-                                        ? ListView.builder(
-                                          physics: NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            controller: scrollController,
-                                            itemCount: articles.length,
-                                            itemBuilder: (context, index) {
-                                                return DelayedDisplay(
-                                                    delay: const Duration(
-                                                        milliseconds: 300),
-                                                    child: PdfItem(articles[index]));
-                                              },
+                                              return DelayedDisplay(
+                                                  delay: const Duration(
+                                                      milliseconds: 300),
+                                                  child:
+                                                  Column(
+                                                    children: [
+                                                      PdfItem(articles[index]),
+                                                      SizedBox(height: 10.h,),
+                                                      AdBanner2(cubit.adsModel.ads.banner??''),
 
 
+                                                    ],
+                                                  ));
 
-                                            )
-                                        : DelayedDisplay(
-                                            delay: Duration(seconds: 3),
-                                            child: Center(
-                                                child: myText('لا يوجد بيانات', 25,
-                                                    FontWeight.bold)))),
-                              ],
-                            ),
+                                            }
+                                            return DelayedDisplay(
+                                                delay: const Duration(
+                                                    milliseconds: 300),
+                                                child:
+                                                    PdfItem(articles[index]));
+                                          },
+                                        )
+                                      : DelayedDisplay(
+                                          delay: Duration(seconds: 3),
+                                          child: Center(
+                                              child: myText('لم يتم إضافة ملفات في هذا القسم حتى الآن ، سيتم العمل عليه قريباً ، انتظرونا',
+                                                  25, FontWeight.bold)))),
+                            ],
+                          ),
                         ),
                       ),
                     ),

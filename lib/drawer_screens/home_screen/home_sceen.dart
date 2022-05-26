@@ -14,6 +14,7 @@ import 'package:library_app/dummy_data/home_screen_data.dart';
 import 'package:library_app/inner_screens/result_screen.dart';
 import 'package:library_app/items/home_screen_item.dart';
 
+import '../../ads/interstitial_ad_model.dart';
 import 'cubit/home_state.dart';
 
 //import 'favorite_screen.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   String _selectedstage;
 
 //  List<String> stages = ['الجامعي', 'الإبتدائي', 'الثانوي', 'الإعدادي'];
@@ -54,7 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Adinterstitial.showInterstitialAd();
 
+
+  }
 
 
 
