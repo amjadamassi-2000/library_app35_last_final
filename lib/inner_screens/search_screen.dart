@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
                                     },
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                     decoration: InputDecoration(
                                       hintText: "بحث",
@@ -216,9 +216,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     SearchCubit.get(context).controller.text = "مذكرة رياضيات";
                   },
                   child: Text(
-                    '-مذكرة رياضيات',
+                    'مذكرة رياضيات',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                       decoration: TextDecoration.underline,
@@ -234,7 +234,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     'مذكرة المصطفى',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                       decoration: TextDecoration.underline,
@@ -250,7 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     'مستر مصطفى الكيلاني',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                       decoration: TextDecoration.underline,
@@ -266,7 +266,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     'سلسلة التفوق',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                       decoration: TextDecoration.underline,

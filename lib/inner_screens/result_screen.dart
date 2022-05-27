@@ -153,186 +153,165 @@ class _ResultScreenState extends State<ResultScreen> {
               body: SafeArea(
                 child: Column(
                   children: [
+
                     Container(
                       height: (MediaQuery.of(context).size.height -
                               MediaQuery.of(context).padding.top) *
-                          0.25,
+                          0.24,
                       child: LayoutBuilder(
                         builder: (ctx, constraint) => SizedBox(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                height: constraint.maxHeight * 0.25,
+                                height: constraint.maxHeight * 0.50,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Builder(
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          child: IconButton(
+
+                                    Column(
+                                      children: [
+                                        Builder(
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              child: IconButton(
+                                                icon: CircleAvatar(
+                                                  backgroundColor: Colors
+                                                      .grey.shade100
+                                                      .withOpacity(0.3),
+                                                  child: Icon(
+                                                    Icons.menu,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  cubit.drawerModel != null
+                                                      ? Scaffold.of(ctx)
+                                                      .openDrawer()
+                                                      : cubit
+                                                      .getDrawerData()
+                                                      .then((value) {
+                                                    return Scaffold.of(
+                                                        ctx)
+                                                        .openDrawer();
+                                                  });
+                                                },
+                                                tooltip:
+                                                MaterialLocalizations.of(
+                                                    context)
+                                                    .openAppDrawerTooltip,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: constraint.maxHeight * 0.05),
+                                      child: Image.network(
+                                        cubit.appModel.app.logo,
+                                        width: 170,
+                                        height: constraint.maxHeight * 0.50,
+                                      ),
+                                    ),
+
+
+                                    Column(
+                                      children: [
+                                        Builder(builder: (ctx) {
+                                          return IconButton(
                                             icon: CircleAvatar(
-                                              backgroundColor: Colors
-                                                  .grey.shade100
+                                              backgroundColor: Colors.grey.shade100
                                                   .withOpacity(0.3),
                                               child: Icon(
-                                                Icons.menu,
+                                                Icons.filter_list,
                                                 color: Colors.white,
                                               ),
                                             ),
                                             onPressed: () {
-                                              cubit.drawerModel != null
-                                                  ? Scaffold.of(ctx)
-                                                      .openDrawer()
-                                                  : cubit
-                                                      .getDrawerData()
-                                                      .then((value) {
-                                                      return Scaffold.of(ctx)
-                                                          .openDrawer();
-                                                    });
-                                            },
-                                            tooltip: MaterialLocalizations.of(
-                                                    context)
-                                                .openAppDrawerTooltip,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    Builder(builder: (ctx) {
-                                      return IconButton(
-                                        icon: CircleAvatar(
-                                          backgroundColor: Colors.grey.shade100
-                                              .withOpacity(0.3),
-                                          child: Icon(
-                                            Icons.filter_list,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Scaffold.of(ctx)
-                                              .showBottomSheet<void>(
-                                            (BuildContext context) {
-                                              return Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topRight:
-                                                        Radius.circular(30.r),
-                                                    topLeft:
-                                                        Radius.circular(30.r),
-                                                  ),
-                                                  color: Theme.of(context)
-                                                      .cardColor,
-                                                ),
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.35,
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 20),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                right: 20),
-                                                        child: myText(
-                                                          "الإسم : ",
-                                                          15,
-                                                          FontWeight.w400,
-                                                        ),
+                                              Scaffold.of(ctx)
+                                                  .showBottomSheet<void>(
+                                                (BuildContext context) {
+                                                  return Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(30.r),
+                                                        topLeft:
+                                                            Radius.circular(30.r),
                                                       ),
-                                                      CustomDropDown(
-                                                        stages,
-                                                        onSelect: (newValue) {
-                                                          _selectedstage =
-                                                              newValue;
-                                                        },
-                                                        hint: "طرق الفلترة",
-                                                      ),
-                                                      SizedBox(
-                                                        height: 70,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      color: Theme.of(context)
+                                                          .cardColor,
+                                                    ),
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.35,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.symmetric(
+                                                          horizontal: 20),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
-                                                          
-                                                          Expanded(
-                                                            child: myButton(" فلتر",
-                                                                () async {
-                                                                  var mytitles2 = null;
-
-                                                                  if (widget.titles != null) {
-                                                                    mytitles2 = widget.titles.id;
-                                                                  }
-                                                              //     print('helllllllllllo');
-                                                              print(_selectedstage
-                                                                  .title);
-
-                                                              await cubit
-                                                                  .userResult(
-                                                                      title_id:mytitles2,
-                                                                      section_id: widget
-                                                                          .myvalue1,
-                                                                      sub_section_id:
-                                                                          widget
-                                                                              .myvalue2,
-                                                                      sub_sub_section_id:
-                                                                          widget
-                                                                              .myvalue3,
-                                                                      categories: widget
-                                                                          .myvalue4,
-                                                                      sort:
-                                                                          _selectedstage
-                                                                              .title)
-                                                                  .then((value) {
-                                                                print(value[0].name);
-                                                                articles = [];
-                                                                setState(() {
-                                                                  articles
-                                                                      .addAll(value);
-                                                                });
-                                                                print(
-                                                                    'thissssss value');
-                                                              });
-
-                                                              Navigator.of(context)
-                                                                  .pop();
-                                                            }),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 20),
+                                                            child: myText(
+                                                              "الإسم : ",
+                                                              15,
+                                                              FontWeight.w400,
+                                                            ),
                                                           ),
-                                                          SizedBox(width: 10,),
-                                                          Expanded(
-                                                            child: myButton(" إلغاء الفلترة",
-                                                                    () async {
-                                                                  var mytitles2 = null;
+                                                          CustomDropDown(
+                                                            stages,
+                                                            onSelect: (newValue) {
+                                                              _selectedstage =
+                                                                  newValue;
+                                                            },
+                                                            hint: "طرق الفلترة",
+                                                          ),
+                                                          SizedBox(
+                                                            height: 70,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
 
-                                                                  if (widget.titles != null) {
-                                                                    mytitles2 = widget.titles.id;
-                                                                  }
+                                                              Expanded(
+                                                                child: myButton(" فلتر",
+                                                                    () async {
+                                                                      var mytitles2 = null;
+
+                                                                      if (widget.titles != null) {
+                                                                        mytitles2 = widget.titles.id;
+                                                                      }
                                                                   //     print('helllllllllllo');
                                                                   print(_selectedstage
                                                                       .title);
 
                                                                   await cubit
                                                                       .userResult(
-                                                                      title_id:mytitles2,
-                                                                      section_id: widget
-                                                                          .myvalue1,
-                                                                      sub_section_id:
-                                                                      widget
-                                                                          .myvalue2,
-                                                                      sub_sub_section_id:
-                                                                      widget
-                                                                          .myvalue3,
-                                                                      categories: widget
-                                                                          .myvalue4,
-                                                                      sort:
-                                                                      null)
+                                                                          title_id:mytitles2,
+                                                                          section_id: widget
+                                                                              .myvalue1,
+                                                                          sub_section_id:
+                                                                              widget
+                                                                                  .myvalue2,
+                                                                          sub_sub_section_id:
+                                                                              widget
+                                                                                  .myvalue3,
+                                                                          categories: widget
+                                                                              .myvalue4,
+                                                                          sort:
+                                                                              _selectedstage
+                                                                                  .title)
                                                                       .then((value) {
                                                                     print(value[0].name);
                                                                     articles = [];
@@ -347,34 +326,73 @@ class _ResultScreenState extends State<ResultScreen> {
                                                                   Navigator.of(context)
                                                                       .pop();
                                                                 }),
+                                                              ),
+                                                              SizedBox(width: 10,),
+                                                              Expanded(
+                                                                child: myButton(" إلغاء الفلترة",
+                                                                        () async {
+                                                                      var mytitles2 = null;
+
+                                                                      if (widget.titles != null) {
+                                                                        mytitles2 = widget.titles.id;
+                                                                      }
+                                                                      //     print('helllllllllllo');
+                                                                      print(_selectedstage
+                                                                          .title);
+
+                                                                      await cubit
+                                                                          .userResult(
+                                                                          title_id:mytitles2,
+                                                                          section_id: widget
+                                                                              .myvalue1,
+                                                                          sub_section_id:
+                                                                          widget
+                                                                              .myvalue2,
+                                                                          sub_sub_section_id:
+                                                                          widget
+                                                                              .myvalue3,
+                                                                          categories: widget
+                                                                              .myvalue4,
+                                                                          sort:
+                                                                          null)
+                                                                          .then((value) {
+                                                                        print(value[0].name);
+                                                                        articles = [];
+                                                                        setState(() {
+                                                                          articles
+                                                                              .addAll(value);
+                                                                        });
+                                                                        print(
+                                                                            'thissssss value');
+                                                                      });
+
+                                                                      Navigator.of(context)
+                                                                          .pop();
+                                                                    }),
+                                                              ),
+                                                            ],
+                                                          ),
+
+                                                          SizedBox(
+                                                            height: 30,
                                                           ),
                                                         ],
                                                       ),
-                                                      
-                                                      SizedBox(
-                                                        height: 30,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                    ),
+                                                  );
+                                                },
                                               );
                                             },
                                           );
-                                        },
-                                      );
-                                    }),
+                                        }),
+                                      ],
+                                    ),
+
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: constraint.maxHeight * 0.05),
-                                child: Image.network(
-                                  cubit.appModel.app.logo,
-                                  width: 150,
-                                  height: constraint.maxHeight * 0.35,
-                                ),
-                              ),
+
+
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                 child: InkWell(
@@ -420,16 +438,17 @@ class _ResultScreenState extends State<ResultScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: (MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top) *
-                          0.02,
-                    ),
+
+
+
+
+
+
                     Container(
                       width: double.infinity,
                       height: (MediaQuery.of(context).size.height -
                               MediaQuery.of(context).padding.top) *
-                          0.73,
+                          0.758,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.only(
@@ -510,15 +529,21 @@ class _ResultScreenState extends State<ResultScreen> {
                                           },
                                         )
                                       : DelayedDisplay(
-                                          delay: Duration(seconds: 3),
+                                          delay: Duration(seconds: 1),
                                           child: Center(
-                                              child: myText('لم يتم إضافة ملفات في هذا القسم حتى الآن، سيتم العمل عليه قريبًا، انتظرونا',
-                                                  25, FontWeight.bold)))),
+                                              child: Padding(
+                                                padding:  EdgeInsets.symmetric(horizontal: 20),
+                                                child: myText('لم يتم إضافة ملفات في هذا القسم حتى الآن، سيتم العمل عليه قريبًا، انتظرونا',
+                                                    20, FontWeight.w600),
+                                              )))),
                             ],
                           ),
                         ),
                       ),
                     ),
+
+
+
                   ],
                 ),
               ),

@@ -145,63 +145,90 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Column(
                               children: [
+
                                 SizedBox(
-                                  height: (MediaQuery.of(context).size.height -
-                                          MediaQuery.of(context).padding.top) *
-                                      0.25,
+                                  height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.21,
                                   child: LayoutBuilder(
+
                                     builder: (ctx, constraint) => Column(
                                       // mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
-                                          height: constraint.maxHeight * 0.3,
+                                          height: constraint.maxHeight * 0.8,
                                           child: Row(
+                                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
+
                                             children: [
-                                              Builder(
-                                                builder: (BuildContext ctx) {
-                                                  return IconButton(
-                                                    icon: CircleAvatar(
-                                                      backgroundColor: Colors
-                                                          .grey.shade100
-                                                          .withOpacity(0.3),
-                                                      child: Icon(
-                                                        Icons.menu,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      cubit.drawerModel!=null?
-                                                      Scaffold.of(ctx)
-                                                          .openDrawer():cubit.getDrawerData().then((value) {
+
+                                              Column(
+                                                children: [
+                                                  Builder(
+                                                    builder: (BuildContext ctx) {
+                                                      return IconButton(
+                                                        icon: CircleAvatar(
+                                                          backgroundColor: Colors
+                                                              .grey.shade100
+                                                              .withOpacity(0.3),
+                                                          child: Icon(
+                                                            Icons.menu,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          cubit.drawerModel!=null?
+                                                          Scaffold.of(ctx)
+                                                              .openDrawer():cubit.getDrawerData().then((value) {
                                                             return   Scaffold.of(ctx)
                                                                 .openDrawer();
                                                           });
-                                                    },
-                                                    tooltip:
+                                                        },
+                                                        tooltip:
                                                         MaterialLocalizations.of(
-                                                                context)
+                                                            context)
                                                             .openAppDrawerTooltip,
-                                                  );
-                                                },
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
                                               ),
-                                              Spacer(),
+
+                                              Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.2 * 0.04,
+                                                  ),
+                                                  Image.network(
+                                                    '${cubit.appModel.app.logo}'??'',
+                                                    width: 170,
+                                                    height: constraint.maxHeight * 0.7,
+                                                  ),
+                                                ],
+                                              ),
+
+
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    child: CircleAvatar(
+                                                      backgroundColor: Colors.transparent,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+
+
                                             ],
                                           ),
                                         ),
-                                        Image.network(
-                                          '${cubit.appModel.app.logo}'??'',
-                                          width: 170,
-                                          height: constraint.maxHeight * 0.7,
-                                        ),
+
+
                                       ],
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: double.infinity,
-                                  height: (MediaQuery.of(context).size.height -
-                                          MediaQuery.of(context).padding.top) *
-                                      0.75,
+
+                                Container(width: double.infinity, height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.788,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.only(

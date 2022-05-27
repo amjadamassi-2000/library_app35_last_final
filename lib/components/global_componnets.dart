@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:library_app/shared/remote/local/cache_helper.dart';
 import 'package:library_app/styles/colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -331,7 +332,7 @@ Column(
         width: double.infinity,
         height: 35.h,
         decoration: BoxDecoration(
-          color:  HexColor('14144e'),   // primaryColor,
+          color: CacheHelper.getBoolean(key: 'isDark')? HexColor('14144e')  : HexColor('3333cc'),    //HexColor('3333cc')
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Row(

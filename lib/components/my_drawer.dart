@@ -50,6 +50,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     LibraryCubit cubit = LibraryCubit.get(context);
@@ -80,7 +81,7 @@ class _MyDrawerState extends State<MyDrawer> {
                  height: 15.h,
                ),
                Padding(
-                 padding: const EdgeInsets.only(right: 15),
+                 padding:  EdgeInsets.symmetric(horizontal: 15),
                  child: Row(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: [
@@ -98,9 +99,9 @@ class _MyDrawerState extends State<MyDrawer> {
 
                        ),
                      ),
-
                     Spacer(),
                      CupertinoSwitch(
+
                        value: _switchValue,
                        onChanged: (value) {
                          setState(() {
@@ -110,6 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
                            print(CacheHelper.getBoolean(key: 'isDark'));
                          });
                        },
+                       trackColor: Colors.grey.shade200.withOpacity(0.2),
                      ),
 
 
@@ -134,9 +136,14 @@ class _MyDrawerState extends State<MyDrawer> {
               "المفضلة",
               Icon(Icons.favorite, color: Colors.white),
                   () async{
+                    Navigator.pop(context);
+
                  await   SharedPrefHelper.sharedPrefHelper.initSharedPrefs();
                   cubit.getAllFavouriteProducts();
-                    To(context, FavoriteScreen());
+                    To(context, FavoriteScreen()
+
+                    );
+
               },
             ),
 

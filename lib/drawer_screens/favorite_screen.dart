@@ -7,6 +7,7 @@ import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/my_drawer.dart';
 import 'package:library_app/inner_screens/allCategoriesTapScreen.dart';
 import 'package:library_app/inner_screens/favoriteTapScreen.dart';
+import 'package:library_app/shared/remote/local/cache_helper.dart';
 
 import 'home_screen/cubit/home_cubit.dart';
 
@@ -36,115 +37,149 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       textDirection: TextDirection.rtl,
         child: DefaultTabController(
           length: 2,
-          child: SafeArea(
-            child: Scaffold(
+          child: Scaffold(
 //              backgroundColor: primaryColor,
-              drawer: MyDrawer(),
+            drawer: MyDrawer(),
 
-              body:  Column(
+            body:  SafeArea(
+              child: Column(
                 children: [
-                  SizedBox(
-                    height: (MediaQuery.of(context).size.height-MediaQuery.of(context).padding.top)* 0.3,
+
+
+                  Container(
+                    height: (MediaQuery.of(context).size.height -
+                        MediaQuery.of(context).padding.top) * 0.24,
                     child: LayoutBuilder(
-                      builder: (ctx,constraint)=>
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(right: 2),
-                                  height: constraint.maxHeight*0.2,
-                                  child: Builder(
-                                    builder: (BuildContext context) {
-                                      return IconButton(
-                                        icon: CircleAvatar(
-                                          backgroundColor:
-                                          Colors.grey.shade100.withOpacity(0.3),
-                                          child: Icon(
-                                            Icons.menu,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          cubit.drawerModel!=null?
-                                          Scaffold.of(ctx)
-                                              .openDrawer():cubit.getDrawerData().then((value) {
-                                            return   Scaffold.of(ctx)
-                                                .openDrawer();
-                                          });
+                      builder: (ctx, constraint) => SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+
+                            Container(
+                              height: constraint.maxHeight * 0.50,
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Builder(
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            child: IconButton(
+                                              icon: CircleAvatar(
+                                                backgroundColor: Colors
+                                                    .grey.shade100
+                                                    .withOpacity(0.3),
+                                                child: Icon(
+                                                  Icons.menu,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                cubit.drawerModel != null
+                                                    ? Scaffold.of(ctx)
+                                                    .openDrawer()
+                                                    : cubit
+                                                    .getDrawerData()
+                                                    .then((value) {
+                                                  return Scaffold.of(
+                                                      ctx)
+                                                      .openDrawer();
+                                                });
+                                              },
+                                              tooltip:
+                                              MaterialLocalizations.of(
+                                                  context)
+                                                  .openAppDrawerTooltip,
+                                            ),
+                                          );
                                         },
-                                        tooltip: MaterialLocalizations.of(context)
-                                            .openAppDrawerTooltip,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Spacer(),
-
-                              ],
-                            ),
-                          ),
-
-                          Padding(
-                            padding: EdgeInsets.only(bottom: constraint.maxHeight*0.1),
-                            child: Image.network(cubit.appModel.app.logo??'', width:  150,height: constraint.maxHeight*0.4,),
-                          ),
-
-                          Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Container(
-                              height: constraint.maxHeight*0.2,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade200.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TabBar(
-                                indicator: BoxDecoration(
-                                  color:   HexColor('14144e'),        // Color(0xffea0e8b),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                tabs: [
-                                  Tab(
-                                   child: Text(
-                                     "المفضلة",
-                                     style: TextStyle(
-                                       fontSize: 12.sp,
-                                       color: Colors.white,
-                                       fontWeight: FontWeight.bold,
-                                       fontFamily: "cairo",
-
-                                     ),
-                                   ),
-                                  ),
-
-                                  Tab(
-                                    child: Text(
-                                      "كل الأقسام",
-                                      style:TextStyle(
-                                        fontSize: 12.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "cairo",
                                       ),
+                                    ],
+                                  ),
+
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: constraint.maxHeight * 0.05),
+                                    child: Image.network(
+                                      cubit.appModel.app.logo,
+                                      width: 170,
+                                      height: constraint.maxHeight * 0.50,
                                     ),
                                   ),
-                                ],
 
+                                  Column(
+                                    children: [
+                                      Container(
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
                               ),
                             ),
-                          ),
 
+                            //============LOGO============================
 
-                        ],
+                            //============SEARCH============================
+
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Container(
+                                height: constraint.maxHeight*0.2,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TabBar(
+                                  indicator: BoxDecoration(
+                                    color:   CacheHelper.getBoolean(key: 'isDark')? HexColor('14144e') :Color(0xffea0e8b) ,
+                                    borderRadius: BorderRadius.circular(10),  //Color(0xffea0e8b)
+                                  ),
+                                  tabs: [
+                                    Tab(
+                                      child: Text(
+                                        "المفضلة",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "cairo",
+
+                                        ),
+                                      ),
+                                    ),
+
+                                    Tab(
+                                      child: Text(
+                                        "كل الأقسام",
+                                        style:TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "cairo",
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
+
                   Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.666,
+                    height: MediaQuery.of(context).size.height * 0.725,
                     decoration: BoxDecoration(
                       color:Theme.of(context).cardColor,
                       borderRadius: BorderRadius.only(
@@ -152,13 +187,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         topRight: Radius.circular(50),
                       ),
                     ),
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     mainAxisSize: MainAxisSize.max,
-                     children: [
-                       SizedBox(height: 20,),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SizedBox(height: 20,),
 
-                       Expanded(
+                        Expanded(
                           child: TabBarView(
                             children: [
                               FavoriyeTapScreen(),
@@ -167,15 +202,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ],
                           ),
                         ),
-                     ],
-                   ),
+                      ],
+                    ),
                   ),
+
                 ],
               ),
-
-
-
             ),
+
+
+
           ),
         ),
     );
