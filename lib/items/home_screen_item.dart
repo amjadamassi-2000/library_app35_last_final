@@ -112,11 +112,27 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   myvalue1,
                                   hint: (widget.titles.name=='المراحل الدراسية'?"اختر الصف":'اختر القسم')??'اختر',
                                   MychangeMethod: (val) {
-                         print(widget.titles.section.first.name);
-                         print('هدا العنصر الاول ');
-                         print(val);
-                        if(widget.titles.section.first!=null){print('123');}
+                                if(val==myvalue1){
+                                  setState(() {
+                                    myvalue1 = null;
+                                    widget.sectionModel.sub = [];
+                                    widget.subsectionModel.sub = [];
+                                    myvalue2 = null;
+                                    myvalue3 = null;
 
+                                    print(
+                                        '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                                    print(cubit.sectionModel.sub.isEmpty);
+                                    print(val.toString());
+                                    print(cubit.subsectionModel.status);
+                                  });
+
+                                }
+                         // print(widget.titles.section.first.name);
+                         // print('هدا العنصر الاول ');
+                         // print(val);
+                      //  if(widget.titles.section.first!=null){print('123');}
+                             else{
                                 setState(() {
                                   myvalue1 = val;
                                   widget.sectionModel.sub = [];
@@ -130,7 +146,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   print(cubit.sectionModel.sub.isEmpty);
                                   print(val.toString());
                                   print(cubit.subsectionModel.status);
-                                });
+                                });}
                               }),
 
                             if (widget.titles.subSection.isNotEmpty)
@@ -139,6 +155,20 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   hint:(widget.titles.name=='المراحل الدراسية'?"اختر الترم":'اختر النوع')?? "اختر ",
 
                                   MychangeMethod: (val) {
+                                    if(val==myvalue2){
+                                      setState(() {
+                                        myvalue2 = null;
+                                        myvalue3 = null;
+                                        widget.subsectionModel.sub=[];
+                                        print(
+                                            '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                                        print(cubit.sectionModel.sub.isEmpty);
+                                        print(val.toString());
+                                        print(cubit.subsectionModel.status);
+                                      });
+
+                                    }
+                                    else{
                                 setState(() {
                                   myvalue3 = null;
                                   widget.subsectionModel.sub = [];
@@ -146,7 +176,7 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   cubit.getsubSection(id: val);
                                   myvalue2 = val;
                                   print(val.toString());
-                                });
+                                });}
                               }),
                             if (widget.titles.subSubSection.isNotEmpty)
                               my_dropdown(widget.subsectionModel.sub,
@@ -154,9 +184,23 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   hint: "اختر المادة",
 
                                   MychangeMethod: (val) {
+                                    if(val==myvalue3){
+                                      setState(() {
+                                        myvalue3 = null;
+
+                                        print(
+                                            '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                                        print(cubit.sectionModel.sub.isEmpty);
+                                        print(val.toString());
+                                        print(cubit.subsectionModel.status);
+                                      });
+
+                                    }
+                                    else{
+                                      return
                                 setState(() {
                                   myvalue3 = val;
-                                });
+                                });}
                               }),
 
                             if (widget.titles.categories.isNotEmpty)
@@ -164,6 +208,19 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                   myvalue4,
                                   hint: "اختر نوع الملف",
                                   MychangeMethod: (val) {
+                                    if(val==myvalue4){
+                                      setState(() {
+                                        myvalue4 = null;
+
+                                        print(
+                                            '${widget.sectionModel.sub.isEmpty} فارغةةةةةةة');
+                                        print(cubit.sectionModel.sub.isEmpty);
+                                        print(val.toString());
+                                        print(cubit.subsectionModel.status);
+                                      });
+
+                                    }
+
                                 setState(() {
                                   myvalue4 = val;
                                 });

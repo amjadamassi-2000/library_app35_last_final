@@ -47,8 +47,11 @@ class _my_dropdownState extends State<my_dropdown> {
           child: DropdownButtonHideUnderline(
 
             child: DropdownButton(
+
+
                hint: Text( widget.hint,
                  style: TextStyle(
+
                      fontFamily: "cairo",
                    color: Theme.of(context).indicatorColor,
 
@@ -59,6 +62,7 @@ class _my_dropdownState extends State<my_dropdown> {
               ,
               isExpanded: true,
               value: widget.myvalue,
+
 
               onChanged:   widget.MychangeMethod,
 
@@ -74,19 +78,48 @@ class _my_dropdownState extends State<my_dropdown> {
               //   //   print('$valueتم بنجاح ');
               //   });
               // },
+              selectedItemBuilder: (context){
+               return widget.titles
+                    .map(
+
+                        (e) {
+                      return DropdownMenuItem(value: e.id, child: Center(
+                          child: Text(
+                              e.name,
+                              style: e.id==widget.myvalue? TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold
+                              ):TextStyle(
+
+                                  color: Theme.of(context).indicatorColor,
+                                  fontWeight: FontWeight.bold
+                              )
+                          )
+                      ));
+                    })
+                    .toList();
+
+
+              },
+              
               items: widget.titles
                   .map(
 
                       (e) {
                         return DropdownMenuItem(value: e.id, child: Center(
-                          child: Text(e.name ,
-                            style: TextStyle(
-                                fontFamily: "cairo",
-                              color:  Theme.of(context).indicatorColor,
+                          child: Text(
+                              e.name,
+                              style: e.id==widget.myvalue? TextStyle(
+                                  color: Colors.blue,
 
 
-                          ),
-                          ),
+                                  fontWeight: FontWeight.bold
+                              ):TextStyle(
+
+                                  color: Theme.of(context).indicatorColor,
+                                  fontWeight: FontWeight.bold
+                              )
+                          )
                         ));
                       })
                   .toList(),
