@@ -107,19 +107,27 @@ class _my_dropdownState extends State<my_dropdown> {
 
                       (e) {
                         return DropdownMenuItem(value: e.id, child: Center(
-                          child: Text(
-                              e.name,
-                              style: e.id==widget.myvalue? TextStyle(
-                                  color: Colors.blue,
+                          child:e.id==widget.myvalue? Container(
+                                  width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent)
+                            ),
+                              child: Center(
+                                child: Text(
+                                  e.name,
+                                  style:  TextStyle(
+                                      color: Colors.blue,
 
 
-                                  fontWeight: FontWeight.bold
-                              ):TextStyle(
+                                      fontWeight: FontWeight.bold
+                                  )
+                            ),
+                              ),
+                          ):Text( e.name ,style :TextStyle(
 
-                                  color: Theme.of(context).indicatorColor,
-                                  fontWeight: FontWeight.bold
-                              )
-                          )
+                              color: Theme.of(context).indicatorColor,
+                              fontWeight: FontWeight.bold
+                          ))
                         ));
                       })
                   .toList(),
