@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                return Scaffold(
 //             backgroundColor: primaryColor,
                  body: Center(
-                   child: Image.network(cubit.appModel.app.logo??'', width:  170,)
+                   child: Image.network(cubit.appModel.app.logo!=null?cubit.appModel.app.logo:'https://img.youm7.com/xlarge/201908140327472747.jpg', width:  170,)
                  ),
                );
              }
