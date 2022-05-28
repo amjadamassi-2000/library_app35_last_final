@@ -236,16 +236,39 @@ class _ResultScreenState extends State<ResultScreen> {
                                                   .showBottomSheet<void>(
                                                 (BuildContext context) {
                                                   return Container(
+
                                                     decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topRight:
-                                                            Radius.circular(30.r),
-                                                        topLeft:
-                                                            Radius.circular(30.r),
+                                                      borderRadius: BorderRadius.only(
+                                                        topRight: Radius.circular(25),
+                                                        topLeft: Radius.circular(25),
                                                       ),
-                                                      color: Theme.of(context)
-                                                          .cardColor,
+
+//                                                     border: Border( top: BorderSide(width: 4, color:Colors.red,),),
+                                                      color: Theme.of(context).cardColor,
+
+
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors.grey.withOpacity(0.1),
+                                                            offset: Offset(7, 0),
+                                                            blurRadius: 4.0,
+                                                            spreadRadius: 6
+                                                        ),
+                                                        BoxShadow(
+                                                            color: Colors.grey.withOpacity(0.6),
+                                                            offset: Offset(0, 5),
+                                                            blurRadius: 4.0,
+                                                            spreadRadius: 6
+                                                        ),
+                                                      ],
+
+
+
+
+
+
+
+
                                                     ),
                                                     height: MediaQuery.of(context)
                                                             .size
@@ -262,7 +285,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                           Padding(
                                                             padding:
                                                                 EdgeInsets.only(
-                                                                    right: 20),
+                                                                    right: 20 , top: 20),
                                                             child: myText(
                                                               "الإسم : ",
                                                               15,

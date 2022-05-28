@@ -30,6 +30,7 @@ class _my_dropdownState extends State<my_dropdown> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Container(
+
         margin: EdgeInsets.only(top: 5.h, bottom: 5.h),
         height: MediaQuery.of(context).size.height * 0.08,
         alignment: Alignment.center,
@@ -37,10 +38,7 @@ class _my_dropdownState extends State<my_dropdown> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Theme.of(context).secondaryHeaderColor,
-          border: Border.all(
-            width: 2,
-            color: Theme.of(context).disabledColor,
-          ),
+          border: Border.all(width: 2, color: Theme.of(context).disabledColor,),
         ),
         child: IgnorePointer(
           ignoring: false,
@@ -49,14 +47,17 @@ class _my_dropdownState extends State<my_dropdown> {
             child: DropdownButton(
 
 
-               hint: Text( widget.hint,
-                 style: TextStyle(
+               hint: Padding(
+                 padding:  EdgeInsets.only(top: 8),
+                 child: Text( widget.hint,
+                   style: TextStyle(
 
-                     fontFamily: "cairo",
-                   color: Theme.of(context).indicatorColor,
+                       fontFamily: "cairo",
+                     color: Theme.of(context).indicatorColor,
 
 
 
+                   ),
                  ),
                )
               ,
@@ -87,12 +88,16 @@ class _my_dropdownState extends State<my_dropdown> {
                           child: Text(
                               e.name,
                               style: e.id==widget.myvalue? TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold
+                                  color:Theme.of(context).indicatorColor,
+                                  fontWeight: FontWeight.w400,
+                                 fontFamily: "cairo",
+
                               ):TextStyle(
 
                                   color: Theme.of(context).indicatorColor,
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.w400,
+                                fontFamily: "cairo",
+
                               )
                           )
                       ));
@@ -117,16 +122,18 @@ class _my_dropdownState extends State<my_dropdown> {
                                   e.name,
                                   style:  TextStyle(
                                       color: Colors.blue,
+                                    fontFamily: "cairo",
 
 
-                                      fontWeight: FontWeight.bold
+                                      fontWeight: FontWeight.w400,
                                   )
                             ),
                               ),
                           ):Text( e.name ,style :TextStyle(
 
                               color: Theme.of(context).indicatorColor,
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.w400,
+                            fontFamily: "cairo",
                           ))
                         ));
                       })

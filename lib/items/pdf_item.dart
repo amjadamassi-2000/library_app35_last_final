@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:library_app/components/constant.dart';
 import 'package:library_app/components/global_componnets.dart';
 import 'package:library_app/dummy_data/pdf_files_datd.dart';
+import 'package:library_app/shared/remote/local/cache_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -143,10 +144,10 @@ class _PdfItemState extends State<PdfItem> {
                 borderRadius: BorderRadius.circular(20),
               ),
               title: myText('تم إستهلاك الحد الأقصى من التنزيلات لهذا اليوم',
-                  22, FontWeight.bold),
+                  18, FontWeight.bold),
               content: myText(
                   'يمكنك مشاهدة الإعلان لمواصلة التحميل مجانة بلا حدود لمدة يوم كامل',
-                  20,
+                  16,
                   FontWeight.normal),
               actions: <Widget>[
                 TextButton(
@@ -255,7 +256,7 @@ class _PdfItemState extends State<PdfItem> {
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                    color: HexColor('14144e'),
+                    color: CacheHelper.getBoolean(key: 'isDark')? HexColor('14144e')  : HexColor('3333cc'),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
