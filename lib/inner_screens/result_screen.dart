@@ -277,129 +277,132 @@ class _ResultScreenState extends State<ResultScreen> {
                                                     child: Padding(
                                                       padding: EdgeInsets.symmetric(
                                                           horizontal: 20),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 20 , top: 20),
-                                                            child: myText(
-                                                              "الإسم : ",
-                                                              15,
-                                                              FontWeight.w400,
+                                                      child: SingleChildScrollView(
+
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets.only(
+                                                                      right: 20 , top: 20),
+                                                              child: myText(
+                                                                "الإسم : ",
+                                                                15,
+                                                                FontWeight.w400,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          CustomDropDown(
-                                                            stages,
-                                                            onSelect: (newValue) {
-                                                              _selectedstage =
-                                                                  newValue;
-                                                            },
-                                                            hint: "طرق الفلترة",
-                                                          ),
-                                                          SizedBox(
-                                                            height: 70,
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
+                                                            CustomDropDown(
+                                                              stages,
+                                                              onSelect: (newValue) {
+                                                                _selectedstage =
+                                                                    newValue;
+                                                              },
+                                                              hint: "طرق الفلترة",
+                                                            ),
+                                                            SizedBox(
+                                                              height: 70,
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
 
-                                                              Expanded(
-                                                                child: myButton(" فلتر",
-                                                                    () async {
-                                                                      var mytitles2 = null;
+                                                                Expanded(
+                                                                  child: myButton(" فلتر",
+                                                                      () async {
+                                                                        var mytitles2 = null;
 
-                                                                      if (widget.titles != null) {
-                                                                        mytitles2 = widget.titles.id;
-                                                                      }
-                                                                  //     print('helllllllllllo');
-                                                                  print(_selectedstage
-                                                                      .title);
+                                                                        if (widget.titles != null) {
+                                                                          mytitles2 = widget.titles.id;
+                                                                        }
+                                                                    //     print('helllllllllllo');
+                                                                    print(_selectedstage
+                                                                        .title);
 
-                                                                  await cubit
-                                                                      .userResult(
-                                                                          title_id:mytitles2,
-                                                                          section_id: widget
-                                                                              .myvalue1,
-                                                                          sub_section_id:
-                                                                              widget
-                                                                                  .myvalue2,
-                                                                          sub_sub_section_id:
-                                                                              widget
-                                                                                  .myvalue3,
-                                                                          categories: widget
-                                                                              .myvalue4,
-                                                                          sort:
-                                                                              _selectedstage
-                                                                                  .title)
-                                                                      .then((value) {
-                                                                    print(value[0].name);
-                                                                    articles = [];
-                                                                    setState(() {
-                                                                      articles
-                                                                          .addAll(value);
-                                                                    });
-                                                                    print(
-                                                                        'thissssss value');
-                                                                  });
-
-                                                                  Navigator.of(context)
-                                                                      .pop();
-                                                                }),
-                                                              ),
-                                                              SizedBox(width: 10,),
-                                                              Expanded(
-                                                                child: myButton(" إلغاء الفلترة",
-                                                                        () async {
-                                                                      var mytitles2 = null;
-
-                                                                      if (widget.titles != null) {
-                                                                        mytitles2 = widget.titles.id;
-                                                                      }
-                                                                      //     print('helllllllllllo');
-                                                                      print(_selectedstage
-                                                                          .title);
-
-                                                                      await cubit
-                                                                          .userResult(
-                                                                          title_id:mytitles2,
-                                                                          section_id: widget
-                                                                              .myvalue1,
-                                                                          sub_section_id:
-                                                                          widget
-                                                                              .myvalue2,
-                                                                          sub_sub_section_id:
-                                                                          widget
-                                                                              .myvalue3,
-                                                                          categories: widget
-                                                                              .myvalue4,
-                                                                          sort:
-                                                                          null)
-                                                                          .then((value) {
-                                                                        print(value[0].name);
-                                                                        articles = [];
-                                                                        setState(() {
-                                                                          articles
-                                                                              .addAll(value);
-                                                                        });
-                                                                        print(
-                                                                            'thissssss value');
+                                                                    await cubit
+                                                                        .userResult(
+                                                                            title_id:mytitles2,
+                                                                            section_id: widget
+                                                                                .myvalue1,
+                                                                            sub_section_id:
+                                                                                widget
+                                                                                    .myvalue2,
+                                                                            sub_sub_section_id:
+                                                                                widget
+                                                                                    .myvalue3,
+                                                                            categories: widget
+                                                                                .myvalue4,
+                                                                            sort:
+                                                                                _selectedstage
+                                                                                    .title)
+                                                                        .then((value) {
+                                                                      print(value[0].name);
+                                                                      articles = [];
+                                                                      setState(() {
+                                                                        articles
+                                                                            .addAll(value);
                                                                       });
+                                                                      print(
+                                                                          'thissssss value');
+                                                                    });
 
-                                                                      Navigator.of(context)
-                                                                          .pop();
-                                                                    }),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                                    Navigator.of(context)
+                                                                        .pop();
+                                                                  }),
+                                                                ),
+                                                                SizedBox(width: 10,),
+                                                                Expanded(
+                                                                  child: myButton(" إلغاء الفلترة",
+                                                                          () async {
+                                                                        var mytitles2 = null;
 
-                                                          SizedBox(
-                                                            height: 30,
-                                                          ),
-                                                        ],
+                                                                        if (widget.titles != null) {
+                                                                          mytitles2 = widget.titles.id;
+                                                                        }
+                                                                        //     print('helllllllllllo');
+                                                                        print(_selectedstage
+                                                                            .title);
+
+                                                                        await cubit
+                                                                            .userResult(
+                                                                            title_id:mytitles2,
+                                                                            section_id: widget
+                                                                                .myvalue1,
+                                                                            sub_section_id:
+                                                                            widget
+                                                                                .myvalue2,
+                                                                            sub_sub_section_id:
+                                                                            widget
+                                                                                .myvalue3,
+                                                                            categories: widget
+                                                                                .myvalue4,
+                                                                            sort:
+                                                                            null)
+                                                                            .then((value) {
+                                                                          print(value[0].name);
+                                                                          articles = [];
+                                                                          setState(() {
+                                                                            articles
+                                                                                .addAll(value);
+                                                                          });
+                                                                          print(
+                                                                              'thissssss value');
+                                                                        });
+
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      }),
+                                                                ),
+                                                              ],
+                                                            ),
+
+                                                            SizedBox(
+                                                              height: 30,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   );
@@ -420,7 +423,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                 child: InkWell(
                                   onTap: () {
-                                    To(context, SearchScreen());
+                                    To(context, SearchScreen(myvalue1: widget.myvalue1,myvalue2: widget.myvalue2,myvalue3: widget.myvalue3,myvalue4: widget.myvalue4,titles: widget.titles,));
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

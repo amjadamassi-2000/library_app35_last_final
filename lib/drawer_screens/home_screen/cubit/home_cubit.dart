@@ -321,6 +321,10 @@ print(articles.length);
 //
 // }
   var controller = TextEditingController();
+  void clearSearchData() {
+    controller.clear();
+    resultModel = null;
+  }
 
 
 }
