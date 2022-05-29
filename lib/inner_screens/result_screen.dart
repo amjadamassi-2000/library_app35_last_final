@@ -552,7 +552,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                           },
                                         )
                                       : DelayedDisplay(
-                                          delay: Duration(seconds: 1),
+                                          delay: Duration(seconds: 3),
                                           child: Center(
                                               child: Padding(
                                                 padding:  EdgeInsets.symmetric(horizontal: 20),

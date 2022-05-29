@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             print('yes selected');
                             exit(0);
                           },
-                          child: myText("نعم",22,FontWeight.normal),
+                          child: myText("نعم",16,FontWeight.normal),
                           style: ElevatedButton.styleFrom(
                               primary: Colors.red.shade800),
                         ),
@@ -79,11 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(width: 15),
                       Expanded(
                           child: ElevatedButton(
+
                             onPressed: () {
                               print('no selected');
                               Navigator.of(context).pop();
                             },
-                            child: Text("لا", style: TextStyle(color: Colors.black,fontFamily: 'cairo',fontSize: 22)),
+                            child: Text("لا", style: TextStyle(color: Colors.black,fontFamily: 'cairo',fontSize: 16)),
                             style: ElevatedButton.styleFrom(
                               primary: Colors.white,
 

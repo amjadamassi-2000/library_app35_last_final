@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:library_app/ads/interstitial_ad_model.dart';
 import 'package:library_app/components/custom_drop_down.dart';
 import 'package:library_app/components/global_componnets.dart';
@@ -219,11 +220,13 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                                         print(cubit.subsectionModel.status);
                                       });
 
+                                    }else{
+                                      return setState(() {
+                                        myvalue4 = val;
+                                      });
                                     }
 
-                                setState(() {
-                                  myvalue4 = val;
-                                });
+
                               }),
 
                             // Padding(
@@ -283,26 +286,43 @@ class _HomeScreenItemState extends State<HomeScreenItem> {
                   padding: EdgeInsets.symmetric(horizontal: 30)
                       .add(EdgeInsets.only(top: 0)),
                   child: myButton("عرض النتائج", () async{
-                    Adinterstitial.showInterstitialAd();
+                    if(myvalue1>0) {
+                      Adinterstitial.showInterstitialAd();
 
-                   await   cubit
-                        .userResult(
+                      await cubit
+                          .userResult(
 
-                            section_id: myvalue1,
-                            sub_section_id: myvalue2,
-                            sub_sub_section_id: myvalue3,
-                            categories: myvalue4,
-                            title_id: widget.titles.id)
-                        .then((value) {
-                     // print({cubit.resultModel.files.length});
-                      print("هداا طول المصفوفة ");
-                      return To(
-                          context,
-                          ResultScreen(myvalue1: myvalue1,myvalue2:  myvalue2,myvalue3:  myvalue3,myvalue4:  myvalue4,
-                             titles:  widget.titles,));
+                          section_id: myvalue1,
+                          sub_section_id: myvalue2,
+                          sub_sub_section_id: myvalue3,
+                          categories: myvalue4,
+                          title_id: widget.titles.id)
+                          .then((value) {
+                        // print({cubit.resultModel.files.length});
+                        print("هداا طول المصفوفة ");
+                        return To(
+                            context,
+                            ResultScreen(myvalue1: myvalue1,
+                              myvalue2: myvalue2,
+                              myvalue3: myvalue3,
+                              myvalue4: myvalue4,
+                              titles: widget.titles,));
+                      }
+                      );
                     }
-                    );
+                    else{
 
+                    return  Fluttertoast.showToast(
+                          msg: "يرجى ادخال قيمة",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.yellowAccent,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+
+                    }
                   }),
                 ),
               SizedBox(

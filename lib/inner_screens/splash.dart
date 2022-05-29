@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/ads/interstitial_ad_model.dart';
 import 'package:library_app/components/global_componnets.dart';
+import 'package:no_internet_check/internet_connectivity/initialize_internet_checker.dart';
 
 import '../components/constant.dart';
 import '../drawer_screens/home_screen/cubit/home_cubit.dart';
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
 
     super.initState();
+    InternetChecker();
 
 
     Timer(

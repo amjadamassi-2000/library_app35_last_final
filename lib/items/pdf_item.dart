@@ -221,7 +221,7 @@ class _PdfItemState extends State<PdfItem> {
                       EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: SizedBox(
                         width: 400,
-                        child: myText(widget.pdf.name, 13, FontWeight.w400),
+                        child: myText(widget.pdf.name, 15, FontWeight.w400),
                       ),
                     ),
                   ),
