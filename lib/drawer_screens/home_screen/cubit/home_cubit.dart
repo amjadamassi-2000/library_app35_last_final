@@ -222,6 +222,7 @@ print(articles.length);
     await DioHelper.getData(
       url: APP,
     ).then((value) {
+      print(value.data);
       appModel = AppModel.fromJson(value.data);
       print('${appModel.message} ');
       print('تم جلب البيانات بنجاح ');

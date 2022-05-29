@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return
 
-            cubit.homeModel!=null&&cubit.appModel!=null&&cubit.adsModel!=null
+            cubit.homeModel!=null&&cubit.adsModel!=null
               ?
             Directionality(
                   textDirection: TextDirection.rtl,
@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius:
                                           BorderRadius.circular(8.0),
                                           child: Image.network(
-                                            cubit.appModel.app.homepageBanner??[],
+                                            cubit.appModel.app.homepageBanner,
                                             width: 400,
                                             height: 70,
                                             fit:BoxFit.fitWidth,
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ):
 
                                       myText(
-                                      cubit.appModel.app.homepageLink??'',
+                                      cubit.appModel.app.homepageText??'',
                                         14,
                                         FontWeight.w400,
                                       ),

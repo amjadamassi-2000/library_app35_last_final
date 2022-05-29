@@ -146,7 +146,7 @@ class _PdfItemState extends State<PdfItem> {
               title: myText('تم إستهلاك الحد الأقصى من التنزيلات لهذا اليوم',
                   18, FontWeight.bold),
               content: myText(
-                  'يمكنك مشاهدة الإعلان لمواصلة التحميل مجانة بلا حدود لمدة يوم كامل',
+                  'يمكنك مشاهدة الإعلان لمواصلة التحميل مجانا بلا حدود لمدة يوم كامل',
                   16,
                   FontWeight.normal),
               actions: <Widget>[

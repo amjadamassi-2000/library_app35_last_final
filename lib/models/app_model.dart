@@ -41,6 +41,7 @@ class App {
     filepageBanner = json['filepage_banner'];
     filepageText = json['filepage_text'];
     filepageLink = json['filepage_link'];
+    // ignore: prefer_if_null_operators
     homepageBanner = json['homepage_banner'];
     homepageText = json['homepage_text'];
     homepageLink = json['homepage_link'];

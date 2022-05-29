@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> {
               listener: (context,state){},
               builder: (context,state)=>
               MaterialApp(
+                debugShowCheckedModeBanner: false,
                 theme: lightTheme,
                 darkTheme: darkTheme,
 
@@ -104,7 +105,7 @@ class _MyAppState extends State<MyApp> {
             ),
             providers: [
               BlocProvider(
-                create: (BuildContext context) => LibraryCubit()..getAppData()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAdsData()..userResult()..getAdsData(),
+                create: (BuildContext context) => LibraryCubit()..getAppData()..getHomeData()..getSection(id: 0)..getsubSection(id: 0)..getDrawerData()..getAllSection()..getAdsData()..userResult(),
 
               ),
               BlocProvider(

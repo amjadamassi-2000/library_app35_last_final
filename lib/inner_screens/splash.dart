@@ -52,7 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
            LibraryCubit cubit = LibraryCubit.get(context);
 
 
-           return cubit.adsModel!=null?Builder(
+           return
+             cubit.adsModel!=null?Builder(
              builder: (context) {
                if(cubit.adsModel.ads.inter1!=null)
                Adinterstitial.loadInterstitialAd(cubit.adsModel.ads.inter1??'');
@@ -63,7 +64,8 @@ class _SplashScreenState extends State<SplashScreen> {
                  ),
                );
              }
-           ):Container();
+           ):
+           Container();
 
 
          },
