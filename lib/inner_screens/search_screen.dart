@@ -108,7 +108,9 @@ print('object disbose');
                                                         widget.myvalue2,
 
                                                     categories: widget.myvalue4)
-                                                .then((value) => print(value.length));
+                                                .then((value) {
+                                                 cubit.controller.clear();
+                                                });
                                             print('object123123123');
                                           },
                                           onChanged: (value) async {},
