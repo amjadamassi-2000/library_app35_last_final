@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -319,5 +320,7 @@ print(articles.length);
 //     emit(ChangeFavoriteState());
 //
 // }
+  var controller = TextEditingController();
+
 
 }

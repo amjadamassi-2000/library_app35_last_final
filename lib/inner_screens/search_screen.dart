@@ -10,6 +10,8 @@ import 'package:library_app/inner_screens/search_cubit/state.dart';
 import 'package:library_app/items/pdf_item.dart';
 import 'package:library_app/models/home_model.dart';
 
+import '../drawer_screens/home_screen/cubit/home_state.dart';
+
 
 
 
@@ -38,148 +40,148 @@ class _SearchScreenState extends State<SearchScreen> {
 
     LibraryCubit cubit = LibraryCubit.get(context);
 
-    return  BlocConsumer<SearchCubit, SearchStates>(
-      listener: (context, state){}  ,
-      builder: (context,state)=>
+    return  BlocConsumer<LibraryCubit, libraryStates>(
+        listener: (context, state){}  ,
+        builder: (context,state)=>
 
-      SearchCubit.get(context).searchModel!=null ?Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
+        LibraryCubit.get(context).resultModel!=null ?Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
 //          backgroundColor: primaryColor,
-          body: SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25 ,
-                  child: LayoutBuilder(
-                    builder: (ctx, constraint) =>
-                        SizedBox(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25 ,
+                    child: LayoutBuilder(
+                      builder: (ctx, constraint) =>
+                          SizedBox(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
 
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: constraint.maxHeight * 0.05),
-                                child: Image.network(
-                                  cubit.appModel.app.logo,
-                                  width: 150,
-                                  height: constraint.maxHeight * 0.35,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: constraint.maxHeight * 0.05),
+                                  child: Image.network(
+                                    cubit.appModel.app.logo,
+                                    width: 150,
+                                    height: constraint.maxHeight * 0.35,
+                                  ),
                                 ),
-                              ),
 
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: constraint.maxHeight * 0.35,
-                                  child: TextFormField(
-                                       controller: SearchCubit.get(context).controller,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: constraint.maxHeight * 0.35,
+                                    child: TextFormField(
+                                      controller: LibraryCubit.get(context).controller,
                                       onFieldSubmitted: (value)async{
-                                        await  SearchCubit.get(context).getSearch(keyWord: value);
-                                    print('object123123123');
+                                        await  LibraryCubit.get(context).userResult(search: value,section_id: widget.myvalue1,sub_section_id: widget.myvalue2,sub_sub_section_id: widget.myvalue3,categories: widget.myvalue4);
+                                        print('object123123123');
                                       },
-                                    onChanged: (value) async{
+                                      onChanged: (value) async{
 
-                                    },
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: "بحث",
-                                      contentPadding: EdgeInsets.all(12),
-                                      isDense: true,
-                                      hintStyle:TextStyle(
+                                      },
+                                      style: const TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'cairo',
-
                                       ),
-                                      filled: true,
-                                      fillColor:
-                                      Colors.grey.shade300.withOpacity(0.3),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.circular(
-                                              10)),
-                                      suffixIcon: Icon(
-                                        Icons.search,
-                                        color: Colors.white,
+                                      decoration: InputDecoration(
+                                        hintText: "بحث",
+                                        contentPadding: EdgeInsets.all(12),
+                                        isDense: true,
+                                        hintStyle:const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'cairo',
+
+                                        ),
+                                        filled: true,
+                                        fillColor:
+                                        Colors.grey.shade300.withOpacity(0.3),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                            borderRadius: BorderRadius.circular(
+                                                10)),
+                                        suffixIcon: const Icon(
+                                          Icons.search,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                  ),
-                ),
-                SizedBox(
-                  height: (MediaQuery
-                      .of(context)
-                      .size
-                      .height -
-                      MediaQuery
-                          .of(context)
-                          .padding
-                          .top) *
-                      0.02,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: (MediaQuery
-                      .of(context)
-                      .size
-                      .height -
-                      MediaQuery
-                          .of(context)
-                          .padding
-                          .top) *
-                      0.73,
-                  decoration: BoxDecoration(
-                    color:Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
                     ),
                   ),
-                  child: ConditionalBuilder(
-                    condition:
-                    SearchCubit.get(context).searchModel.files.length != 0,
-                    builder: (context) =>  ConditionalBuilder(
-                      condition:SearchCubit.get(context).searchModel!=null ,
-                      fallback: buildNoSearchFound,
-                      builder: (context) =>  Padding(
-                        padding:  EdgeInsets.all(20),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ListView.builder(
+                  SizedBox(
+                    height: (MediaQuery
+                        .of(context)
+                        .size
+                        .height -
+                        MediaQuery
+                            .of(context)
+                            .padding
+                            .top) *
+                        0.02,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: (MediaQuery
+                        .of(context)
+                        .size
+                        .height -
+                        MediaQuery
+                            .of(context)
+                            .padding
+                            .top) *
+                        0.73,
+                    decoration: BoxDecoration(
+                      color:Theme.of(context).cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
+                    ),
+                    child: ConditionalBuilder(
+                      condition:
+                      LibraryCubit.get(context).resultModel.files.isNotEmpty,
+                      builder: (context) =>  ConditionalBuilder(
+                        condition:LibraryCubit.get(context).resultModel!=null ,
+                        fallback: buildNoSearchFound,
+                        builder: (context) =>  Padding(
+                          padding:  EdgeInsets.all(20),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                ListView.builder(
 
-                                itemBuilder: (context, index) => PdfItem(  SearchCubit.get(context).searchModel.files[index],cubit.adsModel),
-                                itemCount:
-                               SearchCubit.get(context).searchModel.files.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                              ),
+                                  itemBuilder: (context, index) => PdfItem(  LibraryCubit.get(context).resultModel.files[index],cubit.adsModel),
+                                  itemCount:
+                                  LibraryCubit.get(context).resultModel.files.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
+
+                      fallback: buildNoSearchFound,
                     ),
 
-                    fallback: buildNoSearchFound,
                   ),
-
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ):Scaffold(body:  buildSearchLoadingIndicator())
+        ):Scaffold(body:  buildSearchLoadingIndicator())
     );
   }
   Widget buildNoSearchFound(context) => Container(
@@ -189,7 +191,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundColor: primaryColor,
               child: Icon(
@@ -197,10 +199,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 size: 60,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-        myText('الجملة التي كتبتها لا تطابق اسم ملف متاح ، حاول استخدام كلمات دقيقة', 16, FontWeight.bold),
+            myText('الجملة التي كتبتها لا تطابق اسم ملف متاح ، حاول استخدام كلمات دقيقة', 16, FontWeight.bold),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -215,14 +217,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     SearchCubit.get(context).getSearch(keyWord: "مذكرة رياضيات");
                     SearchCubit.get(context).controller.text = "مذكرة رياضيات";
                   },
-                  child: Text(
+                  child: const Text(
                     'مذكرة رياضيات',
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      decoration: TextDecoration.underline,
-                      fontFamily: 'cairo'
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        decoration: TextDecoration.underline,
+                        fontFamily: 'cairo'
                     ),
                   ),
                 ),
@@ -231,14 +233,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     SearchCubit.get(context).getSearch(keyWord: "مذكرة المصطفى");
                     SearchCubit.get(context).controller.text = "مذكرة المصطفى";
                   },
-                  child: Text(
+                  child: const Text(
                     'مذكرة المصطفى',
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      decoration: TextDecoration.underline,
-                      fontFamily: 'cairo'
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        decoration: TextDecoration.underline,
+                        fontFamily: 'cairo'
                     ),
                   ),
                 ),
@@ -247,14 +249,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     SearchCubit.get(context).getSearch(keyWord: "مستر مصطفى الكيلاني");
                     SearchCubit.get(context).controller.text = "مستر مصطفى الكيلاني";
                   },
-                  child: Text(
+                  child: const Text(
                     'مستر مصطفى الكيلاني',
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      decoration: TextDecoration.underline,
-                      fontFamily: 'cairo'
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        decoration: TextDecoration.underline,
+                        fontFamily: 'cairo'
                     ),
                   ),
                 ),
@@ -263,14 +265,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     SearchCubit.get(context).getSearch(keyWord: "سلسلة التفوق");
                     SearchCubit.get(context).controller.text = "سلسلة التفوق";
                   },
-                  child: Text(
+                  child: const Text(
                     'سلسلة التفوق',
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      decoration: TextDecoration.underline,
-                      fontFamily: 'cairo'
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        decoration: TextDecoration.underline,
+                        fontFamily: 'cairo'
                     ),
                   ),
                 ),
